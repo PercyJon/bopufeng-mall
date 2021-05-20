@@ -17,4 +17,6 @@ public interface IMallCategoryService extends IService<MallCategory> {
 
 	List<Long> selectCategoryIdByPid(String parentId);
 
+	List<MallCategory> getChildPerms(List<MallCategory> categoryList, int parentId);
+
 }

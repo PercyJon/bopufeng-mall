@@ -49,7 +49,7 @@ public class MallGoodsServiceImpl extends ServiceImpl<MallGoodsMapper, MallGoods
 	private IMallCouponService mallCouponService;
 	
 	/**
-	 * TODO （插入商品信息）
+	 * 插入商品信息
 	 */
 	@Override
 	public Rest insertMallGoods(GoodsAllinOneVo mallGoodsAll) {
@@ -94,7 +94,7 @@ public class MallGoodsServiceImpl extends ServiceImpl<MallGoodsMapper, MallGoods
 	}
 
 	/**
-	 * TODO （修改商品信息）
+	 *	修改商品信息
 	 */
 	@Override
 	public Rest updateMallGoodById(GoodsAllinOneVo mallGoodsAll) {

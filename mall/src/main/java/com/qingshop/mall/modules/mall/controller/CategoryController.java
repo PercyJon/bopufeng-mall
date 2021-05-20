@@ -1,9 +1,6 @@
 package com.qingshop.mall.modules.mall.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,7 +25,6 @@ import com.qingshop.mall.modules.mall.entity.MallGoods;
 import com.qingshop.mall.modules.mall.service.IMallCategoryService;
 import com.qingshop.mall.modules.mall.service.IMallCouponService;
 import com.qingshop.mall.modules.mall.service.IMallGoodsService;
-import com.qingshop.mall.modules.mall.vo.MallCategoryVo;
 
 @Controller
 @RequestMapping("/mall/category")
@@ -67,34 +63,10 @@ public class CategoryController extends BaseController {
 			ew.like("name", search);
 		}
 		List<MallCategory> categoryList = mallCategoryService.list(ew);
-		// 数据分组
-		Map<String, List<MallCategory>> categoryMapList = new HashMap<String, List<MallCategory>>();
-		for (MallCategory mallCategory : categoryList) {
-			if (mallCategory.getParentId() == 0L) {
-				List<MallCategory> tmpList = new ArrayList<MallCategory>();
-				categoryMapList.put(mallCategory.getCategoryId().toString(), tmpList);
-			} else if (categoryMapList.containsKey(mallCategory.getParentId().toString())) {
-				categoryMapList.get(mallCategory.getParentId().toString()).add(mallCategory);
-			}
-		}
-		List<MallCategoryVo> mallCategoryVos = new ArrayList<>();
-		for (MallCategory mallCategory : categoryList) {
-			if (mallCategory.getParentId() == 0L) {
-				MallCategoryVo mallCategoryVo = new MallCategoryVo();
-				mallCategoryVo.setCategoryId(mallCategory.getCategoryId());
-				mallCategoryVo.setName(mallCategory.getName());
-				mallCategoryVo.setDescripte(mallCategory.getDescripte());
-				mallCategoryVo.setPicUrl(mallCategory.getPicUrl());
-				mallCategoryVo.setStatus(mallCategory.getStatus());
-				mallCategoryVo.setSortOrder(mallCategory.getSortOrder());
-				mallCategoryVo.setCreateTime(mallCategory.getCreateTime());
-				mallCategoryVo.setChildren(categoryMapList.get(mallCategory.getCategoryId().toString()));
-				mallCategoryVos.add(mallCategoryVo);
-			}
-		}
+		List<MallCategory> treeList = mallCategoryService.getChildPerms(categoryList, 0);
 		resultMap.put("iTotalDisplayRecords", categoryList.size());
 		resultMap.put("iTotalRecords", categoryList.size());
-		resultMap.put("aaData", mallCategoryVos);
+		resultMap.put("aaData", treeList);
 		return resultMap;
 	}
 

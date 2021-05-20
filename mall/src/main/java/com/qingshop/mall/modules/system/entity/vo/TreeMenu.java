@@ -13,7 +13,7 @@ import com.qingshop.mall.modules.system.entity.SysMenu;
 public class TreeMenu implements Serializable {
 
 	/**
-	 * @Fields serialVersionUID : TODO()
+	 * @Fields serialVersionUID
 	 */
 
 	private static final long serialVersionUID = 1L;

@@ -1,6 +1,7 @@
 package com.qingshop.mall.modules.mall.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -69,5 +70,63 @@ public class MallCategoryServiceImpl extends ServiceImpl<MallCategoryMapper, Mal
 			}
 		}
 		return ztrees;
+	}
+
+	@Override
+	public List<MallCategory> getChildPerms(List<MallCategory> list, int parentId) {
+		List<MallCategory> returnList = new ArrayList<MallCategory>();
+		for (Iterator<MallCategory> iterator = list.iterator(); iterator.hasNext();) {
+			MallCategory t = (MallCategory) iterator.next();
+			// 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+			if (t.getParentId() == parentId) {
+				recursionFn(list, t);
+				returnList.add(t);
+			}
+		}
+		return returnList;
+	}
+
+	/**
+	 * 递归列表
+	 * 
+	 * @param list
+	 * @param t
+	 */
+	private void recursionFn(List<MallCategory> list, MallCategory t) {
+		// 得到子节点列表
+		List<MallCategory> childList = getChildList(list, t);
+		t.setChildren(childList);
+		for (MallCategory tChild : childList) {
+			if (hasChild(list, tChild)) {
+				// 判断是否有子节点
+				Iterator<MallCategory> it = childList.iterator();
+				while (it.hasNext()) {
+					MallCategory n = (MallCategory) it.next();
+					recursionFn(list, n);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 得到子节点列表
+	 */
+	private List<MallCategory> getChildList(List<MallCategory> list, MallCategory t) {
+		List<MallCategory> tlist = new ArrayList<MallCategory>();
+		Iterator<MallCategory> it = list.iterator();
+		while (it.hasNext()) {
+			MallCategory n = (MallCategory) it.next();
+			if (n.getParentId().longValue() == t.getCategoryId().longValue()) {
+				tlist.add(n);
+			}
+		}
+		return tlist;
+	}
+
+	/**
+	 * 判断是否有子节点
+	 */
+	private boolean hasChild(List<MallCategory> list, MallCategory t) {
+		return getChildList(list, t).size() > 0 ? true : false;
 	}
 }
