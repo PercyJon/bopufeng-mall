@@ -9,7 +9,7 @@ server:
       max-threads: 800
       min-spare-threads: 30
 global:
-   workDir: D:\web-project\mall-file # 文件路径 示例（ Windows配置D:/web-project/profile，Linux配置 /home/mall/profile） 
+   workDir: D:\web-project\mall-shop\mall-file # 文件路径 示例（ Windows配置D:/web-project/profile，Linux配置 /home/mall/profile） 
    cluster: true #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释
    globalSessionTimeout: 300 #单机环境，session过期时间为60分钟 60 * 60
 logging:
