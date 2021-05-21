@@ -39,7 +39,6 @@ public class JsonUtils {
         try {
 			return objectMapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return null;
@@ -56,13 +55,10 @@ public class JsonUtils {
         try {
 			return objectMapper.readValue(jsonStr, clazz);
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return null;
