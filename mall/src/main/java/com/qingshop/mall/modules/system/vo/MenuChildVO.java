@@ -1,5 +1,9 @@
-package com.qingshop.mall.modules.system.entity.vo;
+package com.qingshop.mall.modules.system.vo;
 
+/**
+ * <p>ClassName: MenuChildVO</p>
+ * <p>Description: (首页菜单构造vo)</p>
+ */
 public class MenuChildVO {
 	
 	private Long id;

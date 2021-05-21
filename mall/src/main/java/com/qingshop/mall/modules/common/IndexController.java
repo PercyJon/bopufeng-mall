@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.qingshop.mall.framework.shiro.ShiroUtils;
 import com.qingshop.mall.modules.system.entity.SysUser;
-import com.qingshop.mall.modules.system.entity.vo.MenuVO;
+import com.qingshop.mall.modules.system.vo.MenuVO;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
 
 /**
@@ -29,11 +29,11 @@ public class IndexController extends BaseController {
 
 	@GetMapping("index")
 	public String index(Model model) {
-		SysUser me = ShiroUtils.getSysUser();
-		List<MenuVO> menuVo = sysMenuService.selectMenuByUserId(me);
+		SysUser user = ShiroUtils.getSysUser();
+		List<MenuVO> menuVo = sysMenuService.selectMenuByUserId(user);
 		String menuStr = JSON.toJSONString(menuVo);
 		model.addAttribute("menuVo", menuStr);
-		model.addAttribute("me", me);
+		model.addAttribute("user", user);
 		return "index";
 	}
 

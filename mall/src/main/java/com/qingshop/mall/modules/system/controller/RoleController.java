@@ -30,7 +30,7 @@ import com.qingshop.mall.modules.system.entity.SysRole;
 import com.qingshop.mall.modules.system.entity.SysRoleMenu;
 import com.qingshop.mall.modules.system.entity.SysUser;
 import com.qingshop.mall.modules.system.entity.SysUserRole;
-import com.qingshop.mall.modules.system.entity.vo.TreeMenuAllowAccess;
+import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
 import com.qingshop.mall.modules.system.service.ISysRoleMenuService;
 import com.qingshop.mall.modules.system.service.ISysRoleService;

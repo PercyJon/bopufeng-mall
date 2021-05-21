@@ -1,7 +1,11 @@
-package com.qingshop.mall.modules.system.entity.vo;
+package com.qingshop.mall.modules.system.vo;
 
 import java.util.List;
 
+/**
+ * <p>ClassName: MenuVO</p>
+ * <p>Description: (首页菜单构造vo)</p>
+ */
 public class MenuVO {
 	
 	private Long id;

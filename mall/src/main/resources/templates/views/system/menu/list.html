@@ -20,6 +20,9 @@
 										<a href="javascript:;" id="search_refresh" class="btn btn-default"><i class="fa fa-refresh"></i> 重置</a>
 									</div>
 								</div>
+								<div class="input-group">
+									<a class="btn btn-sm btn-default" href="javascript:;" onclick="collapseAll()"><i class="fa fa-exchange"></i> 折叠菜单</a>
+								</div>
 							</div>
 						</div>
 						<div class="box-body">
@@ -32,35 +35,27 @@
 	</div>
 </body>
 </@body>
+<script src="/plugins/datatables/dataTables.treeGrid.js"></script>
 <script>
+	var dataTable;
+	var tree;
 	$(function(){
-	　　	initTable();
-	});
-	
-	var query_data = {
-		search: ''
-	}
-	//搜索
-	$("#search_data").off().on("click", function() {
-		query_data.search = $("#search_value").val();
-		reloadTable();
-	});
-	//重置
-	$("#search_refresh").off().on("click", function() {
-		query_data.search = "";
-		$("#search_value").val("");
-		reloadTable();
-	});
-	//重新加载表格
-	function reloadTable() {
-		var oSetting = data_oTable.settings()[0];
-		oSetting.ajax.data = query_data;
-		data_oTable.draw();
-	}
-	//渲染表格
-	function initTable() {
-		var options = {
-			id: "menu_initTable",
+	　　	//渲染表格
+		dataTable =  $('#menu_initTable').on('xhr.dt', function(e, settings, json) {
+		}).DataTable({
+			searching: false,
+			serverSide: true,
+			responsive: true,
+			bAutoWidth: false, //是否非自动宽度
+			bSort: false,
+			lengthMenu: [15, 30, 50, 100],
+			order: [],
+			pageLength: 15,
+			displayStart: 0,
+			headerCallback: function(e, a, t, n, s) {
+				$(e.getElementsByTagName("th")).parent().css("background-color", "#f7f7fa");
+			},
+			dom: "tr",
 			ajax: {
 				url: "/system/menu/listPage",
 				type: "POST",
@@ -72,22 +67,24 @@
 					$.modal.closeLoading();
 				}
 			},
-			lengthMenu : [ 50, 100],
-			pageLength : 50,
 			columnDefs: [{
 				targets: 0,
-				title: "行号",
-				orderable: !1,
-				render: function(e, a, t, n) {
-					return n.row+1;
-				}
+				title: '',
+				className: 'treegrid-control',
+				width: '15px',
+				render: function (e, a, t, n) {
+					if (t.children) {
+						return '<span style="cursor:pointer;"><i class="glyphicon glyphicon-chevron-right"></i></span>';
+					}
+					return '';
+			    }
 			},{
 				targets: 1,
 				title: "菜单名称",
 				orderable: !1,
 				render: function(e, a, t, n) {
 					if (t.menuName != null) {
-						return t.menuName;
+						return '<i class="'+ t.icon +'"></i>  ' + t.menuName;
 					} else {
 						return "";
 					}
@@ -134,7 +131,7 @@
 				title: "编码",
 				orderable: !1,
 				render: function(e, a, t, n) {
-					if (t.deep != null) {
+					if (t.code != null) {
 						return t.code;
 					} else {
 						return "";
@@ -167,9 +164,54 @@
 						html += '</div>';
 					return html;
 				}
-			}]
-		};
-		//渲染表格
-		data_oTable = $.table.init(options);
+			}] 
+		});
+    	
+		// collapseAll();
+		tree = new $.fn.dataTable.TreeGrid(dataTable, {
+			left: 15,
+			expandAll: true,
+			expandIcon: '<span style="cursor:pointer;"><i class="glyphicon glyphicon-chevron-right"></i></span>',
+			collapseIcon: '<span style="cursor:pointer;"><i class="glyphicon glyphicon-chevron-down"></i></span>'
+		});
+		
+		dataTable.on("click", "*[delete-url]", function(){
+			var deleteUrl = $(this).attr('delete-url');
+			var id = $(this).attr('data-id');
+			$.modal.confirm('您确定要删除该条记录吗?', function(index){
+		    	$.post(deleteUrl,{"id": id},function(json){
+					if(json.code == 200){
+						dataTable.draw(false);
+						$.modal.msgSuccess("删除成功");
+					}else{
+						$.modal.msgWarning(json.msg);
+					}
+				});
+			});
+		});
+	});
+	var query_data = {
+		search: ''
+	}
+	//搜索
+	$("#search_data").off().on("click", function() {
+		query_data.search = $("#search_value").val();
+		reloadTable();
+	});
+	//重置
+	$("#search_refresh").off().on("click", function() {
+		query_data.search = "";
+		$("#search_value").val("");
+		reloadTable();
+	});
+	//重新加载表格
+	function reloadTable() {
+		var oSetting = dataTable.settings()[0];
+		oSetting.ajax.data = query_data;
+		dataTable.draw();
+	}
+	//折叠
+	function collapseAll(){
+	    tree.collapseAll();
 	}
 </script>

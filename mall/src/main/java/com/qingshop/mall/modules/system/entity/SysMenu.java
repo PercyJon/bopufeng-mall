@@ -2,6 +2,7 @@ package com.qingshop.mall.modules.system.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -70,6 +71,12 @@ public class SysMenu implements Serializable {
 	 */
 	@TableField("update_time")
 	private Date updateTime;
+
+	/**
+	 * 子节点（非数据库映射字段）
+	 */
+	@TableField(exist = false)
+	private List<SysMenu> children;
 
 	public Long getMenuId() {
 		return menuId;
@@ -157,6 +164,14 @@ public class SysMenu implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public List<SysMenu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysMenu> children) {
+		this.children = children;
 	}
 
 }

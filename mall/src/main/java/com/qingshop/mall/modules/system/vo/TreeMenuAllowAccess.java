@@ -1,4 +1,4 @@
-package com.qingshop.mall.modules.system.entity.vo;
+package com.qingshop.mall.modules.system.vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +7,8 @@ import java.util.List;
 import com.qingshop.mall.modules.system.entity.SysMenu;
 
 /**
- * 菜单树+是否有权限表示
+ * <p>ClassName: TreeMenuAllowAccess</p>
+ * <p>Description: (菜单角色授权vo)</p>
  */
 public class TreeMenuAllowAccess implements Serializable {
 

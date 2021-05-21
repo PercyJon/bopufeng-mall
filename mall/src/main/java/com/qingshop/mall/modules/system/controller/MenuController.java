@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
@@ -58,33 +56,19 @@ public class MenuController extends BaseController {
 	public Rest listPage(@JasonModel(value = "json") String data) {
 
 		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
 		String search = json.getString("search");
-		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
-		Page<SysMenu> page = getPage(pageIndex, length);
-		page.setAsc("code");
 		// 查询分页
 		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
+		ew.orderByAsc("code");
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("menu_name", search);
 		}
-		IPage<SysMenu> pageData = sysMenuService.page(page, ew);
-
-		for (SysMenu menu : pageData.getRecords()) {
-			if (menu.getPid() == null || menu.getDeep() != 3) {
-				menu.setMenuName(StringUtils.join("<i class='" + menu.getIcon() + "'></i> ", menu.getMenuName()));
-			} else {
-				menu.setMenuName(StringUtils.join("<i class='" + menu.getIcon() + "'></i> ", menu.getMenuName()));
-			}
-			for (int i = 1; i < menu.getDeep(); i++) {
-				menu.setMenuName(StringUtils.join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", menu.getMenuName()));
-			}
-		}
-		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
-		resultMap.put("iTotalRecords", pageData.getTotal());
-		resultMap.put("aaData", pageData.getRecords());
+		List<SysMenu> list = sysMenuService.list(ew);
+		List<SysMenu> treeList = sysMenuService.getTreeData(list, 0);
+		resultMap.put("iTotalDisplayRecords", list.size());
+		resultMap.put("iTotalRecords", list.size());
+		resultMap.put("aaData", treeList);
 		return resultMap;
 	}
 
@@ -117,6 +101,7 @@ public class MenuController extends BaseController {
 		sysMenu.setMenuId(DistributedIdWorker.nextId());
 		sysMenu.setPid(0L);
 		sysMenu.setDeep(1);
+		sysMenu.setUrl("#");
 		if (StringUtils.isEmpty(sysMenu.getIcon())) {
 			sysMenu.setIcon("fa fa-circle-o");
 		}
@@ -148,6 +133,7 @@ public class MenuController extends BaseController {
 	public Rest doAddAction(SysMenu sysMenu) {
 		sysMenu.setMenuId(DistributedIdWorker.nextId());
 		sysMenu.setDeep(3);
+		sysMenu.setUrl("#");
 		sysMenuService.save(sysMenu);
 		return Rest.ok();
 	}

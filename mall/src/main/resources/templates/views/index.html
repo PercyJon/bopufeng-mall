@@ -52,8 +52,8 @@
 						</li>
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="${(me.userImg)!'/images/user-img.png'}" class="user-image" alt="User Image">
-								<span>${(me.userName)!'游客'}</span>
+								<img src="${(user.userImg)!'/images/user-img.png'}" class="user-image" alt="User Image">
+								<span>${(user.userName)!'游客'}</span>
 							</a>
 							<ul class="dropdown-menu" style="width:130px;">
 								<li class="user-footer">
@@ -77,10 +77,10 @@
 			<section class="sidebar">
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="${(me.userImg)!}" class="img-circle">
+						<img src="${(user.userImg)!}" class="img-circle">
 					</div>
 					<div class="pull-left info">
-						<p>${(me.userName)!'游客'}</p>
+						<p>${(user.userName)!'游客'}</p>
 						<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 					</div>
 				</div>
