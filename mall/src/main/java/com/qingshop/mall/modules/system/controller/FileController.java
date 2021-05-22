@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -27,7 +26,6 @@ import com.qingshop.mall.common.utils.JsonUtils;
 import com.qingshop.mall.common.utils.PropertiesUtil;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
 import com.qingshop.mall.framework.enums.ConfigKey;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.oss.OssFactory;
 import com.qingshop.mall.modules.system.entity.SysUploadFile;
@@ -37,15 +35,15 @@ import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
 
 @Controller
 @RequestMapping("/system/sysfile")
-public class FileController extends BaseController{
-	
-    @Autowired
+public class FileController extends BaseController {
+
+	@Autowired
 	private ISysUploadFileService uploadFileService;
-    
-    @Autowired
-    private ISysConfigService configService;
-    
-    /**
+
+	@Autowired
+	private ISysConfigService configService;
+
+	/**
 	 * 列表页
 	 */
 	@RequiresPermissions("listFile")
@@ -53,15 +51,11 @@ public class FileController extends BaseController{
 	public String list() {
 		return "system/sysfile/list";
 	}
-	
+
 	@RequiresPermissions("listFile")
-    @PostMapping("/listPage")
+	@PostMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-    	JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest listPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysUploadFile> page = getPage(pageIndex, length);
@@ -77,7 +71,7 @@ public class FileController extends BaseController{
 		resultMap.put("aaData", pageData.getRecords());
 		return resultMap;
 	}
-	
+
 	@RequiresPermissions("addFile")
 	@PostMapping("/upload")
 	@ResponseBody
@@ -97,28 +91,28 @@ public class FileController extends BaseController{
 			return Rest.failure("服务器异常请联系管理员！");
 		}
 	}
-	
+
 	@RequiresPermissions("deleteFile")
-    @PostMapping("/delete")
-    @ResponseBody
-    public Rest delete(String id){
+	@PostMapping("/delete")
+	@ResponseBody
+	public Rest delete(String id) {
 		String[] idArry = id.split(",");
-        List<SysUploadFile> files = (List<SysUploadFile>) uploadFileService.listByIds(Arrays.asList(idArry));
-        for(SysUploadFile file : files){
-            Objects.requireNonNull(OssFactory.init(file.getOssType())).delete(file.getFilePath());
-        }
-        uploadFileService.removeByIds(Arrays.asList(idArry));
-        return Rest.ok("删除文件成功");
-    }
-    
-    @GetMapping(value = "/setStorage")
+		List<SysUploadFile> files = (List<SysUploadFile>) uploadFileService.listByIds(Arrays.asList(idArry));
+		for (SysUploadFile file : files) {
+			Objects.requireNonNull(OssFactory.init(file.getOssType())).delete(file.getFilePath());
+		}
+		uploadFileService.removeByIds(Arrays.asList(idArry));
+		return Rest.ok("删除文件成功");
+	}
+
+	@GetMapping(value = "/setStorage")
 	public String setConfig(Model model) {
 		Map<String, String> configMap = configService.selectAll();
 		String json = configMap.get(ConfigKey.CONFIG_STORAGE.getValue());
 		ConfigStorageVo configStorageVo = JsonUtils.jsonToBean(json, ConfigStorageVo.class);
 		String workDir = PropertiesUtil.getString(Constants.WORK_DIR_KEY);
 		model.addAttribute("workDir", workDir.endsWith(File.separator) ? workDir : workDir + File.separator);
-		model.addAttribute("storageConfig",configStorageVo);
+		model.addAttribute("storageConfig", configStorageVo);
 		return "system/sysfile/config";
 	}
 

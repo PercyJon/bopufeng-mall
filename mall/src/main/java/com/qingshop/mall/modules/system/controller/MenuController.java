@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Maps;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
 import com.qingshop.mall.framework.annotation.Log;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.system.entity.SysMenu;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
@@ -53,10 +51,7 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("listMenu")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-
-		JSONObject json = JSONObject.parseObject(data);
-		String search = json.getString("search");
+	public Rest listPage(String search) {
 		Rest resultMap = new Rest();
 		// 查询分页
 		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();

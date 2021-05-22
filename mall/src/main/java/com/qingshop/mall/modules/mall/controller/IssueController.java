@@ -1,6 +1,5 @@
 package com.qingshop.mall.modules.mall.controller;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallIssue;
 import com.qingshop.mall.modules.mall.service.IMallIssueService;
@@ -28,24 +25,20 @@ public class IssueController extends BaseController {
 
 	@Autowired
 	private IMallIssueService mallIssueService;
-	
+
 	@RequiresPermissions("listIssue")
 	@RequestMapping("/list")
 	public String list() {
 		return "/mall/issue/list";
 	}
-	
+
 	/**
 	 * 分页查询
 	 */
 	@RequiresPermissions("listIssue")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest listPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallIssue> page = getPage(pageIndex, length);
@@ -59,7 +52,7 @@ public class IssueController extends BaseController {
 		resultMap.put("aaData", pageData.getRecords());
 		return resultMap;
 	}
-	
+
 	/**
 	 * 新增
 	 */
@@ -102,7 +95,7 @@ public class IssueController extends BaseController {
 		mallIssueService.updateById(mallIssue);
 		return Rest.ok();
 	}
-	
+
 	/**
 	 * 删除
 	 */

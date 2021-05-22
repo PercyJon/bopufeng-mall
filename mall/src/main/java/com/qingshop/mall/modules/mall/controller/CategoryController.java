@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.bean.Ztree;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallCategory;
 import com.qingshop.mall.modules.mall.entity.MallCoupon;
@@ -54,9 +52,7 @@ public class CategoryController extends BaseController {
 	@RequiresPermissions("listCategory")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		String search = json.getString("search");
+	public Rest listPage(String search) {
 		Rest resultMap = new Rest();
 		QueryWrapper<MallCategory> ew = new QueryWrapper<MallCategory>();
 		if (StringUtils.isNotBlank(search)) {

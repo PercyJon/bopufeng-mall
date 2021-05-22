@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,18 +23,17 @@ import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
 import com.qingshop.mall.framework.annotation.Log;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.system.entity.SysRole;
 import com.qingshop.mall.modules.system.entity.SysRoleMenu;
 import com.qingshop.mall.modules.system.entity.SysUser;
 import com.qingshop.mall.modules.system.entity.SysUserRole;
-import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
 import com.qingshop.mall.modules.system.service.ISysRoleMenuService;
 import com.qingshop.mall.modules.system.service.ISysRoleService;
 import com.qingshop.mall.modules.system.service.ISysUserRoleService;
 import com.qingshop.mall.modules.system.service.ISysUserService;
+import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 
 /**
  * 角色控制器
@@ -85,12 +83,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("listRole")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest listPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysRole> page = getPage(pageIndex, length);
@@ -215,11 +208,7 @@ public class RoleController extends BaseController {
 	 */
 	@RequestMapping("/assignUsers/listPage")
 	@ResponseBody
-	public Rest assignUsersListPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String roleId = json.getString("roleId");
+	public Rest assignUsersListPage(String roleId, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		List<SysUserRole> sysUserRoles = sysUserRoleService.list(new QueryWrapper<SysUserRole>().eq("role_id", roleId));
@@ -255,12 +244,7 @@ public class RoleController extends BaseController {
 	 */
 	@RequestMapping("/getUsers/listPage")
 	@ResponseBody
-	public Rest getUsersListPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String roleId = json.getString("roleId");
-		String search = json.getString("search");
+	public Rest getUsersListPage(String search, String roleId, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		List<SysUserRole> sysUserRoles = sysUserRoleService.list(new QueryWrapper<SysUserRole>().eq("role_id", roleId));
@@ -312,9 +296,9 @@ public class RoleController extends BaseController {
 	@PostMapping("/deleteAssignUser")
 	@ResponseBody
 	public Rest deleteAssignUser(Long userId, Long roleId) {
-		if(userId != null && roleId != null) {
+		if (userId != null && roleId != null) {
 			sysUserRoleService.remove(new QueryWrapper<SysUserRole>().eq("user_id", userId).eq("role_id", roleId));
-		}else {
+		} else {
 			return Rest.failure();
 		}
 		return Rest.ok();

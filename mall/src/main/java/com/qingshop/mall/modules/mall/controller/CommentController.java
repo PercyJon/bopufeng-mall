@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallComment;
 import com.qingshop.mall.modules.mall.entity.MallGoods;
@@ -30,17 +28,17 @@ import com.qingshop.mall.modules.mall.service.IMallUserService;
 
 @Controller
 @RequestMapping("/mall/comment")
-public class CommentController extends BaseController{
-	
+public class CommentController extends BaseController {
+
 	@Autowired
 	private IMallCommentService mallCommentService;
-	
+
 	@Autowired
 	private IMallUserService mallUserService;
-	
+
 	@Autowired
 	private IMallGoodsService mallGoodsService;
-	
+
 	/**
 	 * 获取商品下的所有评论
 	 */
@@ -54,11 +52,7 @@ public class CommentController extends BaseController{
 	 */
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest getCommentsListPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest getCommentsListPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallComment> page = getPage(pageIndex, length);
@@ -66,12 +60,12 @@ public class CommentController extends BaseController{
 		QueryWrapper<MallComment> ew = new QueryWrapper<MallComment>();
 		if (StringUtils.isNotBlank(search)) {
 			List<MallGoods> goods = mallGoodsService.list(new QueryWrapper<MallGoods>().like("good_name", search));
-			List<Long> goodids = goods.stream().map(m->m.getGoodsId()).collect(Collectors.toList());
-			if(!StringUtils.isEmpty(goodids)) {
+			List<Long> goodids = goods.stream().map(m -> m.getGoodsId()).collect(Collectors.toList());
+			if (!StringUtils.isEmpty(goodids)) {
 				ew.in("value_id", goodids);
 			}
 		}
-		IPage<MallComment> pageData = mallCommentService.page(page,ew);
+		IPage<MallComment> pageData = mallCommentService.page(page, ew);
 		List<MallComment> comments = pageData.getRecords();
 		List<Long> userids = new ArrayList<>();
 		List<Long> goodIds = new ArrayList<>();
@@ -82,14 +76,14 @@ public class CommentController extends BaseController{
 			goodIds.add(goodId);
 		}
 		Map<Long, MallUser> userMap = new HashMap<>();
-		if(!StringUtils.isEmpty(userids)) {
+		if (!StringUtils.isEmpty(userids)) {
 			List<MallUser> users = (List<MallUser>) mallUserService.listByIds(userids);
-			userMap = users.stream().collect(Collectors.toMap(MallUser::getUserId, m -> m, (k1,k2)->k1));
+			userMap = users.stream().collect(Collectors.toMap(MallUser::getUserId, m -> m, (k1, k2) -> k1));
 		}
 		Map<Long, MallGoods> goodMap = new HashMap<>();
-		if(!StringUtils.isEmpty(goodIds)) {
+		if (!StringUtils.isEmpty(goodIds)) {
 			List<MallGoods> goods = (List<MallGoods>) mallGoodsService.listByIds(goodIds);
-			goodMap = goods.stream().collect(Collectors.toMap(MallGoods::getGoodsId, m -> m, (k1,k2)->k1));
+			goodMap = goods.stream().collect(Collectors.toMap(MallGoods::getGoodsId, m -> m, (k1, k2) -> k1));
 		}
 		List<Map<String, Object>> commentList = new ArrayList<>();
 		for (MallComment mallComment : comments) {
@@ -110,7 +104,7 @@ public class CommentController extends BaseController{
 		resultMap.put("aaData", commentList);
 		return resultMap;
 	}
-	
+
 	/**
 	 * 编辑
 	 */
@@ -120,7 +114,7 @@ public class CommentController extends BaseController{
 		model.addAttribute("comment", comment);
 		return "mall/comment/comentcheck";
 	}
-	
+
 	/**
 	 * 执行编辑
 	 */

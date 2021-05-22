@@ -16,13 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.KdniaoTrackQueryAPI;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallOrder;
 import com.qingshop.mall.modules.mall.entity.MallOrderDetail;
@@ -38,21 +36,17 @@ public class OrderController extends BaseController {
 
 	@Autowired
 	private IMallOrderDetailService mallOrderDetailService;
-	
+
 	@RequiresPermissions("listOrder")
 	@RequestMapping("/list")
 	public String lits() {
 		return "mall/order/list";
 	}
-	
+
 	@RequiresPermissions("listOrder")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		String search = json.getString("search");
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
+	public Rest listPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Page<MallOrder> page = getPage(pageIndex, length);
 		Rest resultMap = new Rest();
@@ -87,7 +81,7 @@ public class OrderController extends BaseController {
 		resultMap.put("aaData", lits);
 		return resultMap;
 	}
-	
+
 	@RequiresPermissions("listOrder")
 	@RequestMapping("/detail/{id}")
 	public String orderDetail(@PathVariable Long id, Model model) {
@@ -97,7 +91,7 @@ public class OrderController extends BaseController {
 		model.addAttribute("orderDetailLit", orderDetailLit);
 		return "mall/order/detail";
 	}
-	
+
 	/**
 	 * 确认收货
 	 */
@@ -105,7 +99,7 @@ public class OrderController extends BaseController {
 	@PostMapping("deliver")
 	@ResponseBody
 	public Rest deliver(String orderId, String shipChannel, String shipSn) {
-		if("".equals(orderId)) {
+		if ("".equals(orderId)) {
 			return Rest.failure("操作失败");
 		}
 		MallOrder order = new MallOrder();
@@ -120,7 +114,7 @@ public class OrderController extends BaseController {
 			return Rest.failure("操作失败");
 		}
 	}
-	
+
 	/**
 	 * 物流信息
 	 */

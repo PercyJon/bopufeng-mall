@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallCategory;
 import com.qingshop.mall.modules.mall.entity.MallCoupon;
@@ -256,13 +254,10 @@ public class CouponController extends BaseController {
 	@RequiresPermissions("listMarket")
 	@RequestMapping("/listRecord")
 	@ResponseBody
-	public Rest listRecord(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Long couponId = json.getLong("couponId");
+	public Rest listRecord(String search, Long couponId) {
 		if (couponId == null) {
 			Rest.failure("暂无数据");
 		}
-		String search = json.getString("search");
 		Rest resultMap = new Rest();
 		QueryWrapper<MallCouponUser> ew = new QueryWrapper<MallCouponUser>();
 		if (StringUtils.isNotBlank(search)) {

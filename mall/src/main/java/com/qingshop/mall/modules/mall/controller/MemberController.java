@@ -10,21 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qingshop.mall.common.bean.Rest;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallUser;
 import com.qingshop.mall.modules.mall.service.IMallUserService;
 
 @Controller
 @RequestMapping("/mall/user")
-public class MemberController extends BaseController{
-	
+public class MemberController extends BaseController {
+
 	@Autowired
 	private IMallUserService mallUserService;
-	
+
 	/**
 	 * 列表页
 	 */
@@ -33,16 +31,14 @@ public class MemberController extends BaseController{
 	public String list() {
 		return "mall/user/list";
 	}
-	
+
 	/**
 	 * 分页查询部门
 	 */
 	@RequiresPermissions("listVip")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		String search = json.getString("search");
+	public Rest listPage(String search) {
 		Rest resultMap = new Rest();
 		QueryWrapper<MallUser> ew = new QueryWrapper<MallUser>();
 		if (StringUtils.isNotBlank(search)) {
@@ -54,7 +50,7 @@ public class MemberController extends BaseController{
 		resultMap.put("aaData", categoryList);
 		return resultMap;
 	}
-	
+
 	/**
 	 * 删除
 	 */

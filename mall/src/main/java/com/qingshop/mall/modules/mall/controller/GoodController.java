@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.JsonUtils;
 import com.qingshop.mall.common.utils.StringUtils;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallCategory;
 import com.qingshop.mall.modules.mall.entity.MallGoods;
@@ -66,13 +64,7 @@ public class GoodController extends BaseController {
 	@RequiresPermissions("listGood")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest list(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
-		String categoryId = json.getString("categoryId");
-		String parentId = json.getString("parentId");
+	public Rest list(String search, Integer start, Integer length, String categoryId, String parentId) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallGoods> page = getPage(pageIndex, length);
@@ -82,7 +74,7 @@ public class GoodController extends BaseController {
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("good_name", search);
 		}
-		if("-1".equals(categoryId)) {
+		if ("-1".equals(categoryId)) {
 			categoryId = "";
 		}
 		// 二级类别查询
@@ -171,8 +163,7 @@ public class GoodController extends BaseController {
 				skuMap.put(mallGoodsSku.getSkukey(), tmpList);
 			}
 		}
-		List<MallGoodsSkudetail> skuDetailList = mallGoodsSkudetailService
-				.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", id));
+		List<MallGoodsSkudetail> skuDetailList = mallGoodsSkudetailService.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", id));
 		if (mallGoods.getSpecType() == 1) {
 			model.addAttribute("specTypeDetail", skuDetailList.get(0));
 			model.addAttribute("skuDetailList", new ArrayList<MallGoodsSkudetail>());

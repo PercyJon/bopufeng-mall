@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
 import com.qingshop.mall.framework.annotation.Log;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.system.entity.SysRole;
 import com.qingshop.mall.modules.system.entity.SysUser;
@@ -62,11 +60,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("listUser")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest listPage(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest listPage(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		// 查询分页

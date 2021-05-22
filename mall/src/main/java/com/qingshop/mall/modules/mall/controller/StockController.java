@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.utils.StringUtils;
-import com.qingshop.mall.framework.resolver.JasonModel;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.mall.entity.MallGoods;
 import com.qingshop.mall.modules.mall.entity.MallGoodsSkudetail;
@@ -27,15 +25,14 @@ import com.qingshop.mall.modules.mall.service.IMallGoodsSkudetailService;
 
 @Controller
 @RequestMapping("/mall/stock")
-public class StockController extends BaseController{
-	
+public class StockController extends BaseController {
+
 	@Autowired
 	private IMallGoodsService mallGoodsServic;
-	
+
 	@Autowired
 	private IMallGoodsSkudetailService mallGoodsSkudetailService;
-	
-	
+
 	/**
 	 * 列表页
 	 */
@@ -44,18 +41,14 @@ public class StockController extends BaseController{
 	public String list() {
 		return "mall/stock/list";
 	}
-	
+
 	/**
 	 * 分页查询日志
 	 */
 	@RequiresPermissions("listStock")
 	@RequestMapping("/listPage")
 	@ResponseBody
-	public Rest list(@JasonModel(value = "json") String data) {
-		JSONObject json = JSONObject.parseObject(data);
-		Integer start = Integer.valueOf(json.remove("start").toString());
-		Integer length = Integer.valueOf(json.remove("length").toString());
-		String search = json.getString("search");
+	public Rest list(String search, Integer start, Integer length) {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallGoods> page = getPage(pageIndex, length);
@@ -67,9 +60,9 @@ public class StockController extends BaseController{
 		}
 		IPage<Map<String, Object>> pageData = mallGoodsServic.pageMaps(page, ew);
 		List<Map<String, Object>> list = pageData.getRecords();
-		List<Long> goodIdList = list.stream().map(m -> (Long)m.get("goodsId")).collect(Collectors.toList());
+		List<Long> goodIdList = list.stream().map(m -> (Long) m.get("goodsId")).collect(Collectors.toList());
 		List<Map<String, Object>> skudetails = mallGoodsSkudetailService.listMaps(new QueryWrapper<MallGoodsSkudetail>().in("goods_id", goodIdList));
-		Map<Object, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors.groupingBy(m->m.get("goodsId"), Collectors.summingInt(m->Integer.valueOf(m.get("number").toString()))));
+		Map<Object, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors.groupingBy(m -> m.get("goodsId"), Collectors.summingInt(m -> Integer.valueOf(m.get("number").toString()))));
 		for (Map<String, Object> mallGoods : list) {
 			mallGoods.put("stockNum", skudetailSumMaps.get(mallGoods.get("goodsId")));
 		}
@@ -78,7 +71,7 @@ public class StockController extends BaseController{
 		resultMap.put("aaData", list);
 		return resultMap;
 	}
-	
+
 	/**
 	 * 库存详情
 	 */
@@ -89,7 +82,7 @@ public class StockController extends BaseController{
 		model.addAttribute("skudetails", skudetails);
 		return "mall/stock/detail";
 	}
-	
+
 	/**
 	 * 执行修改
 	 */
@@ -97,9 +90,9 @@ public class StockController extends BaseController{
 	@RequestMapping("/editStock")
 	@ResponseBody
 	public Rest editStock(MallGoodsSkudetail mallGoodsSkudetail) {
-		if(mallGoodsSkudetailService.updateById(mallGoodsSkudetail)) {
+		if (mallGoodsSkudetailService.updateById(mallGoodsSkudetail)) {
 			return Rest.ok();
-		}else{
+		} else {
 			return Rest.failure();
 		}
 	}

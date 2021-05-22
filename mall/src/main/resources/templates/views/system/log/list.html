@@ -57,6 +57,7 @@
 	//重置
 	$("#search_refresh").off().on("click", function() {
 		query_data.search = "";
+		query_data.daterange = "";
 		$("#search_value").val("");
 		$("#daterange").val("");
 		reloadTable();

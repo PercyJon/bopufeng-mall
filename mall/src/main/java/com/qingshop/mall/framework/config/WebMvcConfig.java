@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.qingshop.mall.common.constant.Constants;
 import com.qingshop.mall.common.utils.PropertiesUtil;
 import com.qingshop.mall.framework.resolver.LoginUserHandlerMethodArgumentResolver;
-import com.qingshop.mall.framework.resolver.MyJasonHandlerMethodArgumentResolver;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {
@@ -25,18 +24,15 @@ public class WebMvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 	private static final String FILE_PROTOCOL = "file:///";
 
 	@Autowired
-	private MyJasonHandlerMethodArgumentResolver myJasonHandlerMethodArgumentResolver;
-
-	@Autowired
 	private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 
-    /**
-     * 默认首页的设置，当输入域名是可以自动跳转到默认指定的网页
-     */
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry){
-        registry.addViewController("/").setViewName("forward:index");
-    }
+	/**
+	 * 默认首页的设置，当输入域名是可以自动跳转到默认指定的网页
+	 */
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("forward:index");
+	}
 
 	/**
 	 * 映射地址
@@ -55,7 +51,6 @@ public class WebMvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		argumentResolvers.add(myJasonHandlerMethodArgumentResolver);
 		argumentResolvers.add(loginUserHandlerMethodArgumentResolver);
 	}
 
