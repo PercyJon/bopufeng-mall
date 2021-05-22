@@ -9,19 +9,21 @@ public class Test {
 		System.out.println(str1.equals(str2));
 	}
 
-	public static int halfSearch(int[] arr, int target) {
-		int min, mid, max;
+	public static int halfSearch(int[] array, int searchKey) {
+		int min, max, mid;
 		min = 0;
-		max = arr.length - 1;
+		max = array.length;
 		mid = (min + max) / 2;
-		while (arr[mid] != target) {
-			if (arr[mid] > target) {
+		while (array[mid] != searchKey) {
+			if (searchKey > array[mid]) {
 				min = mid + 1;
-			}
-			if (arr[mid] < target) {
+			} else if (searchKey < array[mid]) {
 				max = mid - 1;
 			}
-			mid = (mid + max) / 2;
+			if (max < min) {
+				return -1;
+			}
+			mid = (min + max) / 2;
 		}
 		return mid;
 	}
