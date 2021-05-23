@@ -246,6 +246,7 @@ $(function () {
             scrollToTab($('.J_menuTab.active'));
         }
         scrollToTab($('.J_menuTab.active'));
+        syncMenuTab($('.page-tabs-content').find('.active').attr('data-id'));
         return false;
     }
 
@@ -341,6 +342,7 @@ $(function () {
             $(this).addClass("active");
         });
         $('.page-tabs-content').css("margin-left", "0");
+        syncMenuTab($('.page-tabs-content').find('.active').attr('data-id'));
     });
     
     // 全屏显示

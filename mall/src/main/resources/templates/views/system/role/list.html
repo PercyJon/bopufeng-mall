@@ -64,12 +64,6 @@
 				url: "/system/role/listPage",
 				type: "POST",
 				data: query_data,
-				beforeSend : function(){
-					$.modal.loading("数据加载中，请稍后......");
-				},
-				complete : function(){
-					$.modal.closeLoading();
-				}
 			},
 			columnDefs: [{
 				targets: 0,
@@ -151,7 +145,6 @@
 	}
 	
 	function toAssignUsers(roleId) {
-		var parentPageId = Util.getTabId();
-		Util.addTab('system/role/assignUsers/'+ roleId + '?parentPageId=' + parentPageId, '分配用户', roleId);
+		createMenuItem("/system/role/assignUsers/" + roleId, "分配用户");
 	}
  </script>

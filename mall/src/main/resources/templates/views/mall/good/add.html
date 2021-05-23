@@ -984,7 +984,7 @@
 						}else{
 							parent.layer.msg('提交成功', {icon : 1});
 						}
-						Util.closeChildAndActiveParentTab(GetQueryValue("parentPageId"), true);
+						closeItem();
 					} else {
 						parent.layer.msg(data.msg, {icon : 2 });
 						$.modal.enable();
@@ -998,6 +998,6 @@
 	}
 	
 	function toProductList() {
-		Util.closeChildAndActiveParentTab(GetQueryValue("parentPageId"), false);
+		closeItem();
 	}
 </script> 

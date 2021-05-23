@@ -62,12 +62,6 @@
 				url: "/mall/stock/listPage",
 				type: "POST",
 				data: query_data,
-				beforeSend : function(){
-					$.modal.loading("数据加载中，请稍后......");
-				},
-				complete : function(){
-					$.modal.closeLoading();
-				}
 			},
 			headerCallback: function(e, a, t, n, s) {
 				e.getElementsByTagName("th")[0].innerHTML = '<label class="m-checkbox"><input type="checkbox" class="minimal m-group-checkable" value="root"></label>';

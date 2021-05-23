@@ -123,12 +123,6 @@
 				url: "/mall/good/listPage",
 				type: "POST",
 				data: query_data,
-				beforeSend : function(){
-					$.modal.loading("数据加载中，请稍后......");
-				},
-				complete : function(){
-					$.modal.closeLoading();
-				}
 			},
 			lengthMenu: [5, 10, 20, 50],
 			pageLength: 5,
@@ -246,29 +240,14 @@
 	}
 	
 	function toAddProduct() {
-		var parentPageId = Util.getTabId();
-		Util.addTab('mall/good/add?parentPageId=' + parentPageId, '添加商品', 10086);
+		createMenuItem("/mall/good/add", "添加商品");
 	}
 	
 	function toEditProduct(goodsId) {
-		var parentPageId = Util.getTabId();
-		Util.addTab('mall/good/edit/'+ goodsId + '?parentPageId=' + parentPageId, '编辑商品', goodsId);
+		createMenuItem("/mall/good/edit/" + goodsId, "编辑商品");
 	}
 	
 	function toCategoryList() {
-		var url = 'mall/category/list';
-		$.post('/system/menu/getMenuByUrl', {
-			pathUrl : url
-		}, function(response) {
-			if (response.code == 200) {
-				var categoryMenuId = response.data.id;
-				var categoryMenuName = response.data.menuName;
-				Util.addTab(url, categoryMenuName, categoryMenuId);
-			} else {
-				layer.msg("请求失败", {
-					icon : 2
-				});
-			}
-		});
+		createMenuItem("/mall/category/list", "类目管理");
 	}
 </script>

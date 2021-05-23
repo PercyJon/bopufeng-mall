@@ -40,12 +40,6 @@
 				url: "/system/role/assignUsers/listPage",
 				type: "POST",
 				data: query_data,
-				beforeSend : function(){
-					$.modal.loading("数据加载中，请稍后......");
-				},
-				complete : function(){
-					$.modal.closeLoading();
-				}
 			},
 			columnDefs: [{
 				targets: 0,
@@ -106,7 +100,7 @@
 	}
 	
 	function closeAssign() {
-		Util.closeChildAndActiveParentTab(GetQueryValue("parentPageId"), false);
+		closeItem();
 	}
 	
 	function cancelAssign(userId) {

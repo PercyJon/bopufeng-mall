@@ -238,18 +238,4 @@ public class MenuController extends BaseController {
 		return Rest.ok();
 	}
 
-	/**
-	 * 根据url路径获取菜单url
-	 */
-	@RequestMapping("/getMenuByUrl")
-	@ResponseBody
-	public Rest getMenuByUrl(String pathUrl) {
-		List<SysMenu> list = sysMenuService.list(new QueryWrapper<SysMenu>().eq("url", pathUrl));
-		if (StringUtils.isEmpty(list)) {
-			return Rest.failure();
-		}
-		SysMenu menu = list.get(0);
-		return Rest.okData(menu);
-	}
-
 }

@@ -16,6 +16,74 @@ layer.config({
 	skin: 'layer-ext-moon'
 });
 
+/** 关闭选项卡 */
+function closeItem(dataId){
+	var topWindow = $(window.parent.document);
+	if(!$.common.isEmpty(dataId)){
+		window.parent.Core.closeLoading();
+		// 根据dataId关闭指定选项卡
+		$('.J_menuTab[data-id="' + dataId + '"]', topWindow).remove();
+		// 移除相应tab对应的内容区
+		$('.J_mainContent .J_iframe[data-id="' + dataId + '"]', topWindow).remove();
+		return;
+	}
+	var panelUrl = window.frameElement.getAttribute('data-panel');
+	$('.page-tabs-content .active i', topWindow).click();
+	if(!Core.isEmpty(panelUrl)){
+		$('.J_menuTab[data-id="' + panelUrl + '"]', topWindow).addClass('active').siblings('.J_menuTab').removeClass('active');
+		$('.J_mainContent .J_iframe', topWindow).each(function() {
+            if ($(this).data('id') == panelUrl) {
+                $(this).show().siblings('.J_iframe').hide();
+                return false;
+            }
+		});
+	}
+}
+
+/** 创建选项卡 */
+function createMenuItem(dataUrl, menuName) {
+	var panelUrl = window.frameElement.getAttribute('data-id');
+    dataIndex = 100,
+    flag = true;
+    if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
+    var topWindow = $(window.parent.document);
+    // 选项卡菜单已存在
+    $('.J_menuTab', topWindow).each(function() {
+        if ($(this).data('id') == dataUrl) {
+            if (!$(this).hasClass('active')) {
+                $(this).addClass('active').siblings('.J_menuTab').removeClass('active');
+                $('.page-tabs-content').animate({ marginLeft: ""}, "fast");
+                // 显示tab对应的内容区
+                $('.J_mainContent .J_iframe', topWindow).each(function() {
+                    if ($(this).data('id') == dataUrl) {
+                        $(this).show().siblings('.J_iframe').hide();
+                        return false;
+                    }
+                });
+            }
+            flag = false;
+            return false;
+        }
+    });
+    // 选项卡菜单不存在
+    if (flag) {
+        var str = '<a href="javascript:;" class="active J_menuTab" data-id="' + dataUrl + '" data-panel="' + panelUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
+        $('.J_menuTab', topWindow).removeClass('active');
+        // 添加选项卡对应的iframe
+        var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" data-panel="' + panelUrl + '" seamless></iframe>';
+        $('.J_mainContent', topWindow).find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
+        
+        window.parent.$.modal.loading("数据加载中，请稍后...");
+        $('.J_mainContent iframe:visible', topWindow).load(function () {
+        	window.parent.$.modal.closeLoading();
+        });
+
+        // 添加选项卡
+        $('.J_menuTabs .page-tabs-content', topWindow).append(str);
+    }
+    return false;
+}
+
 /**
  * [通过参数名获取url中的参数值]
  * 示例URL:http://htmlJsTest/getrequest.html?uid=admin&rid=1&fid=2&name=小明

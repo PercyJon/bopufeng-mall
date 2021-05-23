@@ -84,12 +84,6 @@
 				url: "/system/sysJobLog/listPage",
 				type: "POST",
 				data: query_data,
-				beforeSend : function(){
-					$.modal.loading("数据加载中，请稍后......");
-				},
-				complete : function(){
-					$.modal.closeLoading();
-				}
 			},
 			columnDefs: [{
 				targets: 0,
