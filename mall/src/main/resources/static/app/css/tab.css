@@ -1,0 +1,142 @@
+html,
+body {
+    height: 100%;
+}
+
+body .wrapper{
+    height: 100%;
+}
+.content-tabs {
+    position: relative;
+    height: 42px;
+    background: #fafafa;
+    line-height: 40px;
+}
+
+.content-tabs .roll-nav,
+.page-tabs-list {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #999;
+    z-index: 2;
+    top: 0;
+}
+
+.content-tabs .roll-left {
+    left: 0;
+    border-right: solid 1px #eee;
+}
+
+.content-tabs .roll-right {
+    right: 0;
+    border-left: solid 1px #eee;
+}
+
+.content-tabs button {
+    background: #fff;
+    border: 0;
+    height: 40px;
+    width: 40px;
+    outline: none;
+}
+
+.content-tabs button:hover {
+    background: #fafafa;
+}
+
+nav.page-tabs {
+    margin-left: 40px;
+    width: 100000px;
+    height: 40px;
+    overflow: hidden;
+}
+
+nav.page-tabs .page-tabs-content {
+    float: left;
+}
+
+.page-tabs a {
+    display: block;
+    float: left;
+    border-right: solid 1px #eee;
+    padding: 0 15px;
+}
+
+.page-tabs a i:hover {
+    color: #c00;
+}
+
+.page-tabs a:hover,
+.content-tabs .roll-nav:hover {
+    color: #777;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.roll-right.J_tabRight {
+    right: 200px;
+}
+
+.roll-right.btn-group {
+    right: 120px;
+    width: 80px;
+    padding: 0;
+}
+
+.roll-right.btn-group button {
+    width: 80px;
+}
+
+.roll-right.J_tabExit, .roll-right.tabReload {
+	right: 60px;
+    background: #fff;
+    height: 40px;
+    width: 60px;
+    outline: none;
+}
+
+.roll-right.J_tabExit, .roll-right.fullscreen {
+    background: #fff;
+    height: 40px;
+    width: 60px;
+    outline: none;
+}
+
+.dropdown-menu-right {
+    left: auto;
+}
+
+#content-main {
+    height: calc(100% - 50px);
+    overflow: hidden;
+}
+
+.fixed-nav #content-main {
+    height: calc(100% - 80px);
+    overflow: hidden;
+}
+
+.content-tabs {
+    border-bottom: solid 2px #2f4050;
+}
+
+.page-tabs a {
+    color: #999;
+}
+
+.page-tabs a i {
+    color: #ccc;
+}
+
+.page-tabs a.active {
+    background: #2f4050;
+    color: #a7b1c2;
+}
+
+.page-tabs a.active:hover,
+.page-tabs a.active i:hover {
+    background: #293846;
+    color: #fff;
+}

@@ -26,11 +26,6 @@ public interface ISysMenuService extends IService<SysMenu> {
 	List<TreeMenuAllowAccess> selectTreeMenuAllowAccessByMenuIdsAndPid(List<Long> menuIds, Long pid);
 
 	/**
-	 * 查询所有菜单
-	 */
-	List<MenuVO> selectMenuByUserId(SysUser userId);
-
-	/**
 	 * 获取菜单列表
 	 *
 	 * @param list
@@ -38,5 +33,15 @@ public interface ISysMenuService extends IService<SysMenu> {
 	 * @return
 	 */
 	List<SysMenu> getTreeData(List<SysMenu> list, int parentId);
+	
+	/**
+	 * 查询角色所有菜单
+	 */
+	List<MenuVO> selectMenuByUserId(SysUser user);
+
+	/**
+	 * 查询角色所有菜单
+	 */
+	List<SysMenu> selectMenusByUserId(SysUser user);
 
 }

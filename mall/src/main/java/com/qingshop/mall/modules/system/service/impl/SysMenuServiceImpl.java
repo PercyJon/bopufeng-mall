@@ -51,7 +51,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		}
 		return treeMenuAllowAccesss;
 	}
-
+	
 	@Override
 	public List<MenuVO> selectMenuByUserId(SysUser user) {
 		List<Long> menuIds = new ArrayList<>();
@@ -92,7 +92,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		}
 		return menuVO;
 	}
-
+	
+	@Override
+	public List<SysMenu> selectMenusByUserId(SysUser user) {
+		List<Long> menuIds = new ArrayList<>();
+		if (user.isAdmin()) {
+			List<SysMenu> menuList = this.list();
+			menuIds = menuList.stream().map(m->m.getMenuId()).collect(Collectors.toList());
+		} else {
+			menuIds = sysRoleMenuService.selectRoleMenuIdsByUserId(user.getUserId());
+		}
+		if(StringUtils.isEmpty(menuIds)) {
+			return new ArrayList<>();
+		}
+		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
+		ew.in("menu_id", menuIds);
+		ew.lt("deep", 3);
+		ew.orderByAsc("sort");
+		List<SysMenu> sysMenuList = list(ew);
+		return getTreeData(sysMenuList, 0);
+	}
+	
 	@Override
 	public List<SysMenu> getTreeData(List<SysMenu> list, int parentId) {
 		List<SysMenu> returnList = new ArrayList<SysMenu>();
