@@ -299,6 +299,11 @@ $(function () {
     	var target = $('.J_iframe[data-id="' + currentId + '"]');
         var url = target.attr('src');
         target.attr('src', url).ready();
+        // 添加遮罩层
+        $.modal.loading("数据加载中，请稍后...");
+        $('.J_mainContent iframe:visible').load(function () {
+        	$.modal.closeLoading();
+        });
     }
     
     function syncMenuTab(dataId) {

@@ -443,6 +443,7 @@
 						},
 					},
 					searching : false,
+					processing : true,
 					serverSide : true,
 					responsive : true,
 					bAutoWidth : false, // 是否非自动宽度
