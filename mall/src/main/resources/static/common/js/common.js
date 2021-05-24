@@ -43,7 +43,7 @@ function closeItem(dataId){
 /** 创建选项卡 */
 function createMenuItem(dataUrl, menuName) {
 	var panelUrl = window.frameElement.getAttribute('data-id');
-    dataIndex = 100,
+	dataIndex = $.common.random(1,100),
     flag = true;
     if (dataUrl == undefined || $.trim(dataUrl).length == 0) return false;
     var topWindow = $(window.parent.document);

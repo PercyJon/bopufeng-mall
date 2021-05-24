@@ -16,8 +16,6 @@ import com.qingshop.mall.modules.system.entity.SysUser;
 import com.qingshop.mall.modules.system.mapper.SysMenuMapper;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
 import com.qingshop.mall.modules.system.service.ISysRoleMenuService;
-import com.qingshop.mall.modules.system.vo.MenuChildVO;
-import com.qingshop.mall.modules.system.vo.MenuVO;
 import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 
 /**
@@ -50,47 +48,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 			treeMenuAllowAccesss.add(treeMenuAllowAccess);
 		}
 		return treeMenuAllowAccesss;
-	}
-	
-	@Override
-	public List<MenuVO> selectMenuByUserId(SysUser user) {
-		List<Long> menuIds = new ArrayList<>();
-		List<MenuVO> menuVO = new ArrayList<>();
-		if (user.isAdmin()) {
-			List<SysMenu> menuList = this.list();
-			menuIds = menuList.stream().map(m->m.getMenuId()).collect(Collectors.toList());
-		} else {
-			menuIds = sysRoleMenuService.selectRoleMenuIdsByUserId(user.getUserId());
-		}
-		if(StringUtils.isEmpty(menuIds)) {
-			return menuVO;
-		}
-		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
-		ew.in("menu_id", menuIds);
-		ew.orderByAsc("sort");
-		List<SysMenu> sysMenuList = list(ew);
-		List<SysMenu> firstMenuList = sysMenuList.stream().filter(s -> s.getPid() == 0L).collect(Collectors.toList());
-		for (SysMenu firstSysMenu : firstMenuList) {
-			MenuVO vo = new MenuVO();
-			vo.setId(firstSysMenu.getMenuId());
-			vo.setText(firstSysMenu.getMenuName());
-			vo.setIcon(firstSysMenu.getIcon());
-			String id = firstSysMenu.getMenuId().toString();
-			List<SysMenu> secondMenuList = sysMenuList.stream().filter(m -> id.equals(m.getPid().toString())).collect(Collectors.toList());
-			List<MenuChildVO> childList = new ArrayList<>();
-			for (SysMenu secondSysMenu : secondMenuList) {
-				MenuChildVO child = new MenuChildVO();
-				child.setId(secondSysMenu.getMenuId());
-				child.setText(secondSysMenu.getMenuName());
-				child.setIcon(secondSysMenu.getIcon());
-				child.setUrl(secondSysMenu.getUrl());
-				child.setTargetType("iframe-tab");
-				childList.add(child);
-			}
-			vo.setChildren(childList);
-			menuVO.add(vo);
-		}
-		return menuVO;
 	}
 	
 	@Override

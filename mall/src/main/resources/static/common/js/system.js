@@ -319,7 +319,7 @@
 			},
 			// 根据Id和Name选中指定节点
 			selectByIdName : function(treeId, node) {
-				if ($.common.isNotEmpty(treeId) && treeId == node.id) {
+				if (!$.common.isEmpty(treeId) && treeId == node.id) {
 					$._tree.selectNode(node, true);
 				}
 			},
@@ -539,7 +539,7 @@
 				}
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
-				if ($.common.isNotEmpty(value)) {
+				if (!$.common.isEmpty(value)) {
 					return $.common.sprintf('<a data-fancybox data-zoom-opacity="0.3" href="%s"><img src="%s" class="img-circle img-xs"></a>', value, value);
 				} else {
 					return $.common.nullToStr(value);
@@ -555,7 +555,7 @@
 				}
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
-				if ($.common.isNotEmpty(value)) {
+				if (!$.common.isEmpty(value)) {
 					return $.common.sprintf('<a data-fancybox data-zoom-opacity="0.3" href="%s"><img src="%s" class="img-square img-md"></a>', value, value);
 				} else {
 					return $.common.nullToStr(value);
@@ -570,10 +570,6 @@
 					return true;
 				}
 				return false;
-			},
-			// 判断一个字符串是否为非空串
-			isNotEmpty : function(value) {
-				return !$.common.isEmpty(value);
 			},
 			// 空对象转字符串
 			nullToStr : function(value) {

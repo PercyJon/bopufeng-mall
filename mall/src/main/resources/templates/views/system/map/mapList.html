@@ -117,7 +117,6 @@
 </body>
 </@body>
 <script type="text/javascript">
-	$.modal.loading("数据加载中，请稍后...");
     var map = new AMap.Map("container", {
         resizeEnable: true,
         center: [113.92083, 22.51455],
@@ -200,8 +199,4 @@
             })
         })
     })
-    
-    map.on('complete', function() {
-    	$.modal.closeLoading();
-    });
 </script>

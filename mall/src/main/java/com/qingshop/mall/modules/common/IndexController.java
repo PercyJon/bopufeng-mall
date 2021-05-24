@@ -12,12 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.qingshop.mall.framework.shiro.ShiroUtils;
 import com.qingshop.mall.modules.system.entity.SysMenu;
 import com.qingshop.mall.modules.system.entity.SysUser;
 import com.qingshop.mall.modules.system.service.ISysMenuService;
-import com.qingshop.mall.modules.system.vo.MenuVO;
 
 /**
  * 首页控制器
@@ -31,9 +29,6 @@ public class IndexController extends BaseController {
 	@GetMapping("index")
 	public String index(Model model) {
 		SysUser user = ShiroUtils.getSysUser();
-		/*List<MenuVO> menuVo = sysMenuService.selectMenuByUserId(user);
-		String menuStr = JSON.toJSONString(menuVo);
-		model.addAttribute("menuVo", menuStr);*/
 		List<SysMenu> memuList = sysMenuService.selectMenusByUserId(user);
 		model.addAttribute("memuList", memuList);
 		model.addAttribute("user", user);

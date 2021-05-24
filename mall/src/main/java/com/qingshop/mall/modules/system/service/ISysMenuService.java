@@ -5,7 +5,6 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qingshop.mall.modules.system.entity.SysMenu;
 import com.qingshop.mall.modules.system.entity.SysUser;
-import com.qingshop.mall.modules.system.vo.MenuVO;
 import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 
 /**
@@ -34,11 +33,6 @@ public interface ISysMenuService extends IService<SysMenu> {
 	 */
 	List<SysMenu> getTreeData(List<SysMenu> list, int parentId);
 	
-	/**
-	 * 查询角色所有菜单
-	 */
-	List<MenuVO> selectMenuByUserId(SysUser user);
-
 	/**
 	 * 查询角色所有菜单
 	 */
