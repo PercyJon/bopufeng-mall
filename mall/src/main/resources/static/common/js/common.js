@@ -77,7 +77,6 @@ function createMenuItem(dataUrl, menuName) {
         $('.J_mainContent iframe:visible', topWindow).load(function () {
         	window.parent.$.modal.closeLoading();
         });
-
         // 添加选项卡
         $('.J_menuTabs .page-tabs-content', topWindow).append(str);
     }

@@ -984,7 +984,11 @@
 						}else{
 							parent.layer.msg('提交成功', {icon : 1});
 						}
-						closeItem();
+						var topWindow = $(window.parent.document);
+	    	            var currentId = $('.page-tabs-content', topWindow).find('.active').attr('data-panel');
+	    	            var $contentWindow = $('.J_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
+    	        		$contentWindow.data_oTable.draw(false);
+    	        		closeItem();
 					} else {
 						parent.layer.msg(data.msg, {icon : 2 });
 						$.modal.enable();

@@ -1,5 +1,5 @@
 <#include "/common/layout.html">
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=0a80ff5760adb5cf9b79d320391b1dc7"></script>
+<@body>
 <style>
     .content-window-card {
         position: relative;
@@ -73,7 +73,6 @@
         margin-right: 6px;
     }
 </style>
-<@body>
 <body class="gray-bg">
 	<div class="wrapper">
 		<section class="content">
@@ -116,6 +115,7 @@
 	</div>
 </body>
 </@body>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=0a80ff5760adb5cf9b79d320391b1dc7"></script>
 <script type="text/javascript">
     var map = new AMap.Map("container", {
         resizeEnable: true,
