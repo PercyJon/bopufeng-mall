@@ -145,9 +145,11 @@ $(function () {
             var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
             // 添加遮罩层
-            $.modal.loading("数据加载中，请稍后...");
+            $.blockUI({ message: '<div class="loaderbox"><div class="loading-activity"></div>数据加载中，请稍后...</div>' });
             $('.J_mainContent iframe:visible').load(function () {
-            	$.modal.closeLoading();
+            	setTimeout(function(){
+                    $.unblockUI();
+                }, 50);
             });
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
