@@ -307,19 +307,17 @@ $(function () {
     }
     
     function syncMenuTab(dataId) {
-    	if(isLinkage) {
-            var $dataObj = $('a[href$="' + decodeURI(dataId) + '"]');
-            if (!$dataObj.hasClass("noactive")) {
-                $('.sidebar-menu ul').removeClass("menu-open");
-                $dataObj.parents("ul").addClass("menu-open");
-                $dataObj.parents("ul").find(".treeview-menu").css("display", "none");
-                $dataObj.parents("ul").css("display", "block");
-                $(".sidebar-menu ul li, .sidebar-menu li").removeClass("active");
-                $dataObj.parent("li").parent().parent("li").addClass("active");
-                $dataObj.parents("li").addClass("active");
-                $dataObj.click();
-            }
-    	}
+        var $dataObj = $('a[href$="' + decodeURI(dataId) + '"]');
+        if (!$dataObj.hasClass("noactive")) {
+            $('.sidebar-menu ul').removeClass("menu-open");
+            $dataObj.parents("ul").addClass("menu-open");
+            $dataObj.parents("ul").find(".treeview-menu").css("display", "none");
+            $dataObj.parents("ul").css("display", "block");
+            $(".sidebar-menu ul li, .sidebar-menu li").removeClass("active");
+            $dataObj.parent("li").parent().parent("li").addClass("active");
+            $dataObj.parents("li").addClass("active");
+            $dataObj.click();
+        }
     }
 
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
