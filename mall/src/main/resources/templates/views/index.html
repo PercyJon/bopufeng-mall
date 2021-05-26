@@ -22,7 +22,7 @@
 	<![endif]-->
 	<link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico" /> 
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-purple sidebar-mini fixed">
 	<div class="wrapper">
 		<header class="main-header">
 			<a href="javascript:;" class="logo">
@@ -84,9 +84,10 @@
 						<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
 					</div>
 				</div>
-				<ul class="sidebar-menu">
+				<ul class="sidebar-menu" data-widget="tree">
 					<li class="treeview active">
-						<a class="J_menuItem" href="${request.contextPath}/main"><i class="fa fa-home"></i> <span class="nav-label">首页</span> </a>
+						<a class="J_menuItem" href="${request.contextPath}/main"><i class="fa fa-home"></i><span class="nav-label">首页</span></a>
+						<ul class="treeview-menu"></ul>
 					</li>
 					<#list memuList as menu>
 					<li class="treeview">
@@ -196,12 +197,12 @@
 	<script src="${request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="${request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${request.contextPath}/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="${request.contextPath}/app/js/adminlte.min.js"></script>
 	<script src="${request.contextPath}/plugins/blockUI/jquery.blockUI.js"></script>
-	<script src="${request.contextPath}/plugins/layer/layer.js"></script>
-	<script src="${request.contextPath}/app/js/app.min.js"></script>
 	<script src="${request.contextPath}/plugins/fullscreen/jquery.fullscreen.js"></script>
 	<script src="${request.contextPath}/app/js/contabs.js"></script>
 	<script src="${request.contextPath}/common/js/system.js"></script>
+	<script src="${request.contextPath}/plugins/layer/layer.js"></script>
 	<script type="text/javascript">
 		layer.config({
 			extend: 'moon/style.css',

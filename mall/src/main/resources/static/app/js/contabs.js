@@ -111,12 +111,14 @@ $(function () {
             dataIndex = $(this).data('index'),
             menuName = $.trim($(this).text()),
             flag = true;
-        if (!$('a[href$="' + dataUrl + '"]').hasClass("noactive")) {
+        
+        if (!$('a[href$="' + dataUrl + '"]').hasClass("active")) {
             $(".sidebar-menu ul li, .sidebar-menu li").removeClass("active");
-            $(this).parent("li").parent().parent("li").addClass("active");
             $(this).parent("li").addClass("active");
         }
+
         if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
+
         // 选项卡菜单已存在
         $('.J_menuTab').each(function () {
             if ($(this).data('id') == dataUrl) {
@@ -157,14 +159,14 @@ $(function () {
         }
         return false;
     }
-    
+
     $('.J_menuItem').on('click', menuItem);
-    
+
     // 关闭选项卡菜单
     function closeTab() {
         var closeTabId = $(this).parents('.J_menuTab').data('id');
         var currentWidth = $(this).parents('.J_menuTab').width();
-        var panelUrl = $(this).parents('.J_menuTab').data('panel');
+
         // 当前元素处于活动状态
         if ($(this).parents('.J_menuTab').hasClass('active')) {
 
@@ -221,16 +223,6 @@ $(function () {
                         return false;
                     }
                 });
-                
-                if(!$.common.isEmpty(panelUrl)){
-            		$('.J_menuTab[data-id="' + panelUrl + '"]').addClass('active').siblings('.J_menuTab').removeClass('active');
-            		$('.J_mainContent .J_iframe').each(function() {
-                        if ($(this).data('id') == panelUrl) {
-                            $(this).show().siblings('.J_iframe').hide();
-                            return false;
-                        }
-            		});
-            	}
             }
         }
         // 当前元素不处于活动状态
@@ -247,7 +239,6 @@ $(function () {
             });
             scrollToTab($('.J_menuTab.active'));
         }
-        scrollToTab($('.J_menuTab.active'));
         syncMenuTab($('.page-tabs-content').find('.active').attr('data-id'));
         return false;
     }
@@ -301,13 +292,10 @@ $(function () {
     	var target = $('.J_iframe[data-id="' + currentId + '"]');
         var url = target.attr('src');
         target.attr('src', url).ready();
-        // 添加遮罩层
-        $.modal.loading("数据加载中，请稍后...");
-        $('.J_mainContent iframe:visible').load(function () {
-        	$.modal.closeLoading();
-        });
     }
-    
+
+    $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
+
     function syncMenuTab(dataId) {
         var $dataObj = $('a[href$="' + decodeURI(dataId) + '"]');
         if (!$dataObj.hasClass("noactive")) {
@@ -321,9 +309,7 @@ $(function () {
             $dataObj.click();
         }
     }
-
-    $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);
-    
+	
 	// 页签刷新按钮
     $('.tabReload').on('click', refreshTab);
 
@@ -349,7 +335,7 @@ $(function () {
         $('.page-tabs-content').css("margin-left", "0");
         syncMenuTab($('.page-tabs-content').find('.active').attr('data-id'));
     });
-    
+
     // 全屏显示
     $('#fullScreen').on('click', function () {
     	$(document).toggleFullScreen();
