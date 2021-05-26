@@ -308,6 +308,11 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 	radioClass : 'iradio_minimal-blue'
 });
 
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+	event.preventDefault();
+	$(this).ekkoLightbox();
+});
+
 //回到顶部绑定
 $(function() {
 	if ($.fn.toTop !== undefined) {

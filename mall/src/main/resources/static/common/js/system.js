@@ -541,7 +541,7 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					return $.common.sprintf('<a data-fancybox data-zoom-opacity="0.3" href="%s"><img src="%s" class="img-circle img-xs"></a>', value, value);
+					return $.common.sprintf('<a data-toggle="lightbox" data-title="图片查看" href="%s"><img src="%s" class="img-circle img-xs"></a>', value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
@@ -557,7 +557,7 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					return $.common.sprintf('<a data-fancybox data-zoom-opacity="0.3" href="%s"><img src="%s" class="img-square img-md"></a>', value, value);
+					return $.common.sprintf('<a data-toggle="lightbox" data-title="图片查看" href="%s"><img src="%s" class="img-square img-md"></a>', value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
