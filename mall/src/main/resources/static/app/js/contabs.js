@@ -118,6 +118,7 @@ $(function () {
         } else {
         	$(this).parent().siblings().removeClass("menu-open");
         	$(this).parents("ul").find(".treeview-menu").css("display", "none");
+        	$(this).parent("li").addClass("active");
         }
 
         if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
