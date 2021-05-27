@@ -30,7 +30,9 @@
 				<span class="logo-lg"><b>HT-MALL</b></span>
 			</a>
 			<nav class="navbar navbar-static-top" role="navigation">
-				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
+				<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<li class="dropdown notifications-menu">
@@ -86,10 +88,10 @@
 				</div>
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="treeview menu-open">
-						<a class="J_menuItem noactive" href="${request.contextPath}/main"><i class="fa fa-home"></i>首页</a>
-						<ul class="treeview-menu">
-							
-						</ul>
+						<a class="J_menuItem noactive" href="${request.contextPath}/main">
+							<i class="fa fa-home"></i> <span class="nav-label">首页</span>
+						</a>
+						<ul class="treeview-menu"></ul>
 					</li>
 					<#list memuList as menu>
 					<li class="treeview">
