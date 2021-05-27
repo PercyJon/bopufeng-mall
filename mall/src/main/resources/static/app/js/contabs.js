@@ -112,9 +112,12 @@ $(function () {
             menuName = $.trim($(this).text()),
             flag = true;
         
-        if (!$('a[href$="' + dataUrl + '"]').hasClass("active")) {
+        if (!$('a[href$="' + dataUrl + '"]').hasClass("noactive")) {
             $(".sidebar-menu ul li, .sidebar-menu li").removeClass("active");
             $(this).parent("li").addClass("active");
+        } else {
+        	$(this).parent().siblings().removeClass("menu-open");
+        	$(this).parents("ul").find(".treeview-menu").css("display", "none");
         }
 
         if (dataUrl == undefined || $.trim(dataUrl).length == 0)return false;
@@ -299,13 +302,15 @@ $(function () {
     function syncMenuTab(dataId) {
         var $dataObj = $('a[href$="' + decodeURI(dataId) + '"]');
         if (!$dataObj.hasClass("noactive")) {
-            $('.sidebar-menu ul').removeClass("menu-open");
-            $dataObj.parents("ul").addClass("menu-open");
+            $dataObj.parent().parent().parent().siblings().removeClass("menu-open");
+            $dataObj.parent().parent().parent().addClass("menu-open")
             $dataObj.parents("ul").find(".treeview-menu").css("display", "none");
             $dataObj.parents("ul").css("display", "block");
-            $(".sidebar-menu ul li, .sidebar-menu li").removeClass("active");
-            $dataObj.parent("li").parent().parent("li").addClass("active");
-            $dataObj.parents("li").addClass("active");
+            $dataObj.click();
+        }else{
+            console.log();
+            $dataObj.parent().siblings().removeClass("menu-open");
+            $dataObj.parents("ul").find(".treeview-menu").css("display", "none");
             $dataObj.click();
         }
     }
