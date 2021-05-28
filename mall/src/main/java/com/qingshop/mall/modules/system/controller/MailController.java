@@ -90,7 +90,7 @@ public class MailController extends BaseController {
 		if (StringUtils.isEmpty(sysMail.getContent())) {
 			Rest.failure("邮件内容输入错误");
 		}
-		mailService.sendSimpleMail(sysMail.getToMail().split(";"), sysMail.getTitle(), sysMail.getContent());
+		mailService.sendHtmlMail(sysMail.getToMail().split(";"), sysMail.getTitle(), sysMail.getContent());
 		sysMail.setMailId(DistributedIdWorker.nextId());
 		sysMail.setFromMail(from);
 		sysMailService.save(sysMail);

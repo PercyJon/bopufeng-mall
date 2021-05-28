@@ -34,7 +34,7 @@ spring:
          url_escaping_charset: UTF-8
          template_update_delay: 0
          classic_compatible: true
-         number_format: 0.##
+         number_format: 0.## ##
          datetime_format: yyyy-MM-dd HH:mm:ss
          date_format: yyyy-MM-dd
          time_format: HH:mm:ss
@@ -50,14 +50,10 @@ spring:
          max-request-size: 20MB
    mail:
       host: smtp.qq.com #发送邮件服务器
+      default-encoding: utf-8
       username: 2081997821@qq.com #发送邮件的邮箱地址
       password: qnlqzittfgixcdha #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
-      properties.mail.smtp.port: 465 #端口号465或587
       from: 2081997821@qq.com # 发送邮件的地址，和上面username一致
-      properties.mail.smtp.starttls.enable: true
-      properties.mail.smtp.starttls.required: true
-      properties.mail.smtp.ssl.enable: true
-      default-encoding: utf-8
    devtools:
       restart:
          enabled: true

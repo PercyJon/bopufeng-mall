@@ -1,31 +1,14 @@
 package com.qingshop.mall.modules.system.service;
 
+import java.util.Map;
+
 public interface MailService {
 
-    /**
-     * 发送文本邮件
-     * @param to 收件人
-     * @param subject 主题
-     * @param content 内容
-     */
-    void sendSimpleMail(String[] to, String subject, String content);
+	public void sendSimpleMail(String[] users, String title, String contentText);
 
-    /**
-     * 发送HTML邮件
-     * @param to 收件人
-     * @param subject 主题
-     * @param content 内容
-     */
-    public void sendHtmlMail(String[] to, String subject, String content);
+	public void sendHtmlMail(String[] users, String title, String contentHtml);
 
+	public void sendAttachmentsMail(String[] users, String title, String content, String filePath);
 
-
-    /**
-     * 发送带附件的邮件
-     * @param to 收件人
-     * @param subject 主题
-     * @param content 内容
-     * @param filePath 附件
-     */
-    public void sendAttachmentsMail(String[] to, String subject, String content, String filePath);
+    public void sendTemplateMail(String[] users, String title, String templateName, Map<String, Object> params);
 }
