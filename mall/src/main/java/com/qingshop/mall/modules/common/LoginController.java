@@ -52,12 +52,11 @@ public class LoginController extends BaseController {
 	public String login() {
 		return "login";
 	}
-	
+
 	@RequestMapping("/unauth")
-    public String unauth()
-    {
-        return "error/unauth";
-    }
+	public String unauth() {
+		return "error/unauth";
+	}
 
 	/**
 	 * 执行登录
@@ -66,6 +65,12 @@ public class LoginController extends BaseController {
 	public String doLogin(String userName, String password, String captcha, String return_url, RedirectAttributesModelMap model, HttpServletRequest request) {
 
 		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+
+		if (kaptcha == null) {
+			model.addFlashAttribute("error", "验证码已失效");
+			return redirectTo("/login");
+		}
+
 		if (!captcha.equalsIgnoreCase(kaptcha)) {
 			model.addFlashAttribute("error", "验证码错误");
 			return redirectTo("/login");
@@ -125,7 +130,7 @@ public class LoginController extends BaseController {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/error/{code}")
 	public String index(@PathVariable String code, HttpServletRequest request) {
 		return "error/" + code;

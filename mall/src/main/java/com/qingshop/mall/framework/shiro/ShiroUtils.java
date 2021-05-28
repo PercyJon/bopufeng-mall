@@ -5,16 +5,17 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
-import com.qingshop.mall.common.exception.BaseException;
 import com.qingshop.mall.modules.system.entity.SysUser;
 
 /**
  * Shiro工具类
  */
 public class ShiroUtils {
-	/**  加密算法 */
+
+	/** 加密算法 */
 	public final static String hashAlgorithmName = "SHA-256";
-	/**  循环次数 */
+
+	/** 循环次数 */
 	public final static int hashIterations = 16;
 
 	public static String md51024Pwd(String password, Object salt) {
@@ -30,13 +31,13 @@ public class ShiroUtils {
 	}
 
 	public static SysUser getSysUser() {
-		return (SysUser)SecurityUtils.getSubject().getPrincipal();
+		return (SysUser) SecurityUtils.getSubject().getPrincipal();
 	}
 
 	public static Long getUserId() {
 		return getSysUser().getUserId();
 	}
-	
+
 	public static void setSessionAttribute(Object key, Object value) {
 		getSession().setAttribute(key, value);
 	}
@@ -52,11 +53,11 @@ public class ShiroUtils {
 	public static void logout() {
 		SecurityUtils.getSubject().logout();
 	}
-	
+
 	public static String getKaptcha(String key) {
 		Object kaptcha = getSessionAttribute(key);
-		if(kaptcha == null){
-			throw new BaseException("验证码已失效");
+		if (kaptcha == null) {
+			return null;
 		}
 		getSession().removeAttribute(key);
 		return kaptcha.toString();
