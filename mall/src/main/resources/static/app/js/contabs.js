@@ -230,7 +230,7 @@ $(function () {
                 });
                 
                 // 回到父级页面
-                if(!$.common.isEmpty(panelUrl)){
+                if(!(panelUrl == null || $.trim(panelUrl) == "")){
             		$('.J_menuTab[data-id="' + panelUrl + '"]').addClass('active').siblings('.J_menuTab').removeClass('active');
             		$('.J_mainContent .J_iframe').each(function() {
                         if ($(this).data('id') == panelUrl) {
