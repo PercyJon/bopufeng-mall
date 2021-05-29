@@ -170,6 +170,7 @@ $(function () {
     function closeTab() {
         var closeTabId = $(this).parents('.J_menuTab').data('id');
         var currentWidth = $(this).parents('.J_menuTab').width();
+        var panelUrl = $(this).parents('.J_menuTab').data('panel');
 
         // 当前元素处于活动状态
         if ($(this).parents('.J_menuTab').hasClass('active')) {
@@ -227,6 +228,17 @@ $(function () {
                         return false;
                     }
                 });
+                
+                // 回到父级页面
+                if(!$.common.isEmpty(panelUrl)){
+            		$('.J_menuTab[data-id="' + panelUrl + '"]').addClass('active').siblings('.J_menuTab').removeClass('active');
+            		$('.J_mainContent .J_iframe').each(function() {
+                        if ($(this).data('id') == panelUrl) {
+                            $(this).show().siblings('.J_iframe').hide();
+                            return false;
+                        }
+            		});
+            	}
             }
         }
         // 当前元素不处于活动状态
