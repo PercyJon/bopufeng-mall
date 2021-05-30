@@ -143,6 +143,6 @@ public class LoginController extends BaseController {
 	public String logout() {
 		ShiroUtils.getSession().removeAttribute("sessionFlag");
 		ShiroUtils.logout();
-		return "redirect:logins.html";
+		return "redirect:login";
 	}
 }
