@@ -1,5 +1,6 @@
 package com.qingshop.mall.modules.oss;
 
+import com.qingshop.mall.common.utils.JsonUtils;
 import com.qingshop.mall.common.utils.spring.SpringUtils;
 import com.qingshop.mall.modules.system.service.ISysConfigService;
 import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
@@ -12,7 +13,8 @@ public final class OssFactory {
 	public static OssService init() {
 		// 获取云存储配置信息
 		ISysConfigService sysConfigService = SpringUtils.getBean(ISysConfigService.class);
-		ConfigStorageVo config = sysConfigService.selectStorageConfig();
+		String json = sysConfigService.selectStorageConfig();
+		ConfigStorageVo config = JsonUtils.jsonToBean(json, ConfigStorageVo.class);
 		if (config.getType() == OssTypeEnum.LOCAL.getValue()) {
 			return new LocalOssService(config);
 		} else if (config.getType() == OssTypeEnum.QINIU.getValue()) {
@@ -28,7 +30,8 @@ public final class OssFactory {
 	public static OssService init(Integer type) {
 		// 获取云存储配置信息
 		ISysConfigService sysConfigService = SpringUtils.getBean(ISysConfigService.class);
-		ConfigStorageVo config = sysConfigService.selectStorageConfig();
+		String json = sysConfigService.selectStorageConfig();
+		ConfigStorageVo config = JsonUtils.jsonToBean(json, ConfigStorageVo.class);
 		if (type.equals(OssTypeEnum.LOCAL.getValue())) {
 			return new LocalOssService(config);
 		} else if (type.equals(OssTypeEnum.QINIU.getValue())) {

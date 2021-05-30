@@ -8,24 +8,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qingshop.mall.common.bean.Rest;
 import com.qingshop.mall.common.constant.Constants;
-import com.qingshop.mall.framework.enums.ConfigKey;
 import com.qingshop.mall.modules.system.service.ISysConfigService;
 import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
 
 @Controller
 @RequestMapping("/system/config")
 public class ConfigController {
-	
+
 	@Autowired
-    private ISysConfigService sysConfigService;
-	
+	private ISysConfigService sysConfigService;
+
 	@PostMapping(value = "/saveStorage")
 	@ResponseBody
-    public Rest saveConfig(ConfigStorageVo config){
+	public Rest saveConfig(ConfigStorageVo config) {
 		config.setSetFlag(Constants.STATUS_VALID);
 		sysConfigService.saveStorageConfig(config);
-		sysConfigService.updateByKey(ConfigKey.SYSTEM_IS_SET.getValue(), Constants.STATUS_VALID_STRING);
-        return Rest.ok("存储设置成功！");
-    }
-	
+		return Rest.ok("存储设置成功！");
+	}
+
 }

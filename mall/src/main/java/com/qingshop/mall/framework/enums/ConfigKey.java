@@ -1,9 +1,9 @@
 package com.qingshop.mall.framework.enums;
 
 public enum ConfigKey {
-    CONFIG_STORAGE("CONFIG_STORAGE","云存储配置"),
-    SYSTEM_IS_SET("SYSTEM_IS_SET","系统是否设置"),
-    ;
+	
+	CONFIG_STORAGE("CONFIG_STORAGE", "云存储配置"), 
+	SYS_CONFIG("MALL_SYS_CONFIG", "系统设置");
 
     private String value;
     private String describe;

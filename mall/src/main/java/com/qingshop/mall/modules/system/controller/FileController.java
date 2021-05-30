@@ -3,7 +3,6 @@ package com.qingshop.mall.modules.system.controller;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +24,6 @@ import com.qingshop.mall.common.constant.Constants;
 import com.qingshop.mall.common.utils.JsonUtils;
 import com.qingshop.mall.common.utils.PropertiesUtil;
 import com.qingshop.mall.common.utils.idwork.DistributedIdWorker;
-import com.qingshop.mall.framework.enums.ConfigKey;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.oss.OssFactory;
 import com.qingshop.mall.modules.system.entity.SysUploadFile;
@@ -107,8 +105,7 @@ public class FileController extends BaseController {
 
 	@GetMapping(value = "/setStorage")
 	public String setConfig(Model model) {
-		Map<String, String> configMap = configService.selectAll();
-		String json = configMap.get(ConfigKey.CONFIG_STORAGE.getValue());
+		String json = configService.selectAll();
 		ConfigStorageVo configStorageVo = JsonUtils.jsonToBean(json, ConfigStorageVo.class);
 		String workDir = PropertiesUtil.getString(Constants.WORK_DIR_KEY);
 		model.addAttribute("workDir", workDir.endsWith(File.separator) ? workDir : workDir + File.separator);
