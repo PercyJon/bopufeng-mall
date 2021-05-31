@@ -8,10 +8,23 @@ server:
       uri-encoding: UTF-8
       max-threads: 800
       min-spare-threads: 30
+# Shiro
+shiro:
+   user:
+      loginUrl: /login
+      unauthorizedUrl: /unauth
+      indexUrl: /index
+   session:
+      globalSessionTimeout: 300 #单机环境，session过期时间为60分钟 60 * 60
+   cookie:
+      domain: null
+      path: /
+      httpOnly: true
+      maxAge: 30
+      cipherKey: zSyK5Kp6PZAAjlT+eeNMlg== # 设置密钥，务必保持唯一性（生成方式，直接拷贝到main运行即可）KeyGenerator keygen = KeyGenerator.getInstance("AES"); SecretKey deskey = keygen.generateKey(); System.out.println(Base64.encodeToString(deskey.getEncoded()));
 global:
    workDir: D:\web-project\mall-shop\mall-file # 文件路径 示例（ Windows配置D:/web-project/profile，Linux配置 /home/mall/profile） 
    cluster: true #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释
-   globalSessionTimeout: 300 #单机环境，session过期时间为60分钟 60 * 60
 logging:
    level:
       com.qingshop: debug
