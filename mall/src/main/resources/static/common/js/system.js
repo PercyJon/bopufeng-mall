@@ -541,7 +541,12 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					return $.common.sprintf('<a data-toggle="lightbox" data-title="图片查看" href="%s"><img src="%s" class="img-circle img-xs"></a>', value, value);
+					var strhtml  = '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">'
+						strhtml += '	<a href="%s" itemprop="contentUrl">'
+						strhtml += '		<img src="%s" class="img-circle img-xs" itemprop="thumbnail"/>'
+						strhtml += '	</a>'
+						strhtml += '</figure>'
+					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
@@ -557,7 +562,12 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					return $.common.sprintf('<a data-toggle="lightbox" data-title="图片查看" href="%s"><img src="%s" class="img-square img-md"></a>', value, value);
+					var strhtml  = '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">'
+						strhtml += '	<a href="%s" itemprop="contentUrl">'
+						strhtml += '		<img src="%s" class="img-square img-md" itemprop="thumbnail"/>'
+						strhtml += '	</a>'
+						strhtml += '</figure>'
+					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
