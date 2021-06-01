@@ -24,8 +24,6 @@ import com.qingshop.mall.modules.system.service.ISysLogService;
 
 /**
  * 正常业务日志记录
- * 
- * @author Administrator
  *
  */
 @Aspect

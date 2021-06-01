@@ -21,12 +21,7 @@ import com.qingshop.mall.modules.mall.entity.MallAd;
 import com.qingshop.mall.modules.mall.service.IMallAdService;
 
 /**
- * <p>
  * 广告表 前端控制器
- * </p>
- *
- * @author 
- * @since 2019-12-20
  */
 @Controller
 @RequestMapping("/mall/adv")

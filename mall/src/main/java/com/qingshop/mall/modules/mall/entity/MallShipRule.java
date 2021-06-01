@@ -9,12 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 运费计算规则表
- * </p>
- *
- * @author 
- * @since 2019-12-17
  */
 @TableName("mall_ship_rule")
 public class MallShipRule implements Serializable{

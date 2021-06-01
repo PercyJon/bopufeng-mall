@@ -6,12 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 /**
- * <p>
  * 评论表
- * </p>
- *
- * @author 
- * @since 2020-01-10
  */
 public class MallComment implements Serializable {
 

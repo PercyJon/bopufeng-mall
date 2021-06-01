@@ -20,9 +20,6 @@ import com.qingshop.mall.modules.job.service.ISysJobLogService;
 
 /**
  * 定时任务调度日志表 前端控制器
- * 
- * @author lich
- * @since 2019-10-16
  */
 @Controller
 @RequestMapping("/system/sysJobLog")

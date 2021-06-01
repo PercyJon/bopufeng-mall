@@ -8,12 +8,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
  * 店家优惠券 服务类
- * </p>
- *
- * @author 
- * @since 2019-12-31
  */
 public interface IMallCouponService extends IService<MallCoupon> {
 

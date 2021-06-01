@@ -6,12 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 /**
- * <p>
  * 常见问题表
- * </p>
- *
- * @author 
- * @since 2020-01-07
  */
 public class MallIssue implements Serializable {
 

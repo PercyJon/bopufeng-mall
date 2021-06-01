@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 
 /**
  * 记录业务日志
- * 
- * @author Administrator
  *
  */
 @Target(ElementType.METHOD)

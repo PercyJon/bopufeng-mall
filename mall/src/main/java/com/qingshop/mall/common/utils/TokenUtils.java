@@ -7,7 +7,6 @@ import com.qingshop.mall.common.exception.BusinessException;
 
 /**
  * token工具类
- * @author zcl<yczclcn@163.com>
  */
 public class TokenUtils {
 

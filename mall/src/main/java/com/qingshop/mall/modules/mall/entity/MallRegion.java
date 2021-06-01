@@ -6,12 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 省市区信息表
- * </p>
- *
- * @author 
- * @since 2019-12-14
  */
 @TableName("mall_region")
 public class MallRegion implements Serializable {

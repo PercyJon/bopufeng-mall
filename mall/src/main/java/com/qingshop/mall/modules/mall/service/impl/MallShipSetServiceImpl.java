@@ -22,12 +22,7 @@ import com.qingshop.mall.modules.mall.service.IMallShipSetService;
 import com.qingshop.mall.modules.mall.vo.ShipSetVo;
 
 /**
- * <p>
  * 配送设置表 服务实现类
- * </p>
- *
- * @author 
- * @since 2019-12-17
  */
 @Service
 public class MallShipSetServiceImpl extends ServiceImpl<MallShipSetMapper, MallShipSet> implements IMallShipSetService {

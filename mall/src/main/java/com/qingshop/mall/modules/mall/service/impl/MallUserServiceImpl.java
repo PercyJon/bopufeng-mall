@@ -8,12 +8,7 @@ import com.qingshop.mall.modules.mall.mapper.MallUserMapper;
 import com.qingshop.mall.modules.mall.service.IMallUserService;
 
 /**
- * <p>
  * 用户表 服务实现类
- * </p>
- *
- * @author 
- * @since 2019-12-21
  */
 @Service
 public class MallUserServiceImpl extends ServiceImpl<MallUserMapper, MallUser> implements IMallUserService {

@@ -19,12 +19,7 @@ import com.qingshop.mall.modules.mall.service.IMallDeliveryCompanyService;
 import com.qingshop.mall.modules.mall.service.IMallRegionService;
 
 /**
- * <p>
  * 省市区信息表 前端控制器
- * </p>
- *
- * @author 
- * @since 2019-12-14
  */
 @Controller
 @RequestMapping("/mall/region")

@@ -8,12 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 销售区域表
- * </p>
- *
- * @author
- * @since 2019-12-17
  */
 @TableName("mall_sale_area")
 public class MallSaleArea implements Serializable {

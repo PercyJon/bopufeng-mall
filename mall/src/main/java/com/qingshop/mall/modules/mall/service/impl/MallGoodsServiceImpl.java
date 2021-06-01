@@ -26,12 +26,7 @@ import com.qingshop.mall.modules.mall.service.IMallGoodsSkudetailService;
 import com.qingshop.mall.modules.mall.vo.GoodsAllinOneVo;
 
 /**
- * <p>
  * 商品基本信息表 服务实现类
- * </p>
- *
- * @author 
- * @since 2019-11-25
  */
 @Service
 public class MallGoodsServiceImpl extends ServiceImpl<MallGoodsMapper, MallGoods> implements IMallGoodsService {

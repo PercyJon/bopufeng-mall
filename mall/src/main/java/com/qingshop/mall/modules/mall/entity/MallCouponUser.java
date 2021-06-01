@@ -7,12 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 /**
- * <p>
  * 优惠券用户使用表
- * </p>
- *
- * @author
- * @since 2020-01-07
  */
 public class MallCouponUser implements Serializable {
 

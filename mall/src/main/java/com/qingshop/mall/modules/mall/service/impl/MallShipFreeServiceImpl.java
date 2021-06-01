@@ -8,12 +8,7 @@ import com.qingshop.mall.modules.mall.mapper.MallShipFreeMapper;
 import com.qingshop.mall.modules.mall.service.IMallShipFreeService;
 
 /**
- * <p>
  * 指定条件包邮表 服务实现类
- * </p>
- *
- * @author 
- * @since 2019-12-17
  */
 @Service
 public class MallShipFreeServiceImpl extends ServiceImpl<MallShipFreeMapper, MallShipFree> implements IMallShipFreeService {

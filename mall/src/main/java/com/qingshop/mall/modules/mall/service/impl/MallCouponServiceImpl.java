@@ -27,12 +27,7 @@ import com.qingshop.mall.modules.mall.service.IMallGoodsService;
 import com.qingshop.mall.modules.mall.service.IMallGoodsSkudetailService;
 
 /**
- * <p>
  * 店家优惠券 服务实现类
- * </p>
- *
- * @author
- * @since 2019-12-31
  */
 @Service
 public class MallCouponServiceImpl extends ServiceImpl<MallCouponMapper, MallCoupon> implements IMallCouponService {

@@ -9,12 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * <p>
  * 定时任务调度日志表
- * </p>
- *
- * @author lich
- * @since 2019-10-16
  */
 @TableName("sys_job_log")
 public class SysJobLog implements Serializable{

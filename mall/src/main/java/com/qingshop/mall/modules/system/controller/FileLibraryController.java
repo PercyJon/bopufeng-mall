@@ -29,9 +29,6 @@ import com.qingshop.mall.modules.system.service.ISysUploadGroupService;
 
 /**
  * 文件存储管理器
- * 
- * @author lich
- * @since 2019-09-17
  */
 @Controller
 @RequestMapping("/library")

@@ -10,9 +10,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 定时任务调度表
- *
- * @author lich
- * @since 2019-10-16
  */
 @TableName("sys_job")
 public class SysJob implements Serializable {

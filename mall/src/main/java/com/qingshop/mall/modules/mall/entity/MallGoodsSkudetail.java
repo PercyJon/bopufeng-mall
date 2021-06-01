@@ -9,12 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 商品货品表
- * </p>
- *
- * @author 
- * @since 2019-11-28
  */
 @TableName("mall_goods_skudetail")
 public class MallGoodsSkudetail implements Serializable {

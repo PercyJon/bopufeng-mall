@@ -8,12 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 广告表
- * </p>
- *
- * @author 
- * @since 2019-12-20
  */
 @TableName("mall_ad")
 public class MallAd implements Serializable{

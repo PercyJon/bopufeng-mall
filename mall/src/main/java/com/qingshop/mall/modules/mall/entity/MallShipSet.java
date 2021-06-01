@@ -10,12 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 配送设置表
- * </p>
- *
- * @author 
- * @since 2019-12-17
  */
 @TableName("mall_ship_set")
 public class MallShipSet implements Serializable{

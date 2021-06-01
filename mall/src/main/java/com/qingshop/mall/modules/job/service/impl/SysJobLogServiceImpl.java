@@ -15,12 +15,7 @@ import com.qingshop.mall.modules.job.mapper.SysJobLogMapper;
 import com.qingshop.mall.modules.job.service.ISysJobLogService;
 
 /**
- * <p>
  * 定时任务调度日志表 服务实现类
- * </p>
- *
- * @author lich
- * @since 2019-10-16
  */
 @Service
 public class SysJobLogServiceImpl extends ServiceImpl<SysJobLogMapper, SysJobLog> implements ISysJobLogService {

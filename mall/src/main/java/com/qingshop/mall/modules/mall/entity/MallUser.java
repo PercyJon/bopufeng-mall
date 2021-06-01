@@ -8,12 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
- * <p>
  * 用户表
- * </p>
- *
- * @author 
- * @since 2019-12-21
  */
 @TableName("mall_user")
 public class MallUser implements Serializable {

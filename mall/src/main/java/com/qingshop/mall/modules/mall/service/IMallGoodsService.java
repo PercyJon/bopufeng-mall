@@ -6,12 +6,7 @@ import com.qingshop.mall.modules.mall.entity.MallGoods;
 import com.qingshop.mall.modules.mall.vo.GoodsAllinOneVo;
 
 /**
- * <p>
  * 商品基本信息表 服务类
- * </p>
- *
- * @author 
- * @since 2019-11-25
  */
 public interface IMallGoodsService extends IService<MallGoods> {
 
