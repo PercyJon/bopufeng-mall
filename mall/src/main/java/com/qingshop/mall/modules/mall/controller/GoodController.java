@@ -68,7 +68,6 @@ public class GoodController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallGoods> page = getPage(pageIndex, length);
-		page.setDesc("create_time");
 		// 查询分页
 		QueryWrapper<MallGoods> ew = new QueryWrapper<MallGoods>();
 		if (StringUtils.isNotBlank(search)) {
@@ -86,6 +85,7 @@ public class GoodController extends BaseController {
 			List<Long> categoryIds = mallCategoryService.selectCategoryIdByPid(categoryId);
 			ew.in("category_id", categoryIds);
 		}
+		ew.orderByDesc("create_time");
 		IPage<MallGoods> pageData = mallGoodsServic.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

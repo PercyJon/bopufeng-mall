@@ -56,7 +56,6 @@ public class CommentController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallComment> page = getPage(pageIndex, length);
-		page.setDesc("create_time");
 		QueryWrapper<MallComment> ew = new QueryWrapper<MallComment>();
 		if (StringUtils.isNotBlank(search)) {
 			List<MallGoods> goods = mallGoodsService.list(new QueryWrapper<MallGoods>().like("good_name", search));
@@ -65,6 +64,7 @@ public class CommentController extends BaseController {
 				ew.in("value_id", goodids);
 			}
 		}
+		ew.orderByDesc("create_time");
 		IPage<MallComment> pageData = mallCommentService.page(page, ew);
 		List<MallComment> comments = pageData.getRecords();
 		List<Long> userids = new ArrayList<>();

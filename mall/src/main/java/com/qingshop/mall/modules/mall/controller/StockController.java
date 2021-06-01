@@ -52,12 +52,12 @@ public class StockController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<MallGoods> page = getPage(pageIndex, length);
-		page.setDesc("create_time");
 		// 查询分页
 		QueryWrapper<MallGoods> ew = new QueryWrapper<MallGoods>();
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("good_name", search);
 		}
+		ew.orderByDesc("create_time");
 		IPage<Map<String, Object>> pageData = mallGoodsServic.pageMaps(page, ew);
 		List<Map<String, Object>> list = pageData.getRecords();
 		List<Long> goodIdList = list.stream().map(m -> (Long) m.get("goodsId")).collect(Collectors.toList());

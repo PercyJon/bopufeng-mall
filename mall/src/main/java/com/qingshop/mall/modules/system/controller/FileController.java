@@ -57,12 +57,12 @@ public class FileController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysUploadFile> page = getPage(pageIndex, length);
-		page.setDesc("createTime");
 		// 查询分页
 		QueryWrapper<SysUploadFile> ew = new QueryWrapper<SysUploadFile>();
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("roleName", search);
 		}
+		ew.orderByDesc("createTime");
 		IPage<SysUploadFile> pageData = uploadFileService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

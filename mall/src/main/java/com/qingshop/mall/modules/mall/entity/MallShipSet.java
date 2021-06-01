@@ -44,13 +44,13 @@ public class MallShipSet implements Serializable{
     /**
      * 首重 (strategy = FieldStrategy.IGNORED 更新字段为 null)
      */
-    @TableField(value="default_weight", strategy = FieldStrategy.IGNORED)
+    @TableField(value="default_weight", updateStrategy = FieldStrategy.IGNORED)
     private BigDecimal defaultWeight;
 
     /**
      * 首重费 (strategy = FieldStrategy.IGNORED 更新字段为 null)
      */
-    @TableField(value="default_expense", strategy = FieldStrategy.IGNORED)
+    @TableField(value="default_expense", updateStrategy = FieldStrategy.IGNORED)
     private BigDecimal defaultExpense;
 
     /**
@@ -62,7 +62,7 @@ public class MallShipSet implements Serializable{
     /**
      * 续重费 (strategy = FieldStrategy.IGNORED 更新字段为 null)
      */
-    @TableField(value="continue_expense", strategy = FieldStrategy.IGNORED)
+    @TableField(value="continue_expense", updateStrategy = FieldStrategy.IGNORED)
     private BigDecimal continueExpense;
 
     /**

@@ -47,7 +47,6 @@ public class SysJobLogController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysJobLog> page = getPage(pageIndex, length);
-		page.setDesc("create_time");
 		// 查询分页
 		QueryWrapper<SysJobLog> ew = new QueryWrapper<SysJobLog>();
 		if (StringUtils.isNotBlank(search)) {
@@ -58,6 +57,7 @@ public class SysJobLogController extends BaseController {
 			String[] dateranges = StringUtils.split(daterange, "-");
 			ew.between("create_time", dateranges[0].trim().replaceAll("/", "-") + " 00:00:00", dateranges[1].trim().replaceAll("/", "-") + " 23:59:59");
 		}
+		ew.orderByDesc("create_time");
 		IPage<SysJobLog> pageData = sysJobLogService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

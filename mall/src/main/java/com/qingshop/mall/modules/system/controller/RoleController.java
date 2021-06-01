@@ -87,12 +87,12 @@ public class RoleController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysRole> page = getPage(pageIndex, length);
-		page.setDesc("createTime");
 		// 查询分页
 		QueryWrapper<SysRole> ew = new QueryWrapper<SysRole>();
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("roleName", search);
 		}
+		ew.orderByDesc("create_time");
 		IPage<SysRole> pageData = sysRoleService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());
@@ -214,10 +214,10 @@ public class RoleController extends BaseController {
 		List<SysUserRole> sysUserRoles = sysUserRoleService.list(new QueryWrapper<SysUserRole>().eq("role_id", roleId));
 		List<Long> userIds = Lists.transform(sysUserRoles, input -> input.getUserId());
 		if (userIds.size() > 0) {
+			Page<SysUser> page = getPage(pageIndex, length);
 			QueryWrapper<SysUser> ew = new QueryWrapper<SysUser>();
 			ew.in("user_id", userIds);
-			Page<SysUser> page = getPage(pageIndex, length);
-			page.setDesc("createTime");
+			ew.orderByDesc("create_time");
 			IPage<SysUser> pageData = sysUserService.page(page, ew);
 			resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 			resultMap.put("iTotalRecords", pageData.getTotal());
@@ -249,6 +249,7 @@ public class RoleController extends BaseController {
 		Rest resultMap = new Rest();
 		List<SysUserRole> sysUserRoles = sysUserRoleService.list(new QueryWrapper<SysUserRole>().eq("role_id", roleId));
 		List<Long> userIds = Lists.transform(sysUserRoles, input -> input.getUserId());
+		Page<SysUser> page = getPage(pageIndex, length);
 		QueryWrapper<SysUser> ew = new QueryWrapper<SysUser>();
 		if (StringUtils.isNotEmpty(userIds)) {
 			ew.notIn("user_id", userIds);
@@ -256,8 +257,7 @@ public class RoleController extends BaseController {
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("user_name", search);
 		}
-		Page<SysUser> page = getPage(pageIndex, length);
-		page.setDesc("createTime");
+		ew.orderByDesc("create_time");
 		IPage<SysUser> pageData = sysUserService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

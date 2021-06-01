@@ -46,7 +46,6 @@ public class LogController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysLog> page = getPage(pageIndex, length);
-		page.setDesc("createTime");
 		// 查询分页
 		QueryWrapper<SysLog> ew = new QueryWrapper<SysLog>();
 		if (StringUtils.isNotBlank(search)) {
@@ -57,6 +56,7 @@ public class LogController extends BaseController {
 			String[] dateranges = StringUtils.split(daterange, "-");
 			ew.between("create_time", dateranges[0].trim().replaceAll("/", "-") + " 00:00:00", dateranges[1].trim().replaceAll("/", "-") + " 23:59:59");
 		}
+		ew.orderByDesc("createTime");
 		IPage<SysLog> pageData = sysLogService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

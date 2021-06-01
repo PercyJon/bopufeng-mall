@@ -55,8 +55,8 @@ public class WxCouponController extends BaseController {
 	public Rest couponList(Integer page, Integer limit) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		Page<MallCoupon> pages = this.getPage(page, limit);
-		pages.setDesc("create_time");
 		QueryWrapper<MallCoupon> ew = new QueryWrapper<MallCoupon>().eq("activity_status", 1);
+		ew.orderByDesc("create_time");
 		IPage<MallCoupon> pageData = mallCouponService.page(pages, ew);
 		List<MallCoupon> couponList = pageData.getRecords();
 		Iterator<MallCoupon> couponIterator = couponList.iterator();

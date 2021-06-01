@@ -55,6 +55,7 @@ public class FileLibraryController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> resultData = new HashMap<String, Object>();
 		List<SysUploadGroup> uploadGroupList = uploadGroupService.list();
+		Page<SysUploadFile> pages = getPage(page, pageSize);
 		QueryWrapper<SysUploadFile> ew = new QueryWrapper<SysUploadFile>();
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("original_name", search);
@@ -62,8 +63,7 @@ public class FileLibraryController extends BaseController {
 		if (uploadFile.getGroupId() != -1L) {
 			ew.eq("group_id", uploadFile.getGroupId());
 		}
-		Page<SysUploadFile> pages = getPage(page, pageSize);
-		pages.setDesc("createTime");
+		ew.orderByDesc("create_time");
 		// 查询分页
 		IPage<SysUploadFile> pageData = uploadFileService.page(pages, ew);
 		Map<String, Object> fileData = new HashMap<String, Object>();

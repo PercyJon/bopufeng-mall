@@ -1,10 +1,11 @@
 package com.qingshop.mall.modules.mall.entity;
 
+import java.io.Serializable;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
  * 优惠券用户使用表
@@ -40,7 +41,7 @@ public class MallCouponUser implements Serializable {
 	/**
 	 * 使用时间
 	 */
-	@TableField(value = "used_time", strategy = FieldStrategy.IGNORED)
+	@TableField(value = "used_time", updateStrategy = FieldStrategy.IGNORED)
 	private Date usedTime;
 
 	/**
@@ -58,7 +59,7 @@ public class MallCouponUser implements Serializable {
 	/**
 	 * 订单ID
 	 */
-	@TableField(value = "order_id", strategy = FieldStrategy.IGNORED)
+	@TableField(value = "order_id", updateStrategy = FieldStrategy.IGNORED)
 	private Long orderId;
 
 	/**

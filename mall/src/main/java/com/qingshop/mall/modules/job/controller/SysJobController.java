@@ -54,12 +54,12 @@ public class SysJobController extends BaseController {
 		Integer pageIndex = start / length + 1;
 		Rest resultMap = new Rest();
 		Page<SysJob> page = getPage(pageIndex, length);
-		page.setDesc("createTime");
 		// 查询分页
 		QueryWrapper<SysJob> ew = new QueryWrapper<SysJob>();
 		if (StringUtils.isNotBlank(search)) {
 			ew.like("job_name", search).or().like("job_group", search);
 		}
+		ew.orderByDesc("createTime");
 		IPage<SysJob> pageData = sysJobService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

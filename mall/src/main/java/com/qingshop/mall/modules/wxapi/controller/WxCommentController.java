@@ -33,21 +33,21 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/wx/comment")
-public class WxCommentController extends BaseController{
-	
+public class WxCommentController extends BaseController {
+
 	@Autowired
-	private IMallOrderDetailService  mallOrderDetailService;
-	
+	private IMallOrderDetailService mallOrderDetailService;
+
 	@Autowired
 	private IMallCommentService mallCommentService;
-	
+
 	@Autowired
 	private IMallUserService mallUserService;
-	
-	@ApiOperation(value = "订单商品评论详细",response = Rest.class)
+
+	@ApiOperation(value = "订单商品评论详细", response = Rest.class)
 	@GetMapping("/detail")
 	public Rest detail(@LoginUser Long userId, Long orderId, Long goodsId) {
-		if(userId == null) {
+		if (userId == null) {
 			Rest.failure(-1, "账号未授权登录");
 		}
 		QueryWrapper<MallOrderDetail> ew = new QueryWrapper<>();
@@ -59,8 +59,8 @@ public class WxCommentController extends BaseController{
 		data.put("orderGoods", orderDetail);
 		return Rest.okData(data);
 	}
-	
-	@ApiOperation(value = "添加商品评论",response = Rest.class)
+
+	@ApiOperation(value = "添加商品评论", response = Rest.class)
 	@PostMapping("/add")
 	public Rest addComment(@LoginUser Long userId, @RequestBody MallComment mallComment) {
 		if (userId == null) {
@@ -76,35 +76,33 @@ public class WxCommentController extends BaseController{
 		mallComment.setUserId(userId);
 		mallComment.setType(0);
 		mallComment.setIsShow(0);
-		if(mallCommentService.save(mallComment)) {
+		if (mallCommentService.save(mallComment)) {
 			return Rest.ok();
-		}else {
+		} else {
 			return Rest.failure();
 		}
 	}
-	
-	
-	@ApiOperation(value = "商品评论列表",response = Rest.class)
+
+	@ApiOperation(value = "商品评论列表", response = Rest.class)
 	@GetMapping("/list")
-	public Rest commentlist(Long valueId, Integer showType, @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "10") Integer limit) {
+	public Rest commentlist(Long valueId, Integer showType, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
 		Page<MallComment> pages = this.getPage(page, limit);
 		QueryWrapper<MallComment> ew = new QueryWrapper<>();
 		ew.eq("value_id", valueId);
 		ew.eq("is_show", 1);
-		if(showType == 0) {
+		if (showType == 0) {
 			ew.gt("star", 2);
-		}else {
+		} else {
 			ew.lt("star", 3);
 		}
-		pages.setDesc("create_time");
-		IPage<MallComment> pageData = mallCommentService.page(pages,ew);
+		ew.orderByDesc("create_time");
+		IPage<MallComment> pageData = mallCommentService.page(pages, ew);
 		List<MallComment> goodsCommentList = pageData.getRecords();
 		List<Long> userIds = goodsCommentList.stream().map(m -> m.getUserId()).collect(Collectors.toList());
 		Map<Long, MallUser> userMap = new HashMap<>();
-		if(!StringUtils.isEmpty(userIds)) {
+		if (!StringUtils.isEmpty(userIds)) {
 			List<MallUser> userList = (List<MallUser>) mallUserService.listByIds(userIds);
-			userMap = userList.stream().collect(Collectors.toMap(MallUser::getUserId, a -> a,(k1,k2)->k1));
+			userMap = userList.stream().collect(Collectors.toMap(MallUser::getUserId, a -> a, (k1, k2) -> k1));
 		}
 		List<Map<String, Object>> comments = new ArrayList<>();
 		for (MallComment mallComment : goodsCommentList) {
@@ -121,8 +119,8 @@ public class WxCommentController extends BaseController{
 		data.put("page", page);
 		return Rest.okData(data);
 	}
-	
-	@ApiOperation(value = "商品评论列表统计",response = Rest.class)
+
+	@ApiOperation(value = "商品评论列表统计", response = Rest.class)
 	@GetMapping("/count")
 	public Rest commentCount(Long valueId) {
 		Integer goodCount = mallCommentService.count(new QueryWrapper<MallComment>().eq("value_id", valueId).gt("star", 2).eq("is_show", 1));
