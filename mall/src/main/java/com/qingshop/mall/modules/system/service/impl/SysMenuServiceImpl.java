@@ -39,27 +39,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		for (SysMenu sysMenu : sysMenus) {
 			TreeMenuAllowAccess treeMenuAllowAccess = new TreeMenuAllowAccess();
 			treeMenuAllowAccess.setSysMenu(sysMenu);
-			if (menuIds.contains(sysMenu.getMenuId())) { //设置权限标识
+			if (menuIds.contains(sysMenu.getMenuId())) { // 设置权限标识
 				treeMenuAllowAccess.setAllowAccess(true);
 			}
-			if (sysMenu.getDeep() < 3) { //递归调用设置子节点
+			if (sysMenu.getDeep() < 3) { // 递归调用设置子节点
 				treeMenuAllowAccess.setChildren(selectTreeMenuAllowAccessByMenuIdsAndPid(menuIds, sysMenu.getMenuId()));
 			}
 			treeMenuAllowAccesss.add(treeMenuAllowAccess);
 		}
 		return treeMenuAllowAccesss;
 	}
-	
+
 	@Override
 	public List<SysMenu> selectMenusByUserId(SysUser user) {
 		List<Long> menuIds = new ArrayList<>();
 		if (user.isAdmin()) {
 			List<SysMenu> menuList = this.list();
-			menuIds = menuList.stream().map(m->m.getMenuId()).collect(Collectors.toList());
+			menuIds = menuList.stream().map(m -> m.getMenuId()).collect(Collectors.toList());
 		} else {
 			menuIds = sysRoleMenuService.selectRoleMenuIdsByUserId(user.getUserId());
 		}
-		if(StringUtils.isEmpty(menuIds)) {
+		if (StringUtils.isEmpty(menuIds)) {
 			return new ArrayList<>();
 		}
 		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
@@ -69,7 +69,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		List<SysMenu> sysMenuList = list(ew);
 		return getTreeData(sysMenuList, 0);
 	}
-	
+
 	@Override
 	public List<SysMenu> getTreeData(List<SysMenu> list, int parentId) {
 		List<SysMenu> returnList = new ArrayList<SysMenu>();
@@ -83,7 +83,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		}
 		return returnList;
 	}
-	
+
 	/**
 	 * 递归列表
 	 * 
@@ -107,6 +107,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 	}
 
 	/**
+	 * 判断是否有子节点
+	 */
+	private boolean hasChild(List<SysMenu> list, SysMenu t) {
+		return getChildList(list, t).size() > 0 ? true : false;
+	}
+
+	/**
 	 * 得到子节点列表
 	 */
 	private List<SysMenu> getChildList(List<SysMenu> list, SysMenu t) {
@@ -119,13 +126,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 			}
 		}
 		return tlist;
-	}
-
-	/**
-	 * 判断是否有子节点
-	 */
-	private boolean hasChild(List<SysMenu> list, SysMenu t) {
-		return getChildList(list, t).size() > 0 ? true : false;
 	}
 
 }
