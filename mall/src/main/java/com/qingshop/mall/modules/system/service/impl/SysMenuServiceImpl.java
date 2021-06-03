@@ -21,6 +21,21 @@ import com.qingshop.mall.modules.system.vo.TreeMenuAllowAccess;
 /**
  * SysMenu 表数据服务层接口实现类
  */
+/**
+ * <p>
+ * ClassName: SysMenuServiceImpl
+ * </p>
+ * <p>
+ * Description: (这里用一句话描述这个类的作用)
+ * </p>
+ * <p>
+ * Company: 爱用科技有限公司
+ * </p>
+ * 
+ * @date: 2020年9月22日
+ * @version v1.0
+ * @since JDK 1.8
+ */
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 	/**
@@ -28,27 +43,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 	 */
 	@Autowired
 	private ISysRoleMenuService sysRoleMenuService;
-
-	@Override
-	public List<TreeMenuAllowAccess> selectTreeMenuAllowAccessByMenuIdsAndPid(final List<Long> menuIds, Long pid) {
-		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
-		ew.orderByAsc("sort");
-		ew.eq("pid", pid);
-		List<SysMenu> sysMenus = list(ew);
-		List<TreeMenuAllowAccess> treeMenuAllowAccesss = new ArrayList<TreeMenuAllowAccess>();
-		for (SysMenu sysMenu : sysMenus) {
-			TreeMenuAllowAccess treeMenuAllowAccess = new TreeMenuAllowAccess();
-			treeMenuAllowAccess.setSysMenu(sysMenu);
-			if (menuIds.contains(sysMenu.getMenuId())) { // 设置权限标识
-				treeMenuAllowAccess.setAllowAccess(true);
-			}
-			if (sysMenu.getDeep() < 3) { // 递归调用设置子节点
-				treeMenuAllowAccess.setChildren(selectTreeMenuAllowAccessByMenuIdsAndPid(menuIds, sysMenu.getMenuId()));
-			}
-			treeMenuAllowAccesss.add(treeMenuAllowAccess);
-		}
-		return treeMenuAllowAccesss;
-	}
 
 	@Override
 	public List<SysMenu> selectMenusByUserId(SysUser user) {
@@ -122,6 +116,89 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 		while (it.hasNext()) {
 			SysMenu n = (SysMenu) it.next();
 			if (n.getPid().longValue() == t.getMenuId().longValue()) {
+				tlist.add(n);
+			}
+		}
+		return tlist;
+	}
+
+	/**
+	 * 授权列表数据
+	 */
+	@Override
+	public List<TreeMenuAllowAccess> selectTreeMenuAllowAccessByMenuIdsAndPid(List<Long> menuIds, Long pid) {
+		QueryWrapper<SysMenu> ew = new QueryWrapper<SysMenu>();
+		ew.orderByAsc("sort");
+		List<SysMenu> sysMenus = list(ew);
+		List<TreeMenuAllowAccess> treeMenuAllowAccesss = new ArrayList<TreeMenuAllowAccess>();
+		for (SysMenu sysMenu : sysMenus) {
+			TreeMenuAllowAccess treeMenuAllowAccess = new TreeMenuAllowAccess();
+			treeMenuAllowAccess.setSysMenu(sysMenu);
+			if (menuIds.contains(sysMenu.getMenuId())) { // 设置权限标识
+				treeMenuAllowAccess.setAllowAccess(true);
+			}
+			treeMenuAllowAccesss.add(treeMenuAllowAccess);
+		}
+		return getAllowAccessTreeData(treeMenuAllowAccesss, 0L);
+	}
+
+	/**
+	 * 获取菜单树形数据
+	 * 
+	 * @param list
+	 * @param t
+	 */
+	public List<TreeMenuAllowAccess> getAllowAccessTreeData(List<TreeMenuAllowAccess> list, Long parentId) {
+		List<TreeMenuAllowAccess> returnList = new ArrayList<TreeMenuAllowAccess>();
+		for (Iterator<TreeMenuAllowAccess> iterator = list.iterator(); iterator.hasNext();) {
+			TreeMenuAllowAccess t = (TreeMenuAllowAccess) iterator.next();
+			// 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+			if (parentId.equals(t.getSysMenu().getPid())) {
+				recursionFn(list, t);
+				returnList.add(t);
+			}
+		}
+		return returnList;
+	}
+
+	/**
+	 * 递归列表
+	 * 
+	 * @param list
+	 * @param t
+	 */
+	private void recursionFn(List<TreeMenuAllowAccess> list, TreeMenuAllowAccess t) {
+		// 得到子节点列表
+		List<TreeMenuAllowAccess> childList = getChildList(list, t);
+		t.setChildren(childList);
+		for (TreeMenuAllowAccess tChild : childList) {
+			if (hasChild(list, tChild)) {
+				// 判断是否有子节点
+				Iterator<TreeMenuAllowAccess> it = childList.iterator();
+				while (it.hasNext()) {
+					TreeMenuAllowAccess n = (TreeMenuAllowAccess) it.next();
+					recursionFn(list, n);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 判断是否有子节点
+	 */
+	private boolean hasChild(List<TreeMenuAllowAccess> list, TreeMenuAllowAccess t) {
+		return getChildList(list, t).size() > 0 ? true : false;
+	}
+
+	/**
+	 * 得到子节点列表
+	 */
+	private List<TreeMenuAllowAccess> getChildList(List<TreeMenuAllowAccess> list, TreeMenuAllowAccess t) {
+		List<TreeMenuAllowAccess> tlist = new ArrayList<TreeMenuAllowAccess>();
+		Iterator<TreeMenuAllowAccess> it = list.iterator();
+		while (it.hasNext()) {
+			TreeMenuAllowAccess n = (TreeMenuAllowAccess) it.next();
+			if (n.getSysMenu().getPid().equals(t.getSysMenu().getMenuId())) {
 				tlist.add(n);
 			}
 		}
