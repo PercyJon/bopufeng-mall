@@ -16,6 +16,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,9 @@ public class ShiroConfig {
 
 	@Value("${shiro.session.globalSessionTimeout}")
 	private int globalSessionTimeout;
+
+	@Value("${global.cluster}")
+	private boolean cluster;
 
 	/**
 	 * 设置Cookie的域名
@@ -76,6 +80,9 @@ public class ShiroConfig {
 	@Value("${shiro.user.unauthorizedUrl}")
 	private String unauthorizedUrl;
 
+	@Autowired
+	private CacheManagerConfig cacheManagerConfig;
+
 	/**
 	 * 单机环境，session交给shiro管理
 	 */
@@ -105,6 +112,7 @@ public class ShiroConfig {
 	@Bean
 	public MallRealm myShiroRealm() {
 		MallRealm myShiroRealm = new MallRealm();
+		myShiroRealm.setCacheManager(cluster ? cacheManagerConfig.getRedisCacheManager() : cacheManagerConfig.getEhCacheManager());
 		myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
 		return myShiroRealm;
 	}
