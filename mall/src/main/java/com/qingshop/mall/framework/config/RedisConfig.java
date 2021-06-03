@@ -34,6 +34,7 @@ import com.qingshop.mall.framework.shiro.redis.serializer.SerializeUtils;
 @Configuration
 @EnableCaching // 开启缓存支持
 public class RedisConfig extends CachingConfigurerSupport {
+
 	@Value("${spring.redis.database}")
 	private int database;
 
@@ -108,9 +109,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// 配置redisTemplate
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
 		redisTemplate.setConnectionFactory(lettuceConnectionFactory());
-
 		RedisSerializer<?> stringSerializer = new StringRedisSerializer();
-
 		redisTemplate.setKeySerializer(stringSerializer);// key序列化
 		redisTemplate.setValueSerializer(getValueSerializer());// value序列化new LZ4Serializer(getValueSerializer())
 		redisTemplate.setHashKeySerializer(stringSerializer);// Hash key序列化
@@ -129,9 +128,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// 配置redisTemplate
 		RedisTemplate<String, Object> shiroRedisTemplate = new RedisTemplate<String, Object>();
 		shiroRedisTemplate.setConnectionFactory(lettuceConnectionFactory());
-
 		RedisSerializer<?> stringSerializer = new StringRedisSerializer();
-
 		shiroRedisTemplate.setKeySerializer(stringSerializer);// key序列化
 		shiroRedisTemplate.setValueSerializer(new SerializeUtils<Object>());// value序列化
 		shiroRedisTemplate.setHashKeySerializer(stringSerializer);// Hash key序列化

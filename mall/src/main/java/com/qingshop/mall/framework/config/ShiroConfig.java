@@ -31,10 +31,16 @@ import com.qingshop.mall.framework.shiro.web.UserPermFilter;
  */
 @Configuration
 public class ShiroConfig {
-
+	
+	/**
+	 * 设置Session有效时间
+	 */
 	@Value("${shiro.session.globalSessionTimeout}")
 	private int globalSessionTimeout;
-
+	
+	/**
+	 * 是否开启redis实现集群部署
+	 */
 	@Value("${global.cluster}")
 	private boolean cluster;
 
@@ -63,7 +69,7 @@ public class ShiroConfig {
 	private int maxAge;
 
 	/**
-	 * 设置cipherKey密钥
+	 * 设置cipherKey密钥（安全密钥部署请重新生成）
 	 */
 	@Value("${shiro.cookie.cipherKey}")
 	private String cipherKey;
@@ -80,6 +86,10 @@ public class ShiroConfig {
 	@Value("${shiro.user.unauthorizedUrl}")
 	private String unauthorizedUrl;
 
+	
+	/**
+	 * 注入缓存管理配置类
+	 */
 	@Autowired
 	private CacheManagerConfig cacheManagerConfig;
 

@@ -27,7 +27,6 @@ public class CacheManagerConfig {
 	 */
 	@Bean
 	public EhCacheManager getEhCacheManager() {
-
 		net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("mall");
 		EhCacheManager em = new EhCacheManager();
 		if (StringUtils.isNull(cacheManager)) {
@@ -44,7 +43,6 @@ public class CacheManagerConfig {
 	 * 返回配置文件流 避免ehcache配置文件一直被占用，无法完全销毁项目重新部署
 	 */
 	protected InputStream getCacheManagerConfigFileInputStream(String configFile) {
-
 		InputStream inputStream = null;
 		try {
 			inputStream = ResourceUtils.getInputStreamForPath(configFile);
@@ -60,8 +58,6 @@ public class CacheManagerConfig {
 
 	/**
 	 * shiro缓存管理器; 需要添加到securityManager中
-	 * 
-	 * @return
 	 */
 	@Bean
 	public RedisCacheManager getRedisCacheManager() {
@@ -71,7 +67,6 @@ public class CacheManagerConfig {
 		redisCacheManager.setPrincipalIdFieldName("userId");
 		// 用户权限信息缓存时间
 		redisCacheManager.setExpire(30 * 60 * 1000);
-
 		return redisCacheManager;
 	}
 }
