@@ -34,6 +34,7 @@
 		<jsoup.version>1.11.3</jsoup.version>
 		<poi.version>3.17</poi.version>
 		<oshi.version>3.9.1</oshi.version>
+		<jna.version>5.5.0</jna.version>
 		<jwt.version>3.4.1</jwt.version>
 		<weixin.version>3.3.0</weixin.version>
 		<qiniu.version>7.2.19</qiniu.version>
@@ -250,11 +251,13 @@
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
+			<version>${jna.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna-platform</artifactId>
+			<version>${jna.version}</version>
 		</dependency>
 
 		<!-- HTML解析器 -->
