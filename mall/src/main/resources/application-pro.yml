@@ -41,7 +41,6 @@ spring:
             enabled: true
          statViewServlet:
             enabled: true
-            allow: null
             url-pattern: /monitor/druid/*
          filter:
             stat:
