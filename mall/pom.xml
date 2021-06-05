@@ -281,8 +281,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
 		<!-- 集群环境，需要打开注释 -->
