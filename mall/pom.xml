@@ -21,6 +21,7 @@
 		<mybatis-plus.version>3.2.0</mybatis-plus.version>
 		<java.version>1.8</java.version>
 		<shiro.version>1.5.3</shiro.version>
+		<shiro.redis.version>3.2.3</shiro.redis.version>
 		<fastjson.version>1.2.70</fastjson.version>
 		<druid.version>1.1.14</druid.version>
 		<commons.lang3.version>3.9</commons.lang3.version>
@@ -47,12 +48,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<!-- <exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions> -->
+			<!-- <exclusions> <exclusion> <groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-starter-tomcat</artifactId> </exclusion> </exclusions> -->
 		</dependency>
 
 		<!-- spring-boot-devtools -->
@@ -80,7 +77,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<!-- SpringBoot Mail -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -123,19 +120,19 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>${commons.lang3.version}</version><!--$NO-MVN-MAN-VER$-->
+			<version>${commons.lang3.version}</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-text</artifactId>
-		    <version>${commons.text.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>${commons.text.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>${commons.net.version}</version>
 		</dependency>
-		
+
 		<!--io常用工具类 -->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -163,7 +160,7 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-		
+
 		<!-- Shiro使用EhCache缓存框架 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -285,10 +282,11 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
-		<!-- 集群环境，需要打开注释 -->
+		<!-- shiro-redis支持 -->
 		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-data-redis</artifactId>
+			<groupId>org.crazycake</groupId>
+			<artifactId>shiro-redis</artifactId>
+			<version>${shiro.redis.version}</version>
 		</dependency>
 
 		<!-- restful api -->

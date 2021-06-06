@@ -1,12 +1,19 @@
 package com.qingshop.mall.framework.config;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.Filter;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.config.ConfigurationException;
+import org.apache.shiro.io.ResourceUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -15,13 +22,14 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
+import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.framework.shiro.MallRealm;
 import com.qingshop.mall.framework.shiro.web.UserFilter;
 import com.qingshop.mall.framework.shiro.web.UserPermFilter;
@@ -31,18 +39,18 @@ import com.qingshop.mall.framework.shiro.web.UserPermFilter;
  */
 @Configuration
 public class ShiroConfig {
-	
+
 	/**
 	 * 设置Session有效时间
 	 */
 	@Value("${shiro.session.globalSessionTimeout}")
 	private int globalSessionTimeout;
-	
+
 	/**
 	 * 是否开启redis实现集群部署
 	 */
-	@Value("${global.cluster}")
-	private boolean cluster;
+	@Value("${global.redisrun}")
+	private boolean redisrun;
 
 	/**
 	 * 设置Cookie的域名
@@ -86,34 +94,114 @@ public class ShiroConfig {
 	@Value("${shiro.user.unauthorizedUrl}")
 	private String unauthorizedUrl;
 
-	
 	/**
-	 * 注入缓存管理配置类
+	 * redis数据库 IP地址
 	 */
-	@Autowired
-	private CacheManagerConfig cacheManagerConfig;
+	@Value("${spring.redis.host}")
+	private String host;
 
 	/**
-	 * 单机环境，session交给shiro管理
+	 * redis数据库 密码
+	 */
+	@Value("${spring.redis.password}")
+	private String password;
+
+	/**
+	 * redis数据库 端口
+	 */
+	@Value("${spring.redis.port}")
+	private int port;
+
+	/**
+	 * redis数据库 缓存过期时间
+	 */
+	@Value("${spring.redis.timeout}")
+	private int timeout;
+
+	private final int EXPIRE = 1800;
+
+	/**
+	 * 缓存管理器 使用Ehcache实现
 	 */
 	@Bean
-	@ConditionalOnProperty(prefix = "global", name = "cluster", havingValue = "false")
-	public DefaultWebSessionManager sessionManager() {
-		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-		sessionManager.setSessionValidationSchedulerEnabled(true);
-		sessionManager.setSessionIdUrlRewritingEnabled(false);
-		sessionManager.setSessionValidationInterval(globalSessionTimeout * 1000);
-		sessionManager.setGlobalSessionTimeout(globalSessionTimeout * 1000);
-		return sessionManager;
+	public EhCacheManager getEhCacheManager() {
+		net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("mall-ehcache-shiro");
+		EhCacheManager em = new EhCacheManager();
+		if (StringUtils.isNull(cacheManager)) {
+			em.setCacheManager(new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream("classpath:ehcache/ehcache-shiro.xml")));
+			return em;
+		} else {
+			em.setCacheManager(cacheManager);
+			return em;
+		}
 	}
 
 	/**
-	 * 集群环境，session交给spring-session管理
+	 * 返回配置文件流 避免ehcache配置文件一直被占用，无法完全销毁项目重新部署
+	 */
+	protected InputStream getCacheManagerConfigFileInputStream(String configFile) {
+		InputStream inputStream = null;
+		try {
+			inputStream = ResourceUtils.getInputStreamForPath(configFile);
+			byte[] b = IOUtils.toByteArray(inputStream);
+			InputStream in = new ByteArrayInputStream(b);
+			return in;
+		} catch (IOException e) {
+			throw new ConfigurationException("Unable to obtain input stream for cacheManagerConfigFile [" + configFile + "]", e);
+		} finally {
+			IOUtils.closeQuietly(inputStream);
+		}
+	}
+
+	/**
+	 * 缓存管理器 使用 RedisCache 实现
+	 */
+	public RedisManager redisManager() {
+		RedisManager redisManager = new RedisManager();
+		redisManager.setHost(host + ":" + port);
+		redisManager.setTimeout(timeout);
+		if (StringUtils.isNotBlank(password))
+			redisManager.setPassword(password);
+		return redisManager;
+	}
+
+	public RedisCacheManager getRedisCacheManager() {
+		RedisCacheManager redisCacheManager = new RedisCacheManager();
+		redisCacheManager.setPrincipalIdFieldName("userId");
+		redisCacheManager.setRedisManager(redisManager());
+		return redisCacheManager;
+	}
+
+	/**
+	 * 单机环境，session交给shiro管理, 集群环境：session交给redis管理
+	 * 
+	 * @ConditionalOnProperty 说明:当redisrun设置为false时该段代码生效
 	 */
 	@Bean
-	@ConditionalOnProperty(prefix = "global", name = "cluster", havingValue = "true")
-	public ServletContainerSessionManager servletContainerSessionManager() {
-		return new ServletContainerSessionManager();
+	public DefaultWebSessionManager sessionManager() {
+		if (redisrun) {
+			DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+			sessionManager.setSessionDAO(redisSessionDAO());
+			return sessionManager;
+		} else {
+			DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+			sessionManager.setSessionValidationSchedulerEnabled(true);
+			sessionManager.setSessionIdUrlRewritingEnabled(false);
+			sessionManager.setSessionValidationInterval(globalSessionTimeout * 1000);
+			sessionManager.setGlobalSessionTimeout(globalSessionTimeout * 1000);
+			return sessionManager;
+		}
+	}
+
+	/**
+	 * RedisSessionDAO shiro sessionDao层的实现 通过redis 使用的是shiro-redis开源插件
+	 */
+	@Bean
+	public RedisSessionDAO redisSessionDAO() {
+		RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+		redisSessionDAO.setRedisManager(redisManager());
+		redisSessionDAO.setExpire(EXPIRE);
+		return redisSessionDAO;
 	}
 
 	/**
@@ -122,7 +210,7 @@ public class ShiroConfig {
 	@Bean
 	public MallRealm myShiroRealm() {
 		MallRealm myShiroRealm = new MallRealm();
-		myShiroRealm.setCacheManager(cluster ? cacheManagerConfig.getRedisCacheManager() : cacheManagerConfig.getEhCacheManager());
+		myShiroRealm.setCacheManager(redisrun ? getRedisCacheManager() : getEhCacheManager());
 		myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
 		return myShiroRealm;
 	}

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -28,23 +29,42 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
 	@Autowired
 	private RedisService redisService;
 
+	@Value("${global.redisrun}")
+	private boolean redisrun;
+
 	@Override
 	public String selectAll() {
-		String value = redisService.get(ConfigKey.SYS_CONFIG.getValue());
-		if (value == null || StringUtils.isEmpty(value)) {
-			value = this.baseMapper.getByKey(ConfigKey.CONFIG_STORAGE.getValue());
-			redisService.set(ConfigKey.SYS_CONFIG.getValue(), value);
+		// 未开启redis
+		if (!redisrun) {
+			String configValueStr = this.baseMapper.getByKey(ConfigKey.CONFIG_STORAGE.getValue());
+			if (StringUtils.isEmpty(configValueStr)) {
+				ConfigStorageVo configStorageVo = new ConfigStorageVo();
+				configStorageVo.setType(Constants.LOCAL_OSS_TYPE);
+				return JSON.toJSONString(configStorageVo);
+			} else {
+				return configValueStr;
+			}
 		}
-		if (value == null) {
+		// 开启redis
+		String configValueStr = redisService.get(ConfigKey.SYS_CONFIG.getValue());
+		if (configValueStr == null || StringUtils.isEmpty(configValueStr)) {
+			configValueStr = this.baseMapper.getByKey(ConfigKey.CONFIG_STORAGE.getValue());
+			redisService.set(ConfigKey.SYS_CONFIG.getValue(), configValueStr);
+		}
+		if (configValueStr == null) {
 			ConfigStorageVo configStorageVo = new ConfigStorageVo();
 			configStorageVo.setType(Constants.LOCAL_OSS_TYPE);
 			return JSON.toJSONString(configStorageVo);
 		}
-		return value;
+		return configValueStr;
 	}
 
 	@Override
 	public String selectStorageConfig() {
+		// 未开启redis
+		if (!redisrun) {
+			return this.baseMapper.getByKey(ConfigKey.CONFIG_STORAGE.getValue());
+		}
 		// 开启redis
 		boolean hasKey = redisService.hasKey(ConfigKey.SYS_CONFIG.getValue());
 		if (hasKey) {
@@ -71,7 +91,10 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
 		} else {
 			this.baseMapper.updateByKey(ConfigKey.CONFIG_STORAGE.getValue(), JsonUtils.beanToJson(vo));
 		}
-		redisService.del(ConfigKey.SYS_CONFIG.getValue());
+		// 开启redis
+		if (redisrun) {
+			redisService.del(ConfigKey.SYS_CONFIG.getValue());
+		}
 	}
 
 }
