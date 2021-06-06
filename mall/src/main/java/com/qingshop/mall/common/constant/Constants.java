@@ -10,70 +10,52 @@ public class Constants {
 	public static final String UTF8 = "UTF-8";
 
 	/**
-	 * 通用成功标识
+	 * STATUS_VALID=0 (Integer类型值1)
 	 */
-	public static final String SUCCESS = "0";
-
-	/**
-	 * 通用失败标识
-	 */
-	public static final String FAIL = "1";
-	
 	public static final Integer STATUS_VALID = 1;
 
+	/**
+	 * STATUS_INVALID=0 (Integer类型值0)
+	 */
 	public static final Integer STATUS_INVALID = 0;
 
+	/**
+	 * STATUS_VALID_STRING=0 (字符串值 "1")
+	 */
 	public static final String STATUS_VALID_STRING = "1";
 
+	/**
+	 * STATUS_INVALID_STRING=0 (字符串值 "0")
+	 */
 	public static final String STATUS_INVALID_STRING = "0";
 
 	/**
-	 * 登录成功
+	 * LOCAL_OSS_TYPE=0 (OSS本地存储类型)
 	 */
-	public static final String LOGIN_SUCCESS = "Success";
+	public static final Integer LOCAL_OSS_TYPE = 0;
 
 	/**
-	 * 注销
+	 * QINIU_OSS_TYPE=1 (OSS七牛云存储类型)
 	 */
-	public static final String LOGOUT = "Logout";
+	public static final Integer QINIU_OSS_TYPE = 1;
 
 	/**
-	 * 登录失败
+	 * ALI_OSS_TYPE=2 (OSS阿里云存储类型)
 	 */
-	public static final String LOGIN_FAIL = "Error";
+	public static final Integer ALI_OSS_TYPE = 2;
 
 	/**
-	 * 自动去除表前缀
+	 * TENCENT_OSS_TYPE=3 (OSS腾讯云存储类型)
 	 */
-	public static final String AUTO_REOMVE_PRE = "true";
+	public static final Integer TENCENT_OSS_TYPE = 3;
 
-	/**
-	 * 当前记录起始索引
-	 */
-	public static final String PAGE_NUM = "pageNum";
-
-	/**
-	 * 每页显示记录数
-	 */
-	public static final String PAGE_SIZE = "pageSize";
-
-	/**
-	 * 排序列
-	 */
-	public static final String ORDER_BY_COLUMN = "orderByColumn";
-
-	/**
-	 * 排序的方向 "desc" 或者 "asc".
-	 */
-	public static final String IS_ASC = "isAsc";
-	
 	/**
 	 * 文件存放文件夹名称
 	 */
 	public static final String FILE_ = "file";
-	
+
 	/**
 	 * 本地文件上传路径
 	 */
-	public static final String WORK_DIR_KEY = "global.workDir"; 
+	public static final String WORK_DIR_KEY = "global.workDir";
 }
