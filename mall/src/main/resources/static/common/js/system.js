@@ -91,11 +91,6 @@
 				if ($.common.isEmpty(url)) {
 					url = "404.html";
 				}
-				// 如果是移动端，就使用自适应大小弹窗
-				if (navigator.userAgent.match(/(Android|iPhone|SymbianOS|Windows Phone|iPad|iPod)/i)) {
-					w = '100%';
-					h = '100%';
-				}
 				if ($.common.isEmpty(callback)) {
 					callback = function(index, layero) {
 						var iframeWin = layero.find('iframe')[0];

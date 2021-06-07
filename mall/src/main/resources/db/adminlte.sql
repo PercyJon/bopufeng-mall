@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 23/09/2020 16:11:17
+ Date: 17/10/2020 10:26:29
 */
 
 SET NAMES utf8mb4;
@@ -4355,7 +4355,7 @@ CREATE TABLE `mall_ship_free`  (
 -- ----------------------------
 -- Records of mall_ship_free
 -- ----------------------------
-INSERT INTO `mall_ship_free` VALUES (1360632641224737, '	广西	', '2163,2177,2189,2207,2215,2220,2225,2230,2236,2245,2258,2264,2276,2283', 100, 100.00, '2020-07-23 14:16:42', '2020-07-23 14:16:42');
+INSERT INTO `mall_ship_free` VALUES (1374366814175265, '	广西	', '2163,2177,2189,2207,2215,2220,2225,2230,2236,2245,2258,2264,2276,2283', 100, 100.00, '2020-10-07 09:26:06', '2020-10-07 09:26:06');
 
 -- ----------------------------
 -- Table structure for mall_ship_rule
@@ -4395,7 +4395,7 @@ CREATE TABLE `mall_ship_set`  (
 -- ----------------------------
 -- Records of mall_ship_set
 -- ----------------------------
-INSERT INTO `mall_ship_set` VALUES (1320972164530209, 1, 1, 0, 15.000, 10.000, 1.000, 5.000, '2020-07-23 14:16:42', '2020-07-23 14:16:42');
+INSERT INTO `mall_ship_set` VALUES (1320972164530209, 1, 1, 0, 15.000, 10.000, 1.000, 5.000, '2020-10-07 09:26:06', '2020-10-07 09:26:06');
 
 -- ----------------------------
 -- Table structure for mall_user
@@ -4562,7 +4562,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1600848482430', 1600848581768, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1602901018107', 1602901580352, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -4631,9 +4631,9 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1600848510000, -1, 5, 'PAUSED', 'CRON', 1600848483000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1600848510000, -1, 5, 'PAUSED', 'CRON', 1600848483000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1600848600000, -1, 5, 'PAUSED', 'CRON', 1600848483000, 0, NULL, -1, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1602901020000, -1, 5, 'PAUSED', 'CRON', 1602901018000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1602901020000, -1, 5, 'PAUSED', 'CRON', 1602901019000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1602901200000, -1, 5, 'PAUSED', 'CRON', 1602901019000, 0, NULL, -1, '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -4654,7 +4654,7 @@ CREATE TABLE `sys_config`  (
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
-INSERT INTO `sys_config` VALUES (1, 'CONFIG_STORAGE', '{\"type\":0,\"setFlag\":1,\"localDomain\":\"http://localhost:8080\",\"localPrefix\":\"\",\"qiniuDomain\":\"http://test.oss.renren.io\",\"qiniuPrefix\":\"file\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"qiniuBucketName\":\"renren-oss\",\"aliyunDomain\":\"https://xxx.oss-cn-hangzhou.aliyuncs.com\",\"aliyunPrefix\":\"blog/\",\"aliyunEndPoint\":\"oss-cn-hangzhou.aliyuncs.com\",\"aliyunAccessKeyId\":\"LTAI4FgN4uWUatpHLxxjXmv1\",\"aliyunAccessKeySecret\":\"OJTXOBiLxxpKCAMURVlonFGdHb1n1\",\"aliyunBucketName\":\"xxx-img\",\"qcloudDomain\":\"https://xxx.cos.ap-shanghai.myqcloud.com\",\"qcloudPrefix\":\"blog/\",\"qcloudSecretId\":\"AKIDrxxxgT2fMDNHud5HDtOTJlACx\",\"qcloudSecretKey\":\"iBSZP6WifMn3A1cxxxwULwH\",\"qcloudBucketName\":\"sttbaxxx\",\"qcloudRegion\":\"ap-shanghai\"}', '云存储配置信息', 1, '2019-12-25 18:21:53', '2020-08-10 16:07:23');
+INSERT INTO `sys_config` VALUES (1, 'CONFIG_STORAGE', '{\"type\":0,\"setFlag\":1,\"localDomain\":\"http://localhost:8080\",\"localPrefix\":\"\",\"qiniuDomain\":\"http://test.oss.renren.io\",\"qiniuPrefix\":\"file\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"qiniuBucketName\":\"renren-oss\",\"aliyunDomain\":\"https://xxx.oss-cn-hangzhou.aliyuncs.com\",\"aliyunPrefix\":\"blog/\",\"aliyunEndPoint\":\"oss-cn-hangzhou.aliyuncs.com\",\"aliyunAccessKeyId\":\"LTAI4FgN4uWUatpHLxxjXmv1\",\"aliyunAccessKeySecret\":\"OJTXOBiLxxpKCAMURVlonFGdHb1n1\",\"aliyunBucketName\":\"xxx-img\",\"qcloudDomain\":\"https://xxx.cos.ap-shanghai.myqcloud.com\",\"qcloudPrefix\":\"blog/\",\"qcloudSecretId\":\"AKIDrxxxgT2fMDNHud5HDtOTJlACx\",\"qcloudSecretKey\":\"iBSZP6WifMn3A1cxxxwULwH\",\"qcloudBucketName\":\"sttbaxxx\",\"qcloudRegion\":\"ap-shanghai\"}', '云存储配置信息', 1, '2019-12-25 18:21:53', '2020-10-17 09:31:18');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -4805,6 +4805,16 @@ INSERT INTO `sys_log` VALUES (1371696340664353, 'admin', '用户登录成功', '
 INSERT INTO `sys_log` VALUES (1371878979534881, 'admin', '用户登录成功', '/doLogin', '', '2020-09-23 15:54:34', '2020-09-23 15:54:34');
 INSERT INTO `sys_log` VALUES (1371880432861217, 'admin', '用户登录成功', '/doLogin', '', '2020-09-23 16:06:07', '2020-09-23 16:06:07');
 INSERT INTO `sys_log` VALUES (1371880793571361, 'admin', '用户登录成功', '/doLogin', '', '2020-09-23 16:08:59', '2020-09-23 16:08:59');
+INSERT INTO `sys_log` VALUES (1371888045522977, 'admin', '用户登录成功', '/doLogin', '', '2020-09-23 17:06:37', '2020-09-23 17:06:37');
+INSERT INTO `sys_log` VALUES (1372009328017441, 'admin', '用户登录成功', '/doLogin', '', '2020-09-24 09:10:29', '2020-09-24 09:10:29');
+INSERT INTO `sys_log` VALUES (1374364456976417, 'admin', '用户登录成功', '/doLogin', '', '2020-10-07 09:07:22', '2020-10-07 09:07:22');
+INSERT INTO `sys_log` VALUES (1375507459342369, 'admin', '用户登录成功', '/doLogin', '', '2020-10-13 16:31:08', '2020-10-13 16:31:08');
+INSERT INTO `sys_log` VALUES (1375508946223137, 'admin', '用户登录成功', '/doLogin', '', '2020-10-13 16:42:57', '2020-10-13 16:42:57');
+INSERT INTO `sys_log` VALUES (1376176245309473, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 09:06:10', '2020-10-17 09:06:10');
+INSERT INTO `sys_log` VALUES (1376179705610273, 'admin', '删除菜单', '/system/menu/delete', '{\"id\":[\"1362594963128353\"]}', '2020-10-17 09:33:40', '2020-10-17 09:33:40');
+INSERT INTO `sys_log` VALUES (1376183809736737, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:06:17', '2020-10-17 10:06:17');
+INSERT INTO `sys_log` VALUES (1376183971217441, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:07:34', '2020-10-17 10:07:34');
+INSERT INTO `sys_log` VALUES (1376185252577313, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:17:45', '2020-10-17 10:17:45');
 
 -- ----------------------------
 -- Table structure for sys_mail
@@ -4923,7 +4933,6 @@ INSERT INTO `sys_menu` VALUES (1357700489281569, '查看邮件', 135770020197174
 INSERT INTO `sys_menu` VALUES (1357738581950497, '发送邮件', 1357700201971745, '#', NULL, 2, 3, '011002', 'addMail', '2020-07-07 14:56:47', '2020-07-16 10:17:26');
 INSERT INTO `sys_menu` VALUES (1357743352971297, '删除邮件', 1357700201971745, '#', NULL, 3, 3, '011003', 'deleteMail', '2020-07-07 15:34:42', '2020-07-16 10:17:26');
 INSERT INTO `sys_menu` VALUES (1362594944253985, '测试菜单', 0, '#', 'fa fa-address-card-o', 4, 1, '04', NULL, '2020-08-03 10:11:41', '2020-08-14 16:03:54');
-INSERT INTO `sys_menu` VALUES (1362594963128353, '测试菜单2', 0, '#', 'fa fa-bandcamp', 5, 1, '05', NULL, '2020-08-03 10:11:50', '2020-08-14 16:04:17');
 INSERT INTO `sys_menu` VALUES (3425810167240192, '查看用户', 2, '#', NULL, 0, 3, '010100', 'listUser', '2020-07-07 08:40:51', '2020-07-16 10:17:27');
 INSERT INTO `sys_menu` VALUES (3425811735893504, '添加用户', 2, '#', NULL, 1, 3, '010101', 'addUser', '2020-07-07 08:40:51', '2020-07-16 10:17:28');
 INSERT INTO `sys_menu` VALUES (3425817210164736, '修改用户', 2, '#', NULL, 2, 3, '010102', 'editUser', '2020-07-07 08:40:51', '2020-07-16 10:17:29');

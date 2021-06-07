@@ -66,7 +66,6 @@
                     , skin: _this.options.layerSkin
                     , area: ['800px', height+'px']
                     , offset: 'auto'
-                    , anim: 1
                     , closeBtn: 1
                     , shade: 0.3
                     , btn: ['确定', '取消']
