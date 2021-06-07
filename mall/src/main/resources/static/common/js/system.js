@@ -35,6 +35,7 @@
 					fix : false, // 不固定
 					maxmin : true,
 					shadeClose : false,
+					scrollbar: false, //屏蔽屏幕滚动条
 					shade : 0.3,
 					success : function(layero, index) {
 					}
@@ -76,6 +77,7 @@
 					fix : false, // 不固定
 					maxmin : true,
 					shadeClose : false,
+					scrollbar: false, //屏蔽屏幕滚动条
 					shade : 0.3,
 					btn : [ '保存', '取消' ],
 					yes : callback,
@@ -106,6 +108,7 @@
 					fix : false, // 不固定
 					maxmin : true,
 					shadeClose : false,
+					scrollbar: false, //屏蔽屏幕滚动条
 					shade : 0.3,
 					btn : [ '保存', '取消' ],
 					yes : callback,
