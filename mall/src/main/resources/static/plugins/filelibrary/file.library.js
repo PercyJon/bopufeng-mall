@@ -55,7 +55,7 @@
          */
         showLibraryModal: function () {
             var _this = this;
-            var height = ($(window).height() - 20);
+            // var height = ($(window).height() - 20);
             _this.getJsonData({groupId: -1, page: 1}, function (data) {
                 data.is_default = true;
                 // 捕获页
@@ -64,9 +64,10 @@
                     , id: _this.options.layerId
                     , title: '图片资源库'
                     , skin: _this.options.layerSkin
-                    , area: ['800px', height+'px']
+                    , area: ['800px', '620px']
                     , offset: 'auto'
                     , closeBtn: 1
+                    ,scrollbar: false //屏蔽屏幕滚动条
                     , shade: 0.3
                     , btn: ['确定', '取消']
                     , content: template('tpl-file-library', data)

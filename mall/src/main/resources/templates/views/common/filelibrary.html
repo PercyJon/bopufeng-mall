@@ -70,25 +70,9 @@
 <!-- 文件库end-->
 <!-- 文件列表模板start -->
 <script id="tpl-file-list" type="text/template">
-<ul class="file-list-item">
+<ul class="file-list-item" id="file-list-scroll">
     {{ include 'tpl-file-list-item' data }}
 </ul>
-{{ if last_page > 1 }}
-	<div class="file-page-box" style="text-align:center;">
-    	<ul class="pagination">
-        	{{ if current_page > 1 }}
-        		<li>
-            		<a class="switch-page" href="javascript:void(0);" title="上一页" data-page="{{ current_page - 1 }}">上一页</a>
-        		</li>
-        	{{ /if }}
-        	{{ if current_page < last_page }}
-        		<li>
-            		<a class="switch-page" href="javascript:void(0);" title="下一页" data-page="{{ current_page + 1 }}">下一页</a>
-        		</li>
-        	{{ /if }}
-    	</ul>
-	</div>
-{{ /if }}
 </script>
 <script id="tpl-file-list-item" type="text/template">
 {{ each $data }}
@@ -103,7 +87,8 @@
 {{ /each }}
 </script>
 <!-- 文件列表end -->
-<!-- 分组元素start-->
+
+<!-- 新增分组元素start-->
 <script id="tpl-group-item" type="text/template">
 	<li class="ng-scope" data-group-id="{{ groupId }}" title="{{ groupName }}">
     	<a class="group-edit" href="javascript:void(0);" title="重命名">
@@ -117,8 +102,9 @@
     	</a>
 	</li>
 </script>
-<!-- 分组元素end-->
-<!-- 选中后渲染图片列表start -->
+<!-- 新增分组元素end-->
+
+<!-- 新增图片列表start -->
 <script id="tpl-file-item" type="text/template">
 {{ each list }}
 	<div class="file-item">
@@ -128,4 +114,4 @@
 	</div>
 {{ /each }}
 </script>
-<!-- 选中后渲染图片列表end -->
+<!-- 新增图片列表startend -->
