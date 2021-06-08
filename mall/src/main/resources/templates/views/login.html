@@ -98,7 +98,7 @@
 	<script src="${request.contextPath}/plugins/jquery-validation/jquery.validate.extend.js"></script>
 	<script src="${request.contextPath}/plugins/jquery-validation/messages_zh.min.js"></script>
 	<script type="text/javascript">
-		if (window.top !== window.self) { window.top.location = window.location };
+		if (window.top!==window.self) { alert('未登录或登录超时。请重新登录'); window.top.location=window.location };
 		function changeVcode() {
             $("#vcode-img").attr('src', '/captcha?' + Math.floor(Math.random() * 100));
         };

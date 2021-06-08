@@ -15,7 +15,7 @@ shiro:
       unauthorizedUrl: /unauth
       indexUrl: /index
    session:
-      globalSessionTimeout: 1800 #单机环境，session过期时间为60分钟 60 * 60
+      globalSessionTimeout: 300 #单机环境，session过期时间为60分钟 60 * 60
    cookie:
       domain:
       path: /
