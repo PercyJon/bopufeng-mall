@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 17/10/2020 17:22:55
+ Date: 19/10/2020 11:40:02
 */
 
 SET NAMES utf8mb4;
@@ -4562,7 +4562,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1602920539151', 1602926577982, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1603071373819', 1603078797614, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -4631,9 +4631,9 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1602920550000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1602920550000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1602921000000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, -1, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1603071390000, -1, 5, 'PAUSED', 'CRON', 1603071377000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1603071390000, -1, 5, 'PAUSED', 'CRON', 1603071378000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1603071600000, -1, 5, 'PAUSED', 'CRON', 1603071378000, 0, NULL, -1, '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -4832,6 +4832,15 @@ INSERT INTO `sys_log` VALUES (1376232170061857, 'admin', '用户登录成功', '
 INSERT INTO `sys_log` VALUES (1376234007167009, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:45:13', '2020-10-17 16:45:13');
 INSERT INTO `sys_log` VALUES (1376235743608865, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:59:01', '2020-10-17 16:59:01');
 INSERT INTO `sys_log` VALUES (1376237542965281, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 17:13:19', '2020-10-17 17:13:19');
+INSERT INTO `sys_log` VALUES (1376536043192353, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 08:45:35', '2020-10-19 08:45:35');
+INSERT INTO `sys_log` VALUES (1376537513295905, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 08:57:16', '2020-10-19 08:57:16');
+INSERT INTO `sys_log` VALUES (1376538199064609, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 09:02:43', '2020-10-19 09:02:43');
+INSERT INTO `sys_log` VALUES (1376540508028961, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 09:21:04', '2020-10-19 09:21:04');
+INSERT INTO `sys_log` VALUES (1376542607278113, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 09:37:45', '2020-10-19 09:37:45');
+INSERT INTO `sys_log` VALUES (1376544605863969, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 09:53:38', '2020-10-19 09:53:38');
+INSERT INTO `sys_log` VALUES (1376547376201761, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 10:15:39', '2020-10-19 10:15:39');
+INSERT INTO `sys_log` VALUES (1376552484864033, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 10:56:15', '2020-10-19 10:56:15');
+INSERT INTO `sys_log` VALUES (1376555852890145, 'admin', '用户登录成功', '/doLogin', '', '2020-10-19 11:23:01', '2020-10-19 11:23:01');
 
 -- ----------------------------
 -- Table structure for sys_mail
@@ -5126,6 +5135,9 @@ INSERT INTO `sys_upload_file` VALUES (1344145492803617, 0, 'http://localhost:808
 INSERT INTO `sys_upload_file` VALUES (1347551387189281, 0, 'http://localhost:8080/file/20200512/XQSR2K06.png', 'win10.png', 0, 'XQSR2K06.png', 'file/20200512/XQSR2K06.png', 508448, '.png', '0907a472d53c28c67e82be10a6d0202a', 0, '2020-05-12 09:36:14', '2020-07-07 15:50:01');
 INSERT INTO `sys_upload_file` VALUES (1347551638847521, 0, 'http://localhost:8080/file/20200512/ZHQUWNBB.jpg', '美女.jpg', 0, 'ZHQUWNBB.jpg', 'file/20200512/ZHQUWNBB.jpg', 37209, '.jpg', 'e22bec4868654bd05b737d66bb644d5c', 0, '2020-05-12 09:38:14', '2020-07-07 15:50:07');
 INSERT INTO `sys_upload_file` VALUES (1376223018090529, 0, 'http://localhost:8080/file/20201017/wMhhxtWZ.jpg', '桌椅组合.jpg', 0, 'wMhhxtWZ.jpg', 'file/20201017/wMhhxtWZ.jpg', 102523, '.jpg', 'e7d95a3e3b906d907cd679215aa73e25', 0, '2020-10-17 15:17:53', '2020-10-17 15:17:53');
+INSERT INTO `sys_upload_file` VALUES (1376543183994913, 0, 'http://localhost:8080/file/20201019/rpb3SOYT.jpg', '沙发.jpg', 0, 'rpb3SOYT.jpg', 'file/20201019/rpb3SOYT.jpg', 42337, '.jpg', 'efc5c0001f4a6d076f40e1fb49e41ae2', 0, '2020-10-19 09:42:20', '2020-10-19 09:42:20');
+INSERT INTO `sys_upload_file` VALUES (1376548389126177, 0, 'http://localhost:8080/file/20201019/JLlenBr3.jpg', '餐具组合.jpg', 0, 'JLlenBr3.jpg', 'file/20201019/JLlenBr3.jpg', 41541, '.jpg', 'a385471d08055cc425fe9b93d541b088', 0, '2020-10-19 10:23:42', '2020-10-19 10:23:42');
+INSERT INTO `sys_upload_file` VALUES (1376548433166369, 0, 'http://localhost:8080/file/20201019/FwQY7lKf.jpg', '电风扇.jpg', 0, 'FwQY7lKf.jpg', 'file/20201019/FwQY7lKf.jpg', 24966, '.jpg', 'e46c197216f912acdaf27c846a99da8b', 0, '2020-10-19 10:24:03', '2020-10-19 10:24:03');
 
 -- ----------------------------
 -- Table structure for sys_upload_group
