@@ -7,14 +7,7 @@
         	</div>
     	</div>    	
 		<div class="pull-right clearfix">
-        	<div class="input-group input-group-sm clearfix pull-left" style="width:300px;">
-            	<input type="text" name="search" id="file-search-value" value="" class="form-control" placeholder="搜索素材">
-            	<div class="input-group-btn">
-                	<button class="btn btn-default" id="file-search-submit" type="buttonn"><i class="fa fa-search"></i></button>
-                	<a href="javascript:void(0);" class="file-refresh btn btn-default"><i class="fa fa-refresh"></i></a>
-            	</div>
-        	</div>
-        	<div class="clearfix pull-left" style="margin-left:5px;">
+			<div class="clearfix pull-left">
             	<div class="btn-group" id="group-select">
                 	<button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     		移动至<span class="caret"></span>
@@ -33,6 +26,13 @@
             	<a href="javascript:void(0);" class="file-delete btn btn-sm btn-danger" data-group-id="2">
                 	<i class="fa fa-trash"></i> 删除
             	</a>
+        	</div>
+        	<div class="input-group input-group-sm clearfix pull-left" style="width:300px;margin-left:5px;">
+            	<input type="text" name="search" id="file-search-value" value="" class="form-control" placeholder="搜索素材">
+            	<div class="input-group-btn">
+                	<button class="btn btn-default" id="file-search-submit" type="buttonn"><i class="fa fa-search"></i></button>
+                	<a href="javascript:void(0);" class="file-refresh btn btn-default"><i class="fa fa-refresh"></i></a>
+            	</div>
         	</div>
     	</div>
 	</div>
@@ -71,8 +71,27 @@
 <!-- 文件列表模板start -->
 <script id="tpl-file-list" type="text/template">
 <ul class="file-list-item" id="file-list-scroll">
-    {{ include 'tpl-file-list-item' data }}
+	{{ if total != 0 }}
+		{{ include 'tpl-file-list-item' data }} 
+	{{ /if }}
+	{{ if total == 0 }}
+		<div style="text-align:center;margin-top:200px;">
+			<span>未找到相关数据</span>
+		</div>
+	{{ /if }}
 </ul>
+<div class="file-page-box" style="text-align:center;" id="file-page-box">
+	<ul class="pagination">
+		{{ if current_page < last_page }}
+			<li>
+				<a class="switch-page" href="javascript:void(0);" title="点击加载更多" data-page="{{ current_page + 1 }}">点击加载更多</a>
+			</li>
+		{{ /if }}
+		{{ if current_page === last_page }}
+			<li>没有更多数据了</li>
+		{{ /if }}
+	</ul>
+</div>
 </script>
 <script id="tpl-file-list-item" type="text/template">
 {{ each $data }}

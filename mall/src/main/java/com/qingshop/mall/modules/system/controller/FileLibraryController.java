@@ -72,7 +72,11 @@ public class FileLibraryController extends BaseController {
 		fileData.put("total", total);
 		fileData.put("per_page", pageSize);
 		fileData.put("current_page", page);
-		fileData.put("last_page", total / pageSize + 1);
+		if(total%pageSize == 0) {
+			fileData.put("last_page", total / pageSize);
+		} else {
+			fileData.put("last_page", total / pageSize + 1);
+		}
 		fileData.put("data", records);
 		resultData.put("group_list", uploadGroupList);
 		resultData.put("file_list", fileData);

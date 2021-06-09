@@ -64,7 +64,7 @@
                     , id: _this.options.layerId
                     , title: '图片资源库'
                     , skin: _this.options.layerSkin
-                    , area: ['800px', '620px']
+                    , area: ['800px', '650px']
                     , offset: 'auto'
                     , closeBtn: 1
                     ,scrollbar: false //屏蔽屏幕滚动条
@@ -121,7 +121,15 @@
             var _this = this;
             _this.$element.find('#file-list-body').on('click', '.switch-page', function () {
                 var page = $(this).data('page');
-                _this.renderFileList(page);
+                var groupId = _this.getCurrentGroupId();
+                var search =$("#file-search-value").val();
+                // 重新渲染文件列表
+                _this.getJsonData({groupId: groupId, page: page || 1, search: search || ""}, function (data) {
+                    _this.$element.find('#file-list-scroll').append(template('tpl-file-list-item', data.file_list.data));
+                    if (data.file_list.current_page === data.file_list.last_page) {
+                    	$("#file-page-box").html('<ul class="pagination"><li>没有更多数据了</li></ul>');
+                    }
+                });
             });
         },
         
@@ -186,7 +194,7 @@
             _this.$element.on('click', '.file-delete', function () {
                 var fileIds = _this.getSelectedFileIds();
                 if (fileIds.length === 0) {
-                    layer.msg('您还没有选择任何文件~', {offset: 't', anim: 6});
+                    layer.msg('您还没有选择任何文件~', {anim: 6});
                     return;
                 }
                 layer.confirm('确定删除选中的文件吗？', {title: '友情提示'}, function (index) {
@@ -429,8 +437,7 @@
          * @param page
          */
         renderFileList: function (page, search) {
-            var _this = this
-                , groupId = this.getCurrentGroupId();
+            var _this = this, groupId = this.getCurrentGroupId();
             // 重新渲染文件列表
             _this.getJsonData({groupId: groupId, page: page || 1, search: search || ""}, function (data) {
                 _this.$element.find('#file-list-body').html(template('tpl-file-list', data.file_list));
