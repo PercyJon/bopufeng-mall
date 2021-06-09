@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 17/10/2020 10:26:29
+ Date: 17/10/2020 17:22:55
 */
 
 SET NAMES utf8mb4;
@@ -4562,7 +4562,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1602901018107', 1602901580352, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'DESKTOP-T3BU90T1602920539151', 1602926577982, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -4631,9 +4631,9 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1602901020000, -1, 5, 'PAUSED', 'CRON', 1602901018000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1602901020000, -1, 5, 'PAUSED', 'CRON', 1602901019000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1602901200000, -1, 5, 'PAUSED', 'CRON', 1602901019000, 0, NULL, -1, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1602920550000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1602920550000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1602921000000, -1, 5, 'PAUSED', 'CRON', 1602920540000, 0, NULL, -1, '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -4815,6 +4815,23 @@ INSERT INTO `sys_log` VALUES (1376179705610273, 'admin', '删除菜单', '/syste
 INSERT INTO `sys_log` VALUES (1376183809736737, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:06:17', '2020-10-17 10:06:17');
 INSERT INTO `sys_log` VALUES (1376183971217441, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:07:34', '2020-10-17 10:07:34');
 INSERT INTO `sys_log` VALUES (1376185252577313, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:17:45', '2020-10-17 10:17:45');
+INSERT INTO `sys_log` VALUES (1376189100851233, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:48:20', '2020-10-17 10:48:20');
+INSERT INTO `sys_log` VALUES (1376190176690209, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 10:56:53', '2020-10-17 10:56:53');
+INSERT INTO `sys_log` VALUES (1376193410498593, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 11:22:35', '2020-10-17 11:22:35');
+INSERT INTO `sys_log` VALUES (1376209543888929, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 13:30:48', '2020-10-17 13:30:48');
+INSERT INTO `sys_log` VALUES (1376217250922529, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 14:32:03', '2020-10-17 14:32:03');
+INSERT INTO `sys_log` VALUES (1376221233414177, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:03:42', '2020-10-17 15:03:42');
+INSERT INTO `sys_log` VALUES (1376221822713889, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:08:23', '2020-10-17 15:08:23');
+INSERT INTO `sys_log` VALUES (1376222787403809, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:16:03', '2020-10-17 15:16:03');
+INSERT INTO `sys_log` VALUES (1376224760823841, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:31:44', '2020-10-17 15:31:44');
+INSERT INTO `sys_log` VALUES (1376226176401441, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:42:59', '2020-10-17 15:42:59');
+INSERT INTO `sys_log` VALUES (1376227432595489, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 15:52:58', '2020-10-17 15:52:58');
+INSERT INTO `sys_log` VALUES (1376229034819617, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:05:42', '2020-10-17 16:05:42');
+INSERT INTO `sys_log` VALUES (1376229970149409, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:13:08', '2020-10-17 16:13:08');
+INSERT INTO `sys_log` VALUES (1376232170061857, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:30:37', '2020-10-17 16:30:37');
+INSERT INTO `sys_log` VALUES (1376234007167009, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:45:13', '2020-10-17 16:45:13');
+INSERT INTO `sys_log` VALUES (1376235743608865, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 16:59:01', '2020-10-17 16:59:01');
+INSERT INTO `sys_log` VALUES (1376237542965281, 'admin', '用户登录成功', '/doLogin', '', '2020-10-17 17:13:19', '2020-10-17 17:13:19');
 
 -- ----------------------------
 -- Table structure for sys_mail
@@ -5108,6 +5125,7 @@ INSERT INTO `sys_upload_file` VALUES (1344145283088417, 0, 'http://localhost:808
 INSERT INTO `sys_upload_file` VALUES (1344145492803617, 0, 'http://localhost:8080/file/20200423/VXI6lcRK.jpg', '落地窗.jpg', 0, 'VXI6lcRK.jpg', 'file/20200423/VXI6lcRK.jpg', 22631, '.jpg', 'a8f0e3a7554fac7da20f11f1c1fed2e6', 0, '2020-04-23 14:28:37', '2020-07-07 15:49:56');
 INSERT INTO `sys_upload_file` VALUES (1347551387189281, 0, 'http://localhost:8080/file/20200512/XQSR2K06.png', 'win10.png', 0, 'XQSR2K06.png', 'file/20200512/XQSR2K06.png', 508448, '.png', '0907a472d53c28c67e82be10a6d0202a', 0, '2020-05-12 09:36:14', '2020-07-07 15:50:01');
 INSERT INTO `sys_upload_file` VALUES (1347551638847521, 0, 'http://localhost:8080/file/20200512/ZHQUWNBB.jpg', '美女.jpg', 0, 'ZHQUWNBB.jpg', 'file/20200512/ZHQUWNBB.jpg', 37209, '.jpg', 'e22bec4868654bd05b737d66bb644d5c', 0, '2020-05-12 09:38:14', '2020-07-07 15:50:07');
+INSERT INTO `sys_upload_file` VALUES (1376223018090529, 0, 'http://localhost:8080/file/20201017/wMhhxtWZ.jpg', '桌椅组合.jpg', 0, 'wMhhxtWZ.jpg', 'file/20201017/wMhhxtWZ.jpg', 102523, '.jpg', 'e7d95a3e3b906d907cd679215aa73e25', 0, '2020-10-17 15:17:53', '2020-10-17 15:17:53');
 
 -- ----------------------------
 -- Table structure for sys_upload_group
