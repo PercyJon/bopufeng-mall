@@ -51,7 +51,7 @@ public class FileLibraryController extends BaseController {
 	 */
 	@PostMapping("/fileList")
 	@ResponseBody
-	public Map<String, Object> list(SysUploadFile uploadFile, @RequestParam Integer page, @RequestParam(defaultValue = "12") Integer pageSize, String search) {
+	public Map<String, Object> list(SysUploadFile uploadFile, @RequestParam Integer page, @RequestParam(defaultValue = "8") Integer pageSize, String search) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> resultData = new HashMap<String, Object>();
 		List<SysUploadGroup> uploadGroupList = uploadGroupService.list();

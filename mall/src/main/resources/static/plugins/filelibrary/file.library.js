@@ -64,7 +64,7 @@
                     , id: _this.options.layerId
                     , title: '图片资源库'
                     , skin: _this.options.layerSkin
-                    , area: ['800px', '650px']
+                    , area: ['90%', '95%']
                     , offset: 'auto'
                     , closeBtn: 1
                     ,scrollbar: false //屏蔽屏幕滚动条

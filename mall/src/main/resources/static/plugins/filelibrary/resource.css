@@ -221,7 +221,7 @@
 
 .file-library .layui-layer-content .v-box-body ul.file-list-item {
 	list-style: none;
-	height: 450px;
+	height: 300px;
  	overflow-x: hidden;
 	overflow-y: auto;
 }
