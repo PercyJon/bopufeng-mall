@@ -28,16 +28,6 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven
 1. https://github.com/almasaeed2010/AdminLTE
 2. http://mp.baomidou.com/#/
 
-### Docker部署
--------------
-1. 安装好Docker环境,登录到Docker服务器。
-2. git clone https://github.com/litzhou/AdminLTE-admin.git
-3. cd AdminLTE-admin
-4. docker build -t github.com/litzhou/AdminLTE_admin .
-5. docker run -p 8080:8080 -t github.com/litzhou/AdminLTE_admin
-6. http://ip:8080，账号/密码:admin/123456。
-7. 也可以借助第三方docker平台完成部署,这样更加省事,如:daocloud,csphere等docker云平台。
-
 ### 实例截图
 -------------
 ![](https://git.oschina.net/uploads/images/2017/0914/161552_cb781545_89451.png "1.png")
@@ -45,4 +35,3 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven
 ![](https://git.oschina.net/uploads/images/2017/0914/161619_db1dd09f_89451.png "3.png")
 ![](https://git.oschina.net/uploads/images/2017/0914/161627_7e08a1ea_89451.png "4.png")
 
-说明:手动修改admin的密码可使用src/test/java下的TestAdmin生成admin的密码。
