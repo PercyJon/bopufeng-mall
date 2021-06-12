@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html style="height: 100%">
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body style="height: 100%; margin: 0">
-        <div id="container" style="height: 100%"></div>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.0.1/dist/echarts.min.js"></script>
-        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<head>
+    <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+	<div style="width:800px; height:495px;float:right;" >
+		<div id="container" style="height: 100%"></div>
+	</div>
 
-        <script type="text/javascript">
+	<script src="echarts.min.js"></script>
+	<script src="../jQuery/jquery-2.2.3.min.js"></script>
+
+	<script type="text/javascript">
             
             var chartDom = document.getElementById("container");
             var myChart = echarts.init(chartDom);
@@ -21,9 +24,7 @@
                 type: "GET",
                 success: function (geoJson) {
                     myChart.hideLoading();
-
                     echarts.registerMap('china', geoJson);
-
                     myChart.setOption(option = {
                         title: {
                             text: '地图标题信息'
@@ -225,7 +226,7 @@
                     });
                 }
             });
-        </script>
-    </body>
+	</script>
+</body>
 </html>
     
