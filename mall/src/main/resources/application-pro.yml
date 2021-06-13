@@ -6,7 +6,7 @@ spring:
       port: 6379
       password:
       timeout: 30000 #连接超时时间（毫秒））
-      jedis: # 这里标明使用lettuce配置
+      jedis:
          pool:
             max-idle: 5 #连接池中的最大空闲连接
             min-idle: 0 #连接池中的最小空闲连接
@@ -17,7 +17,7 @@ spring:
       driverClassName: com.mysql.cj.jdbc.Driver
       druid:
          master:
-            url: jdbc:mysql://127.0.0.1:3306/adminlte?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+            url: jdbc:mysql://127.0.0.1:3306/adminlte?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
             username: root
             password: 123456
          slave:
