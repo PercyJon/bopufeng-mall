@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * json工具类(fastjson)
+ * Json工具类
  */
 public class JsonUtils {
 
