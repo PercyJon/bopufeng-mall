@@ -54,7 +54,7 @@ public class MysqlGenerator {
 		gc.setEnableCache(false);// XML 二级缓存
 		gc.setBaseResultMap(true);// XML ResultMap 通用查询结果集
 		gc.setBaseColumnList(false);// XML columList 通用查询结果列
-		gc.setAuthor("");
+		gc.setAuthor("lch");
 		gc.setOpen(false);
 		// gc.setSwagger2(true); 实体属性 Swagger2 注解
 		mpg.setGlobalConfig(gc);
@@ -69,21 +69,24 @@ public class MysqlGenerator {
 				if (fieldType.toLowerCase().contains("datetime")) {
 					return DbColumnType.DATE;
 				}
+				if(fieldType.toLowerCase().contains("tinyint")) {
+					return DbColumnType.INTEGER;
+				}
 				return super.processTypeConvert(globalConfig, fieldType);
 			}
 		});
-		dsc.setUrl("jdbc:mysql://127.0.0.1:3306/adminlte?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
+		dsc.setUrl("jdbc:mysql://192.168.80.171:3306/saas1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-		dsc.setUsername("root");
-		dsc.setPassword("123456");
+		dsc.setUsername("hx_db_dev");
+		dsc.setPassword("hx20161024_!@#");
 		mpg.setDataSource(dsc);
 
 		// 包配置
 		PackageConfig pc = new PackageConfig();
 		pc.setModuleName(scanner("模块名"));
-		pc.setParent("com.qingshop.mall.modules");
+		pc.setParent("com.yikeyun");
 		pc.setController("controller");
-		pc.setEntity("entity");
+		pc.setEntity("model");
 		pc.setService("service");
 		pc.setMapper("mapper");
 		pc.setXml("mybatis");
@@ -123,7 +126,7 @@ public class MysqlGenerator {
 		strategy.setEntityLombokModel(false);
 		strategy.setRestControllerStyle(false);
 		// 公共父类
-		strategy.setSuperControllerClass("com.qingshop.mall.modules.common.BaseController");
+		// strategy.setSuperControllerClass("com.qingshop.mall.modules.common.BaseController");
 		// 写于父类中的公共字段
 		strategy.setSuperEntityColumns("id");
 		strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));

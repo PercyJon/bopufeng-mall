@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,17 +34,17 @@ public class WxAddressController extends BaseController {
 	/**
 	 * 用户收货地址列表
 	 *
-	 * @param userId
-	 *            用户ID
+	 * @param userId 用户ID
 	 * @return 收货地址列表
 	 */
-	@ApiOperation(value = "用户收货地址列表",response = Rest.class)
+	@ApiOperation(value = "用户收货地址列表", response = Rest.class)
 	@GetMapping("/list")
 	public Rest list(@LoginUser Long userId) {
 		if (userId == null) {
 			return Rest.failure(-1, "账号未授权");
 		}
-		List<MallAddress> addressList = mallAddressService.list(new QueryWrapper<MallAddress>().eq("user_id", userId).orderByDesc("is_default"));
+		List<MallAddress> addressList = mallAddressService
+				.list(new QueryWrapper<MallAddress>().eq("user_id", userId).orderByDesc("is_default"));
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("user_id", userId);
 		params.put("is_default", 1);
@@ -62,15 +60,13 @@ public class WxAddressController extends BaseController {
 	/**
 	 * 收货地址详情
 	 *
-	 * @param userId
-	 *            用户ID
-	 * @param id
-	 *            收货地址ID
+	 * @param userId 用户ID
+	 * @param id     收货地址ID
 	 * @return 收货地址详情
 	 */
-	@ApiOperation(value = "收货地址详情",response = Rest.class)
+	@ApiOperation(value = "收货地址详情", response = Rest.class)
 	@GetMapping("/detail")
-	public Rest detail(@LoginUser Long userId, @NotNull String addressId) {
+	public Rest detail(@LoginUser Long userId, String addressId) {
 		if (userId == null) {
 			return Rest.failure(-1, "账号未授权");
 		}
@@ -124,13 +120,11 @@ public class WxAddressController extends BaseController {
 	/**
 	 * 添加或更新收货地址
 	 *
-	 * @param userId
-	 *            用户ID
-	 * @param address
-	 *            用户收货地址
+	 * @param userId  用户ID
+	 * @param address 用户收货地址
 	 * @return 添加或更新操作结果
 	 */
-	@ApiOperation(value = "添加或更新收货地址",response = Rest.class)
+	@ApiOperation(value = "添加或更新收货地址", response = Rest.class)
 	@PostMapping("/add")
 	public Rest add(@LoginUser Long userId, @RequestBody MallAddress address) {
 		if (userId == null) {
@@ -141,7 +135,8 @@ public class WxAddressController extends BaseController {
 			return error;
 		}
 		if (address.getAddressId() == null) {
-			List<MallAddress> addressList = mallAddressService.list(new QueryWrapper<MallAddress>().eq("user_id", userId));
+			List<MallAddress> addressList = mallAddressService
+					.list(new QueryWrapper<MallAddress>().eq("user_id", userId));
 			if (addressList.size() > 0) {
 				address.setIsDefault(0);
 			} else {
@@ -162,13 +157,11 @@ public class WxAddressController extends BaseController {
 	/**
 	 * 设置默认收货地址
 	 *
-	 * @param userId
-	 *            用户ID
-	 * @param body
-	 *            json参数
+	 * @param userId 用户ID
+	 * @param body   json参数
 	 * @return 设置默认收货地址
 	 */
-	@ApiOperation(value = "设置默认收货地址",response = Rest.class)
+	@ApiOperation(value = "设置默认收货地址", response = Rest.class)
 	@PostMapping("/setDefault")
 	public Rest setDefault(@LoginUser Long userId, @RequestBody String body) {
 		if (userId == null) {
@@ -196,13 +189,11 @@ public class WxAddressController extends BaseController {
 	/**
 	 * 删除收货地址
 	 *
-	 * @param userId
-	 *            用户ID
-	 * @param address
-	 *            用户收货地址
+	 * @param userId  用户ID
+	 * @param address 用户收货地址
 	 * @return 删除操作结果
 	 */
-	@ApiOperation(value = "删除收货地址",response = Rest.class)
+	@ApiOperation(value = "删除收货地址", response = Rest.class)
 	@PostMapping("/delete")
 	public Rest delete(@LoginUser Long userId, @RequestBody MallAddress address) {
 		if (userId == null) {
