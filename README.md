@@ -17,10 +17,10 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven
 
 ### 快速开始
 -------------
-1. 创建数据库AdminLTE-admin,导入resource/sql/AdminLTE-admin.sql
-2. cd ~/AdminLTE-admin
-3. mvn clean package -Dmaven.test.skip=true
-4. mvn jetty:run
+1. 创建数据库mall,导入resource/db/adminlte.sql
+2. 导入mall后台源码到eclispe
+3. 修改相关配置参数，mysql、redis等相关配置
+4. 运行 MallApplication 启动类
 5. http://localhost:8080,账号/密码:admin/123456
 
 ### 参考项目
