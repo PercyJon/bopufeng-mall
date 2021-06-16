@@ -19,7 +19,7 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven
 -------------
 1. 创建数据库mall,导入resource/db/adminlte.sql
 2. 导入mall后台源码到eclispe
-3. 修改相关配置参数，mysql、redis等相关配置
+3. 修改相关配置参数，mysql、redis等相关配置,修改workDir文件存储位置
 4. 运行 MallApplication 启动类
 5. http://localhost:8080,账号/密码:admin/admin123
 
