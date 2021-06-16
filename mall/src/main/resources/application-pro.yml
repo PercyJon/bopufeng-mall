@@ -17,7 +17,7 @@ spring:
       driverClassName: com.mysql.cj.jdbc.Driver
       druid:
          master:
-            url: jdbc:mysql://127.0.0.1:3306/adminlte?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+            url: jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
             username: root
             password: 123456
          slave:
