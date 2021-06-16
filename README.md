@@ -2,7 +2,7 @@
 ### mall 商城系统，包含小程序端和后台CRM管理控制台
 ### 项目说明
 -------------
-1. AdminLTE-admin是以SpringBoot+Shiro+Mybatis plus为核心开发的精简商城后台基础系统。
+1. mall商城是以SpringBoot+Shiro+Mybatis plus为核心开发的精简商城后台基础系统。
 2. 包含用户管理,角色管理,部门管理,权限管理,菜单管理等系统业务模块，及商城管理系统模块。
 3. 使用AdminLTE作为前端UI框架。
 4. 第三方Mybatis-plus作为ORM框架。
