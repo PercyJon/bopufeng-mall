@@ -188,14 +188,12 @@
 						</div>
 						<div class="box-body">
 							<div class="col-md-12">
-								<div>
-									<div class="pull-right display-none" id="backToChinaShow" style="position: relative; z-index: 11;">
-										<a class="btn btn-default btn-flat btn-xs" href="javascript:void();" onclick="backToChinaMap();">
-							              <i class="fa fa-repeat"></i> 返回全国地图
-							            </a>
-									</div>
-									<div style="height:600px" id="echarts-map-chart"></div>
+								<div class="pull-right display-none" id="backToChinaShow" style="position: relative; z-index: 11;">
+									<a class="btn btn-default btn-flat btn-xs" href="javascript:void();" onclick="backToChinaMap();">
+						              <i class="fa fa-repeat"></i> 返回全国地图
+						            </a>
 								</div>
+								<div style="height:600px" id="echarts-map-chart"></div>
 							</div>
 						</div>
 					</div>
@@ -1063,200 +1061,59 @@
 	});
 	
 	var dataChina = [
-		{
-            name: "南海诸岛",
-            value: 0
-        },
-        {
-            name: '北京市',
-            value: 154
-        },
-        {
-            name: '天津市',
-            value: 13
-        },
-        {
-            name: '上海市',
-            value: 40
-        },
-        {
-            name: '重庆市',
-            value: 75
-        },
-        {
-            name: '河北省',
-            value: 13
-        },
-        {
-            name: '河南省',
-            value: 83
-        },
-        {
-            name: '云南省',
-            value: 11
-        },
-        {
-            name: '辽宁省',
-            value: 19
-        },
-        {
-            name: '黑龙江省',
-            value: 15
-        },
-        {
-            name: '湖南省',
-            value: 69
-        },
-        {
-            name: '安徽省',
-            value: 60
-        },
-        {
-            name: '山东省',
-            value: 39
-        },
-        {
-            name: '新疆维吾尔自治区',
-            value: 4
-        },
-        {
-            name: '江苏省',
-            value: 31
-        },
-        {
-            name: '浙江省',
-            value: 104
-        },
-        {
-            name: '江西省',
-            value: 36
-        },
-        {
-            name: '湖北省',
-            value: 1052
-        },
-        {
-            name: '广西壮族自治区',
-            value: 33
-        },
-        {
-            name: '甘肃省',
-            value: 7
-        },
-        {
-            name: '山西省',
-            value: 9
-        },
-        {
-            name: '内蒙古自治区',
-            value: 7
-        },
-        {
-            name: '陕西省',
-            value: 22
-        },
-        {
-            name: '吉林省',
-            value: 4
-        },
-        {
-            name: '福建省',
-            value: 18
-        },
-        {
-            name: '贵州省',
-            value: 5
-        },
-        {
-            name: '广东省',
-            value: 98
-        },
-        {
-            name: '青海省',
-            value: 1
-        },
-        {
-            name: '西藏自治区',
-            value: 0
-        },
-        {
-            name: '四川省',
-            value: 44
-        },
-        {
-            name: '宁夏回族自治区',
-            value: 4
-        },
-        {
-            name: '海南省',
-            value: 22
-        },
-        {
-            name: '台湾省',
-            value: 3
-        },
-        {
-            name: '香港特别行政区',
-            value: 5
-        },
-        {
-            name: '澳门特别行政区',
-            value: 5
-        }
+		{ name: '北京市', value: Math.round(Math.random()*1000) },
+       	{ name: '天津市', value: Math.round(Math.random()*1000) },
+       	{ name: '上海市', value: Math.round(Math.random()*1000) },
+       	{ name: '重庆市', value: Math.round(Math.random()*1000) },
+       	{ name: '河北省', value: Math.round(Math.random()*1000) },
+       	{ name: '河南省', value: Math.round(Math.random()*1000) },
+       	{ name: '云南省', value: Math.round(Math.random()*1000) },
+       	{ name: '辽宁省', value: Math.round(Math.random()*1000) },
+       	{ name: '黑龙江省', value: Math.round(Math.random()*1000) },
+       	{ name: '湖南省', value: Math.round(Math.random()*1000) },
+       	{ name: '安徽省', value: Math.round(Math.random()*1000) },
+       	{ name: '山东省', value: Math.round(Math.random()*1000) },
+       	{ name: '新疆维吾尔自治区', value: Math.round(Math.random()*1000) },
+       	{ name: '江苏省', value: Math.round(Math.random()*1000) },
+       	{ name: '浙江省', value: Math.round(Math.random()*1000) },
+       	{ name: '江西省', value: Math.round(Math.random()*1000) },
+       	{ name: '湖北省', value: Math.round(Math.random()*1000) },
+       	{ name: '广西壮族自治区', value: Math.round(Math.random()*1000) },
+       	{ name: '甘肃省', value: Math.round(Math.random()*1000) },
+       	{ name: '山西省', value: Math.round(Math.random()*1000) },
+       	{ name: '内蒙古自治区', value: Math.round(Math.random()*1000) },
+       	{ name: '陕西省', value: Math.round(Math.random()*1000) },
+       	{ name: '吉林省', value: Math.round(Math.random()*1000) },
+       	{ name: '福建省', value: Math.round(Math.random()*1000) },
+       	{ name: '贵州省', value: Math.round(Math.random()*1000) },
+       	{ name: '广东省', value: Math.round(Math.random()*1000) },
+       	{ name: '青海省', value: Math.round(Math.random()*1000) },
+		{ name: '西藏自治区', value: Math.round(Math.random()*1000) },
+       	{ name: '四川省', value: Math.round(Math.random()*1000) },
+       	{ name: '宁夏回族自治区', value: Math.round(Math.random()*1000) },
+       	{ name: '海南省', value: Math.round(Math.random()*1000) },
+       	{ name: '台湾省', value: Math.round(Math.random()*1000) },
+       	{ name: '香港特别行政区', value: Math.round(Math.random()*1000) },
+       	{ name: '澳门特别行政区', value: Math.round(Math.random()*1000) }
     ];
     
     var dataBeijing = [
-    	{
-			"name": "丰台区",
-			"value": 23,
-		}, {
-			"name": "大兴区",
-			"value": 34,
-		}, {
-			"name": "东城区",
-			"value": 11,
-		}, {
-			"name": "通州区",
-			"value": 8,
-			"uvValue": 0
-		}, {
-			"name": "海淀区",
-			"value": 9,
-		}, {
-			"name": "平谷区",
-			"value": 23,
-		}, {
-			"name": "朝阳区",
-			"value": 44,
-		}, {
-			"name": "昌平区",
-			"value": 56,
-		}, {
-			"name": "房山区",
-			"value": 55,
-		}, {
-			"name": "延庆区",
-			"value": 78,
-		}, {
-			"name": "石景山区",
-			"value": 100,
-		}, {
-			"name": "怀柔区",
-			"value": 298,
-		}, {
-			"name": "西城区",
-			"value": 222,
-			"uvValue": 0
-		}, {
-			"name": "顺义区",
-			"value": 345,
-		}, {
-			"name": "门头沟区",
-			"value": 1322,
-		}, {
-			"name": "密云区",
-			"value": 25,
-		}
+    	{ name: "丰台区", value: Math.round(Math.random()*1000) }, 
+    	{ name: "大兴区", value: Math.round(Math.random()*1000) },
+    	{ name: "东城区", value: Math.round(Math.random()*1000) }, 
+    	{ name: "通州区", value: Math.round(Math.random()*1000) }, 
+    	{ name: "海淀区", value: Math.round(Math.random()*1000) },
+    	{ name: "平谷区", value: Math.round(Math.random()*1000) }, 
+    	{ name: "朝阳区", value: Math.round(Math.random()*1000) },
+    	{ name: "昌平区", value: Math.round(Math.random()*1000) },
+    	{ name: "房山区", value: Math.round(Math.random()*1000) },
+    	{ name: "延庆区", value: Math.round(Math.random()*1000) },
+    	{ name: "石景山区", value: Math.round(Math.random()*1000) },
+    	{ name: "怀柔区", value: Math.round(Math.random()*1000) },
+    	{ name: "西城区", value: Math.round(Math.random()*1000) },
+    	{ name: "顺义区", value: Math.round(Math.random()*1000) },
+    	{ name: "门头沟区", value: Math.round(Math.random()*1000) },
+    	{ name: "密云区", value: Math.round(Math.random()*1000) }
     ];
     
     var allAreaJsonMap = {
@@ -1316,7 +1173,13 @@
             },
             tooltip: {
                 trigger: 'item',
-                formatter: '{b}<br/>{c} (人)'
+                formatter: function(data){
+                    if(!isNaN(data.value)){
+                        return data.name + "："+ data.value + " (人)";
+                    } else {
+                    	return data.name + "：0 (人)";
+                    }
+                }
             },
             visualMap: {
             	min: 0,
