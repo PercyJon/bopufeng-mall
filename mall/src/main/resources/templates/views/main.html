@@ -1325,24 +1325,17 @@
                 bottom: 40,
                 showLabel: !0,
                 text: ["高", "低"],
-                pieces: [{
-                    gt: 1000,
-                    label: ">= 1000 人",
-                    color: "lightskyblue"
-                }, {
-                    gte: 100,
-                    lte: 999,
-                    label: "100 - 999 人",
-                    color: "#67ce5f"
-                }, {
-                    gte: 1,
-                    lt: 99,
-                    label: "1 - 99 人",
-                    color: "#c7e0bd"
-                }, {
-                    value: 0,
-                    color: "#ffffff"
-                }],
+                pieces: [
+                    { gte: 10000, label: '10000人以上', color: '#035cf5' }, // 不指定 max，表示 max 为无限大（Infinity）。
+                    { gte: 1000, lte: 9999, label: '1000-9999人', color: '#3375e4' },
+                    { gte: 500, lte: 999, label: '500-999人', color: '#6797ef' },
+                    { gte: 100, lte: 499, label: '100-499人', color: '#96b5ef' },
+                    { gte: 10, lte: 99, label: '10-99人', color: '#bacae8' },
+                    { lte: 9, label: '1-9人', color: '#d1d4da' } 
+  				],
+  				textStyle: {
+					color: '#737373'
+				},
                 show: !0
             },
             series: [
