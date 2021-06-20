@@ -599,8 +599,7 @@
 				if (value == null) {
 					return "";
 				}
-				return value.toString().replace(/(^\s*)|(\s*$)|\r|\n/g,
-						"");
+				return value.toString().replace(/(^\s*)|(\s*$)|\r|\n/g, "");
 			},
 			// 比较两个字符串（大小写敏感）
 			equals : function(str, that) {

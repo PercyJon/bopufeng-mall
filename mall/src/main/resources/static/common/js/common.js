@@ -154,7 +154,7 @@ $("body").delegate(".dialog", "click", function() {
 	$.modal.dialog_open(title, url, width, height);
 });
 
-//带有保存取消按钮
+//带有保存取消按钮 （全屏)
 $("body").delegate(".dialogFull", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
