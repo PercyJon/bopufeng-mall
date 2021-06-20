@@ -228,18 +228,33 @@ public class MyTest {
 					int tempY = originY;
 					int tempCharLen = 0;// 单字符长度
 					int tempLineLen = 0;// 单行字符总长度临时计算
+					boolean isFirstLine = true; // 首航缩进两个字符
+					int tempLineWidth = lineWidth;
 					StringBuffer stringBuffer = new StringBuffer();
 					for (int i = 0; i < textContent.length(); i++) {
 						char tempChar = textContent.charAt(i);
 						tempCharLen = getCharLen(tempChar, g);
-						if (tempLineLen >= lineWidth) {
-							// 绘制前一行
-							g.drawString(stringBuffer.toString(), tempX, tempY);
-							// 清空内容,重新追加
-							stringBuffer.delete(0, stringBuffer.length());
-							// 文字长度已经满一行,Y的位置加1字符高度
-							tempY = tempY + fontSize;
-							tempLineLen = 0;
+						if (isFirstLine) {
+							if (tempLineLen >= tempLineWidth - tempCharLen) {
+								// 绘制前一行
+								g.drawString(stringBuffer.toString(), tempX + tempCharLen, tempY);
+								// 清空内容,重新追加
+								stringBuffer.delete(0, stringBuffer.length());
+								// 文字长度已经满一行,Y的位置加1字符高度
+								tempY = tempY + fontSize;
+								tempLineLen = 0;
+								isFirstLine = false;
+							}
+						} else {
+							if (tempLineLen >= lineWidth) {
+								// 绘制前一行
+								g.drawString(stringBuffer.toString(), tempX, tempY);
+								// 清空内容,重新追加
+								stringBuffer.delete(0, stringBuffer.length());
+								// 文字长度已经满一行,Y的位置加1字符高度
+								tempY = tempY + fontSize;
+								tempLineLen = 0;
+							}
 						}
 						// 追加字符
 						stringBuffer.append(tempChar);
@@ -277,10 +292,9 @@ public class MyTest {
 
 	public static void main(String[] args) {
 		List<ImageTextContent> list = new ArrayList<ImageTextContent>();
-		ImageTextContent text1 = new ImageTextContent("宋体", Font.BOLD, Color.black, 35, "张三丰", 0, 500, "centerX", 340);
+		ImageTextContent text1 = new ImageTextContent("宋体", Font.BOLD, Color.black, 35, "张三丰", 0, 500, "centerX", 400);
 		String desc = "于2021年01月01日参加“企赢培训学校”举办的(股票管理大全XXXXXXXXXX)培训, 成绩合格, 恭喜你通过认证.";
-		ImageTextContent text2 = new ImageTextContent("宋体", Font.PLAIN, Color.black, 24, desc, 138, 580, "centerN",
-				340);
+		ImageTextContent text2 = new ImageTextContent("宋体", Font.PLAIN, Color.black, 25, desc, 110, 580, "centerN", 400);
 		list.add(text1);
 		list.add(text2);
 		new MyTest().waterPress("D:1\\1.jpg", "D:1\\2.jpg", list);
