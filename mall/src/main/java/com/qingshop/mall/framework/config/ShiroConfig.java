@@ -95,6 +95,12 @@ public class ShiroConfig {
 	private String unauthorizedUrl;
 
 	/**
+	 * redis数据库 存储索引
+	 */
+	@Value("${spring.redis.database}")
+	private int database;
+
+	/**
 	 * redis数据库 IP地址
 	 */
 	@Value("${spring.redis.host}")
@@ -128,7 +134,8 @@ public class ShiroConfig {
 		net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("mall-ehcache-shiro");
 		EhCacheManager em = new EhCacheManager();
 		if (StringUtils.isNull(cacheManager)) {
-			em.setCacheManager(new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream("classpath:ehcache/ehcache-shiro.xml")));
+			em.setCacheManager(new net.sf.ehcache.CacheManager(
+					getCacheManagerConfigFileInputStream("classpath:ehcache/ehcache-shiro.xml")));
 			return em;
 		} else {
 			em.setCacheManager(cacheManager);
@@ -147,7 +154,8 @@ public class ShiroConfig {
 			InputStream in = new ByteArrayInputStream(b);
 			return in;
 		} catch (IOException e) {
-			throw new ConfigurationException("Unable to obtain input stream for cacheManagerConfigFile [" + configFile + "]", e);
+			throw new ConfigurationException(
+					"Unable to obtain input stream for cacheManagerConfigFile [" + configFile + "]", e);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
@@ -158,10 +166,12 @@ public class ShiroConfig {
 	 */
 	public RedisManager redisManager() {
 		RedisManager redisManager = new RedisManager();
+		redisManager.setDatabase(database);
 		redisManager.setHost(host + ":" + port);
 		redisManager.setTimeout(timeout);
-		if (StringUtils.isNotBlank(password))
+		if (StringUtils.isNotBlank(password)) {
 			redisManager.setPassword(password);
+		}
 		return redisManager;
 	}
 
@@ -182,15 +192,29 @@ public class ShiroConfig {
 		if (redisrun) {
 			DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
 			sessionManager.setSessionDAO(redisSessionDAO());
+			sessionManager.setSessionIdCookie(sessionIdCookie());
 			return sessionManager;
 		} else {
 			DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+			sessionManager.setSessionIdCookie(sessionIdCookie());
 			sessionManager.setSessionValidationSchedulerEnabled(true);
 			sessionManager.setSessionIdUrlRewritingEnabled(false);
 			sessionManager.setSessionValidationInterval(globalSessionTimeout * 1000);
 			sessionManager.setGlobalSessionTimeout(globalSessionTimeout * 1000);
 			return sessionManager;
 		}
+	}
+
+	/**
+	 * 设置sessionIdCookie
+	 * 
+	 * @return
+	 */
+	private SimpleCookie sessionIdCookie() {
+		SimpleCookie cookie = new SimpleCookie();
+		cookie.setName("MALLID");
+		cookie.setHttpOnly(true);
+		return cookie;
 	}
 
 	/**
