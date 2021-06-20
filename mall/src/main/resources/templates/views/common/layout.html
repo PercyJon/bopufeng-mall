@@ -10,6 +10,7 @@
 		<meta http-equiv="Cache" content="no-cache">
 		<title>HT-ADMIN</title>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- 通用css引入 -->
 		<link rel="stylesheet" href="${request.contextPath}/plugins/bootstrap/css/bootstrap.css">
 		<link rel="stylesheet" href="${request.contextPath}/plugins/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${request.contextPath}/plugins/select2/select2.min.css">
@@ -34,10 +35,13 @@
 		<link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico">
 	</head>
 	<#macro body>
+		<!-- PhotoSwipe插件包裹元素 -->
 		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 		<#nested/>
 		</div>
+		<!-- 回到页面顶部  -->
 		<a id="scroll-up" href="#" class="btn btn-sm display"><i class="fa fa-angle-double-up"></i></a>
+		<!-- PhotoSwipe控件代码 -->
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="pswp__bg"></div>
 			<div class="pswp__scroll-wrap">
@@ -72,6 +76,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- 通用js引入 -->
 		<script src="${request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 		<script src="${request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 		<script src="${request.contextPath}/plugins/iCheck/icheck.min.js"></script>
