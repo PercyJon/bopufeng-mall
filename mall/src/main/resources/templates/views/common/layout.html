@@ -24,8 +24,7 @@
 		<link rel="stylesheet" href="${request.contextPath}/plugins/summernote/summernote.css">
 		<link rel="stylesheet" href="${request.contextPath}/plugins/summernote/tam-emoji/css/emoji.css">
 		<link rel="stylesheet" href="${request.contextPath}/plugins/jquery-ztree/3.5/css/metro/zTreeStyle.css">
-		<link rel="stylesheet" href="${request.contextPath}/plugins/photoswipe/default-skin/default-skin.css">
-		<link rel="stylesheet" href="${request.contextPath}/plugins/photoswipe/photoswipe.css">
+		<link rel="stylesheet" href="${request.contextPath}/plugins/magnific-popup/magnific-popup.css">
 		<link rel="stylesheet" href="${request.contextPath}/plugins/filelibrary/resource.css?v=1.0.0">
 		<link rel="stylesheet" href="${request.contextPath}/common/css/system.css?v=1.0.0">
 		<!--[if lt IE 9]>
@@ -35,47 +34,9 @@
 		<link rel="shortcut icon" href="${request.contextPath}/images/favicon.ico">
 	</head>
 	<#macro body>
-		<!-- PhotoSwipe插件包裹元素 -->
-		<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-			<#nested/> <!-- 嵌入页面内容 -->
-		</div>
+		<#nested/> <!-- 嵌入页面内容 -->
 		<!-- 回到页面顶部  -->
 		<a id="scroll-up" href="#" class="btn btn-sm display"><i class="fa fa-angle-double-up"></i></a>
-		<!-- PhotoSwipe控件代码 -->
-		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="pswp__bg"></div>
-			<div class="pswp__scroll-wrap">
-				<div class="pswp__container">
-					<div class="pswp__item"></div>
-					<div class="pswp__item"></div>
-					<div class="pswp__item"></div>
-				</div>
-				<div class="pswp__ui pswp__ui--hidden">
-					<div class="pswp__top-bar">
-						<div class="pswp__counter"></div>
-						<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-						<button class="pswp__button pswp__button--share" title="Share"></button>
-						<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-						<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-						<div class="pswp__preloader">
-							<div class="pswp__preloader__icn">
-								<div class="pswp__preloader__cut">
-									<div class="pswp__preloader__donut"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-						<div class="pswp__share-tooltip"></div> 
-					</div>
-					<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-					<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-					<div class="pswp__caption">
-						<div class="pswp__caption__center"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- 通用js引入 -->
 		<script src="${request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 		<script src="${request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -105,8 +66,7 @@
 		<script src="${request.contextPath}/plugins/art-template/art-template.js"></script>
 		<script src="${request.contextPath}/plugins/ddsort/ddsort.js"></script>
 		<script src="${request.contextPath}/plugins/webuploader/0.1.5/webuploader.min.js"></script>
-		<script src="${request.contextPath}/plugins/photoswipe/photoswipe-ui-default.min.js"></script>
-		<script src="${request.contextPath}/plugins/photoswipe/photoswipe.min.js"></script>
+		<script src="${request.contextPath}/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script src="${request.contextPath}/plugins/filelibrary/file.library.js"></script>
 		<script src="${request.contextPath}/plugins/filelibrary/resource.js?v=1.0.0"></script>
 		<script src="${request.contextPath}/common/js/common.js?v=1.0.0"></script>

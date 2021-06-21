@@ -539,11 +539,9 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var strhtml  = '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">'
-						strhtml += '	<a href="%s" itemprop="contentUrl">'
-						strhtml += '		<img src="%s" class="img-circle img-xs" itemprop="thumbnail"/>'
-						strhtml += '	</a>'
-						strhtml += '</figure>'
+					var	strhtml =  '<a class="magnific-image-single" href="%s">'
+						strhtml += '	<img src="%s" class="img-circle img-xs"/>'
+						strhtml += '</a>'
 					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
@@ -560,11 +558,9 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var strhtml  = '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">'
-						strhtml += '	<a href="%s" itemprop="contentUrl">'
-						strhtml += '		<img src="%s" class="img-square img-md" itemprop="thumbnail"/>'
-						strhtml += '	</a>'
-						strhtml += '</figure>'
+					var strhtml  = '<a class="magnific-image-single" href="%s">'
+						strhtml += '	<img src="%s" class="img-square img-md"/>'
+						strhtml += '</a>'
 					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
