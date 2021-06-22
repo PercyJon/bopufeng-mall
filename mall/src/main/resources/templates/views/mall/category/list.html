@@ -56,6 +56,12 @@
 			headerCallback: function(e, a, t, n, s) {
 				$(e.getElementsByTagName("th")).parent().css("background-color", "#f7f7fa");
 			},
+			drawCallback : function() {
+				// datatable 渲染图片查看
+			    $('.magnific-image-single').magnificPopup({
+					type:'image',
+				});
+			},
 			dom: "tr",
 			ajax: {
 				url: "/mall/category/listPage",
