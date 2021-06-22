@@ -455,8 +455,13 @@
 						$(e.getElementsByTagName("th")).parent().css("background-color", "#f7f7fa");
 					},
 					drawCallback : function() {
+						// datatable 渲染复选框
 						$('input[type=checkbox]').iCheck({
 							checkboxClass : 'icheckbox_minimal-blue',
+						});
+						// datatable 渲染图片查看
+					    $('.magnific-image-single').magnificPopup({
+							type:'image',
 						});
 					}
 				};
