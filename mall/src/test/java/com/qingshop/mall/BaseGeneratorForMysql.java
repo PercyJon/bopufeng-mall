@@ -19,7 +19,7 @@ import com.qingshop.mall.common.utils.StringUtils;
 /**
  * 代码生成器
  */
-public class MysqlGenerator {
+public class BaseGeneratorForMysql {
 	/**
 	 * <p>
 	 * 读取控制台内容
@@ -69,13 +69,14 @@ public class MysqlGenerator {
 				if (fieldType.toLowerCase().contains("datetime")) {
 					return DbColumnType.DATE;
 				}
-				if(fieldType.toLowerCase().contains("tinyint")) {
+				if (fieldType.toLowerCase().contains("tinyint")) {
 					return DbColumnType.INTEGER;
 				}
 				return super.processTypeConvert(globalConfig, fieldType);
 			}
 		});
-		dsc.setUrl("jdbc:mysql://192.168.80.171:3306/saas1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
+		dsc.setUrl(
+				"jdbc:mysql://192.168.80.171:3306/saas1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("hx_db_dev");
 		dsc.setPassword("hx20161024_!@#");
