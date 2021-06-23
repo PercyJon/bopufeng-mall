@@ -178,28 +178,23 @@ public class WxCartController extends BaseController {
 		if (number <= 0) {
 			return Rest.failure();
 		}
-
 		// 判断是否存在该购物项
 		MallCart existCart = mallCartService.getById(id);
 		if (existCart == null) {
 			return Rest.failure();
 		}
-
 		// 判断goodsId和skudetailId是否与当前cart里的值一致
 		if (!existCart.getGoodsId().equals(goodsId)) {
 			return Rest.failure();
 		}
-
 		if (!existCart.getSkudetailId().equals(skudetailId)) {
 			return Rest.failure();
 		}
-
 		// 判断商品是否可以购买
 		MallGoods goods = mallGoodService.getById(goodsId);
 		if (goods == null || goods.getIsShelf() != 1) {
 			return Rest.failure("商品已下架");
 		}
-
 		MallGoodsSkudetail skudetail = mallGoodsSkudetailService.getById(skudetailId);
 		if (skudetail == null || skudetail.getNumber() < number) {
 			return Rest.failure("库存不足");

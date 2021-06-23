@@ -45,7 +45,7 @@ public class WebMvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 		registry.addResourceHandler("/file/**").addResourceLocations(FILE_PROTOCOL + localPath + Constants.FILE_ + File.separator);
 
 		/** swagger配置 */
-		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+		registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 

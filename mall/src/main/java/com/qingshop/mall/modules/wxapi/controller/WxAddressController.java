@@ -79,44 +79,6 @@ public class WxAddressController extends BaseController {
 		return Rest.okData(data);
 	}
 
-	private Rest validate(MallAddress address) {
-		String name = address.getName();
-		if (StringUtils.isEmpty(name)) {
-			return Rest.failure("收货人不能为空");
-		}
-
-		// 测试收货手机号码是否正确
-		String mobile = address.getPhone();
-		if (StringUtils.isEmpty(mobile)) {
-			return Rest.failure("手机号不能为空");
-		}
-		if (Pattern.matches("/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\\\\d{8})$/", mobile)) {
-			return Rest.failure("手机号码格式不正确");
-		}
-
-		String province = address.getProvince();
-		if (StringUtils.isEmpty(province)) {
-			return Rest.failure();
-		}
-
-		String city = address.getCity();
-		if (StringUtils.isEmpty(city)) {
-			return Rest.failure();
-		}
-
-		String region = address.getRegion();
-		if (StringUtils.isEmpty(region)) {
-			return Rest.failure();
-		}
-
-		String detailedAddress = address.getDetail();
-		if (StringUtils.isEmpty(detailedAddress)) {
-			return Rest.failure("详细地址不能为空");
-		}
-
-		return null;
-	}
-
 	/**
 	 * 添加或更新收货地址
 	 *
@@ -203,8 +165,39 @@ public class WxAddressController extends BaseController {
 		if (AddressId == null) {
 			return Rest.failure();
 		}
-
 		mallAddressService.removeById(AddressId);
 		return Rest.ok();
+	}
+
+	private Rest validate(MallAddress address) {
+		String name = address.getName();
+		if (StringUtils.isEmpty(name)) {
+			return Rest.failure("收货人不能为空");
+		}
+		// 测试收货手机号码是否正确
+		String mobile = address.getPhone();
+		if (StringUtils.isEmpty(mobile)) {
+			return Rest.failure("手机号不能为空");
+		}
+		if (Pattern.matches("/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\\\\d{8})$/", mobile)) {
+			return Rest.failure("手机号码格式不正确");
+		}
+		String province = address.getProvince();
+		if (StringUtils.isEmpty(province)) {
+			return Rest.failure();
+		}
+		String city = address.getCity();
+		if (StringUtils.isEmpty(city)) {
+			return Rest.failure();
+		}
+		String region = address.getRegion();
+		if (StringUtils.isEmpty(region)) {
+			return Rest.failure();
+		}
+		String detailedAddress = address.getDetail();
+		if (StringUtils.isEmpty(detailedAddress)) {
+			return Rest.failure("详细地址不能为空");
+		}
+		return null;
 	}
 }

@@ -170,7 +170,7 @@ public class WxOrderController extends BaseController {
 	 * @return 详情数据
 	 */
 	@ApiOperation(value = "订单商品详情", response = Rest.class)
-	@RequestMapping("/detail")
+	@GetMapping("/detail")
 	public Rest detail(@LoginUser Long userId, Long orderId) {
 		try {
 			Map<String, Object> data = new HashMap<String, Object>();

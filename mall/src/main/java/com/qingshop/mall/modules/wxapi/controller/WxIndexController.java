@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,7 +55,7 @@ public class WxIndexController extends BaseController {
 	 * @return 首页数据
 	 */
 	@ApiOperation(value = "首页数据", response = Rest.class)
-	@RequestMapping("/page")
+	@GetMapping("/page")
 	public Rest page() {
 		try {
 			Map<String, Object> data = new HashMap<>();
@@ -71,18 +72,22 @@ public class WxIndexController extends BaseController {
 			couponEw.orderByDesc("create_time");
 			IPage<MallCoupon> couponPageData = mallCouponService.page(pages, couponEw);
 			List<MallCoupon> couponList = couponPageData.getRecords();
-			List<Long> categoryIdList = couponList.stream().filter(m -> m.getRangeType() == 1).map(m -> (Long) m.getRangeRelationId()).collect(Collectors.toList());
+			List<Long> categoryIdList = couponList.stream().filter(m -> m.getRangeType() == 1)
+					.map(m -> (Long) m.getRangeRelationId()).collect(Collectors.toList());
 			List<MallCategory> categoryList = new ArrayList<>();
 			if (!StringUtils.isEmpty(categoryIdList)) {
 				categoryList = (List<MallCategory>) mallCategoryService.listByIds(categoryIdList);
 			}
-			Map<Long, MallCategory> goodTypeMapMap = categoryList.stream().collect(Collectors.toMap(MallCategory::getCategoryId, m -> m));
-			List<Long> goodIdList = couponList.stream().filter(m -> m.getRangeType() == 2).map(m -> (Long) m.getRangeRelationId()).collect(Collectors.toList());
+			Map<Long, MallCategory> goodTypeMapMap = categoryList.stream()
+					.collect(Collectors.toMap(MallCategory::getCategoryId, m -> m));
+			List<Long> goodIdList = couponList.stream().filter(m -> m.getRangeType() == 2)
+					.map(m -> (Long) m.getRangeRelationId()).collect(Collectors.toList());
 			List<MallGoods> goodList = new ArrayList<>();
 			if (!StringUtils.isEmpty(goodIdList)) {
 				goodList = (List<MallGoods>) mallGoodsService.listByIds(goodIdList);
 			}
-			Map<Long, MallGoods> goodMapMap = goodList.stream().collect(Collectors.toMap(MallGoods::getGoodsId, m -> m));
+			Map<Long, MallGoods> goodMapMap = goodList.stream()
+					.collect(Collectors.toMap(MallGoods::getGoodsId, m -> m));
 			Iterator<MallCoupon> couponIterator = couponList.iterator();
 			while (couponIterator.hasNext()) {
 				MallCoupon coupon = couponIterator.next();
@@ -130,7 +135,7 @@ public class WxIndexController extends BaseController {
 	 * @return 首页数据
 	 */
 	@ApiOperation(value = "首页加载更多数据", response = Rest.class)
-	@RequestMapping("/getlist")
+	@GetMapping("/getlist")
 	public Rest getlist(Integer page) {
 		try {
 			Map<String, Object> data = new HashMap<>();

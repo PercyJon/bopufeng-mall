@@ -25,14 +25,11 @@ public class SwaggerConfig {
 	@Bean
 	public Docket createRestApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				// 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
-				.apiInfo(apiInfo())
-				// 设置哪些接口暴露给Swagger展示
-				.select()
-				// 扫描所有有注解的api，用这种方式更灵活
-				.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+				.apiInfo(apiInfo())  // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
+				.select() // 设置哪些接口暴露给Swagger展示
+				.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)) // 扫描所有有注解的api，用这种方式更灵活
 				// 扫描指定包中的swagger注解
-				// .apis(RequestHandlerSelectors.basePackage("com.qingcong.mall.project.tool.swagger"))
+				// .apis(RequestHandlerSelectors.basePackage("com.qingcong.mall.controller"))
 				// 扫描所有 .apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.any()).build();
 	}
@@ -43,13 +40,9 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		// 用ApiInfoBuilder进行定制
 		return new ApiInfoBuilder()
-				// 设置标题
-				.title("微信小程序接口文档")
-				// 描述
-				.description("用于对接微信小程序接口")
-				// 作者信息
-				.contact(new Contact("qingshop", null, null))
-				// 版本
-				.version("版本号: 1.0.0").build();
+				.title("微信小程序接口文档") // 设置标题
+				.description("用于对接微信小程序接口") // 描述
+				.contact(new Contact("mall", null, null)) // 作者信息
+				.version("版本号: 1.0.0").build(); // 版本
 	}
 }

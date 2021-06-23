@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,7 +62,7 @@ public class WxGoodsController extends BaseController {
 	 * @return 商品列表
 	 */
 	@ApiOperation(value = "商品列表", response = Rest.class)
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public Rest list(Integer page, String sortType, Integer sortPrice, Long category_id, String search) {
 		try {
 			Map<String, Object> data = new HashMap<>();
@@ -109,13 +110,14 @@ public class WxGoodsController extends BaseController {
 	 * @return 详情数据
 	 */
 	@ApiOperation(value = "商品详情", response = Rest.class)
-	@RequestMapping("/detail")
+	@GetMapping("/detail")
 	public Rest detail(Long goods_id) {
 		try {
 			Map<String, Object> data = new HashMap<String, Object>();
 			MallGoods mallGood = mallGoodService.getById(goods_id);
 			List<String> pictureList = (List<String>) JsonUtils.parseArray(mallGood.getGallery(), String.class);
-			List<MallGoodsSku> skuList = mallGoodsSkuService.list(new QueryWrapper<MallGoodsSku>().eq("goods_id", goods_id));
+			List<MallGoodsSku> skuList = mallGoodsSkuService
+					.list(new QueryWrapper<MallGoodsSku>().eq("goods_id", goods_id));
 			// 数据分组
 			Map<String, List<MallGoodsSku>> skuMap = new HashMap<String, List<MallGoodsSku>>();
 			for (MallGoodsSku mallGoodsSku : skuList) {
@@ -136,7 +138,8 @@ public class WxGoodsController extends BaseController {
 			}
 			Map<String, Object> spec_attr = new HashMap<String, Object>();
 			spec_attr.put("spec_attr", groupList);
-			List<MallGoodsSkudetail> skuDetailList = mallGoodsSkudetailService.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", goods_id));
+			List<MallGoodsSkudetail> skuDetailList = mallGoodsSkudetailService
+					.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", goods_id));
 			// 商品评价
 			Page<MallComment> pages = this.getPage(1, 2);
 			QueryWrapper<MallComment> ew = new QueryWrapper<MallComment>();
@@ -149,7 +152,8 @@ public class WxGoodsController extends BaseController {
 			Map<Long, Object> userMap = new HashMap<>();
 			if (!StringUtils.isEmpty(userIds)) {
 				List<MallUser> userList = (List<MallUser>) mallUserService.listByIds(userIds);
-				userMap = userList.stream().collect(Collectors.toMap(MallUser::getUserId, a -> a.getNickname(), (k1, k2) -> k1));
+				userMap = userList.stream()
+						.collect(Collectors.toMap(MallUser::getUserId, a -> a.getNickname(), (k1, k2) -> k1));
 			}
 			List<Map<String, Object>> goodsComment = new ArrayList<>();
 			for (MallComment mallComment : goodsCommentList) {
@@ -179,11 +183,12 @@ public class WxGoodsController extends BaseController {
 	 * @return 分类数据
 	 */
 	@ApiOperation(value = "分类数据", response = Rest.class)
-	@RequestMapping("/categorylist")
+	@GetMapping("/categorylist")
 	public Rest getlist(Integer page) {
 		try {
 			Map<String, Object> data = new HashMap<>();
-			List<MallCategory> categoryList = mallCategoryService.list(new QueryWrapper<MallCategory>().eq("parent_id", 0L));
+			List<MallCategory> categoryList = mallCategoryService
+					.list(new QueryWrapper<MallCategory>().eq("parent_id", 0L));
 			List<Object> list = new ArrayList<>();
 			for (MallCategory mallCategory : categoryList) {
 				JSONObject treeObject = new JSONObject(true);
@@ -204,8 +209,8 @@ public class WxGoodsController extends BaseController {
 
 	public List<Object> getChildren(Long parentId) {
 		List<Object> list = new ArrayList<>();
-		List<MallCategory> children = mallCategoryService.list(new QueryWrapper<MallCategory>().eq("parent_id", parentId));
-		;
+		List<MallCategory> children = mallCategoryService
+				.list(new QueryWrapper<MallCategory>().eq("parent_id", parentId));
 		for (MallCategory mallCategory : children) {
 			JSONObject obj = new JSONObject(true);
 			obj.put("category_id", mallCategory.getCategoryId());

@@ -75,8 +75,7 @@ public class BaseGeneratorForMysql {
 				return super.processTypeConvert(globalConfig, fieldType);
 			}
 		});
-		dsc.setUrl(
-				"jdbc:mysql://192.168.80.171:3306/saas1?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8");
+		dsc.setUrl("jdbc:mysql://192.168.80.171:3306/saas1?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("hx_db_dev");
 		dsc.setPassword("hx20161024_!@#");
