@@ -43,7 +43,6 @@ public class WebMvcConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 		String localPath = workDir.endsWith(File.separator) ? workDir : workDir + File.separator;
 		/** 本地文件上传路径 */
 		registry.addResourceHandler("/file/**").addResourceLocations(FILE_PROTOCOL + localPath + Constants.FILE_ + File.separator);
-
 		/** swagger配置 */
 		registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
