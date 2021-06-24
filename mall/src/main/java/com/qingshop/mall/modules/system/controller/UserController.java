@@ -38,10 +38,13 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private ISysUserService sysUserService;
+	
 	@Autowired
 	private ISysRoleService sysRoleService;
+	
 	@Autowired
 	private ISysUserRoleService sysUserRoleService;
+	
 	@Autowired
 	private ISysDeptService sysDeptService;
 
