@@ -55,10 +55,11 @@ public class OrderController extends BaseController {
 			ew.like("name", search);
 		}
 		ew.orderByDesc("create_time");
-		IPage<Map<String, Object>> pageData = mallOrderService.pageMaps(page, ew);
-		List<Map<String, Object>> lits = pageData.getRecords();
-		List<Long> orderIdList = lits.stream().map(m -> (Long) m.get("orderId")).collect(Collectors.toList());
-		List<MallOrderDetail> orderDetailLit = mallOrderDetailService.list(new QueryWrapper<MallOrderDetail>().in("order_id", orderIdList));
+		IPage<MallOrder> pageData = mallOrderService.page(page, ew);
+		List<MallOrder> lits = pageData.getRecords();
+		List<Long> orderIdList = lits.stream().map(m -> (Long) m.getOrderId()).collect(Collectors.toList());
+		List<MallOrderDetail> orderDetailLit = mallOrderDetailService
+				.list(new QueryWrapper<MallOrderDetail>().in("order_id", orderIdList));
 		Map<String, MallOrderDetail> detailMap = new HashMap<String, MallOrderDetail>();
 		for (MallOrderDetail mallOrderDetail : orderDetailLit) {
 			String orderId = mallOrderDetail.getOrderId().toString();
@@ -70,11 +71,11 @@ public class OrderController extends BaseController {
 				detailMap.put(orderId, mallOrderDetail);
 			}
 		}
-		for (Map<String, Object> map : lits) {
-			String order = map.get("orderId").toString();
-			MallOrderDetail mallOrderDetail = detailMap.get(order);
-			map.put("picUrl", mallOrderDetail.getPicUrl());
-			map.put("number", mallOrderDetail.getNumber());
+		for (MallOrder order : lits) {
+			String orderId = order.getOrderId().toString();
+			MallOrderDetail mallOrderDetail = detailMap.get(orderId);
+			order.setPicUrl(mallOrderDetail.getPicUrl());
+			order.setNumber(mallOrderDetail.getNumber());
 		}
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());
@@ -86,7 +87,8 @@ public class OrderController extends BaseController {
 	@RequestMapping("/detail/{id}")
 	public String orderDetail(@PathVariable Long id, Model model) {
 		MallOrder mallOrder = mallOrderService.getById(id);
-		List<MallOrderDetail> orderDetailLit = mallOrderDetailService.list(new QueryWrapper<MallOrderDetail>().eq("order_id", id));
+		List<MallOrderDetail> orderDetailLit = mallOrderDetailService
+				.list(new QueryWrapper<MallOrderDetail>().eq("order_id", id));
 		model.addAttribute("mallOrder", mallOrder);
 		model.addAttribute("orderDetailLit", orderDetailLit);
 		return "mall/order/detail";

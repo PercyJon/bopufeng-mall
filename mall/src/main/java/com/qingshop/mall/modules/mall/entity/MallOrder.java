@@ -5,9 +5,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 订单表
@@ -107,6 +110,8 @@ public class MallOrder implements Serializable {
 	 * 微信付款时间
 	 */
 	@TableField("pay_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date payTime;
 
 	/**
@@ -125,34 +130,50 @@ public class MallOrder implements Serializable {
 	 * 发货开始时间
 	 */
 	@TableField("ship_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date shipTime;
 
 	/**
 	 * 用户确认收货时间
 	 */
 	@TableField("confirm_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date confirmTime;
 
 	/**
 	 * 订单关闭时间
 	 */
 	@TableField("end_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date endTime;
 
 	/**
 	 * 创建时间
 	 */
 	@TableField("create_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
 	@TableField("update_time")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
 	private Date updateTime;
 
 	@TableField(exist = false)
 	private List<MallOrderDetail> goods;
+	
+	@TableField(exist = false)
+	private String picUrl;
+	
+	@TableField(exist = false)
+	private Integer number;
 
 	public Long getOrderId() {
 		return orderId;
@@ -346,10 +367,20 @@ public class MallOrder implements Serializable {
 		this.goods = goods;
 	}
 
-	@Override
-	public String toString() {
-		return "MallOrder{" + "orderId=" + orderId + ", userId=" + userId + ", orderSn=" + orderSn + ", orderStatus=" + orderStatus + ", payStatus=" + payStatus + ", shipStatus=" + shipStatus + ", consignee=" + consignee + ", mobile=" + mobile + ", address=" + address + ", message=" + message
-				+ ", totalPrice=" + totalPrice + ", shipPrice=" + shipPrice + ", couponPrice=" + couponPrice + ", orderPrice=" + orderPrice + ", payId=" + payId + ", payTime=" + payTime + ", shipSn=" + shipSn + ", shipChannel=" + shipChannel + ", shipTime=" + shipTime + ", confirmTime="
-				+ confirmTime + ", endTime=" + endTime + ", createTime=" + createTime + ", updateTime=" + updateTime + "}";
+	public String getPicUrl() {
+		return picUrl;
 	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	
 }

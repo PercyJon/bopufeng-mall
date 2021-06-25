@@ -58,13 +58,15 @@ public class StockController extends BaseController {
 			ew.like("good_name", search);
 		}
 		ew.orderByDesc("create_time");
-		IPage<Map<String, Object>> pageData = mallGoodsServic.pageMaps(page, ew);
-		List<Map<String, Object>> list = pageData.getRecords();
-		List<Long> goodIdList = list.stream().map(m -> (Long) m.get("goodsId")).collect(Collectors.toList());
-		List<Map<String, Object>> skudetails = mallGoodsSkudetailService.listMaps(new QueryWrapper<MallGoodsSkudetail>().in("goods_id", goodIdList));
-		Map<Object, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors.groupingBy(m -> m.get("goodsId"), Collectors.summingInt(m -> Integer.valueOf(m.get("number").toString()))));
-		for (Map<String, Object> mallGoods : list) {
-			mallGoods.put("stockNum", skudetailSumMaps.get(mallGoods.get("goodsId")));
+		IPage<MallGoods> pageData = mallGoodsServic.page(page, ew);
+		List<MallGoods> list = pageData.getRecords();
+		List<Long> goodIdList = list.stream().map(m -> (Long) m.getGoodsId()).collect(Collectors.toList());
+		List<MallGoodsSkudetail> skudetails = mallGoodsSkudetailService
+				.list(new QueryWrapper<MallGoodsSkudetail>().in("goods_id", goodIdList));
+		Map<Long, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors
+				.groupingBy(MallGoodsSkudetail::getGoodsId, Collectors.summingInt(MallGoodsSkudetail::getNumber)));
+		for (MallGoods mallGoods : list) {
+			mallGoods.setStockNum(skudetailSumMaps.get(mallGoods.getGoodsId()));
 		}
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());
@@ -78,7 +80,8 @@ public class StockController extends BaseController {
 	@RequiresPermissions("listStock")
 	@RequestMapping("/detail/{id}")
 	public String edit(@PathVariable Long id, Model model) {
-		List<MallGoodsSkudetail> skudetails = mallGoodsSkudetailService.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", id));
+		List<MallGoodsSkudetail> skudetails = mallGoodsSkudetailService
+				.list(new QueryWrapper<MallGoodsSkudetail>().eq("goods_id", id));
 		model.addAttribute("skudetails", skudetails);
 		return "mall/stock/detail";
 	}
