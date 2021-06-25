@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qingshop.mall.common.bean.Rest;
-import com.qingshop.mall.common.exception.BusinessException;
 import com.qingshop.mall.common.utils.ServletUtils;
 
 /**
