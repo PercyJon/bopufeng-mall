@@ -77,7 +77,7 @@ mybatis-plus:
    global-config:
       banner: false
       db-config:
-         id-type: 1
+         id-type: INPUT #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
    configuration:
       map-underscore-to-camel-case: false
       cache-enabled: true
