@@ -37,10 +37,10 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">类目图片</label>
 				<div class="col-sm-10">
-					<button type="button" class="upload-file btn btn-w-m btn-info">
+					<button type="button" class="btn btn-w-m btn-info">
 						<i class="fa fa-cloud-download"></i>&nbsp;选择图片
 					</button>
-					<div class="uploader-list clearfix"></div>
+					<div class="clearfix"></div>
 					<span class="help-block m-b-none">
 						<i class="fa fa-info-circle"></i>尺寸750x750像素以上，大小2M以下（1张）
 					</span>
@@ -56,16 +56,7 @@
 	</form>
 </div>
 </@body> 
-<#include "/common/filelibrary.html"> 
 <script type="text/javascript">
-	//选择图片
-	$('.upload-file').selectImages({
-		name : 'picUrl',
-		imagesList : '.uploader-list',
-		multiple : false,
-		limitNum : 1
-	});
-
 	//功能栏编码自动填充
 	$("#parentId").on('change', function() {
 		var pid = $(this).val();

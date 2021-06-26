@@ -59,8 +59,8 @@
 						<div class="form-group">
 							<label for="picUrl" class="col-sm-2 col-md-1 control-label">商品图片</label>
 							<div class="col-sm-10 col-md-11">
-								<button type="button" class="upload-file1 btn btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
-								<div class="uploader-list1 clearfix">
+								<button type="button" class="btn btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
+								<div class="clearfix">
 								</div>
 								<span class="help-block m-b-none"><i class="fa fa-info-circle"></i>尺寸750x750像素以上，大小2M以下</span>
 							</div>
@@ -68,8 +68,8 @@
 						<div class="form-group">
 							<label for="gallery" class="col-sm-2 col-md-1 control-label">宣传画廊</label>
 							<div class="col-sm-10 col-md-11">
-								<button type="button"  class="upload-file btn btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
-								<div class="uploader-list clearfix">
+								<button type="button"  class="btn btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
+								<div class="clearfix">
 								</div>
 								<span class="help-block m-b-none"><i class="fa fa-info-circle"></i>尺寸750x750像素以上，大小2M以下（3张）</span>
 							</div>
@@ -189,7 +189,6 @@
 		</section>
 	</div>
 </body
-<#include "/common/filelibrary.html">>
 </@body> 
 <script type="text/javascript">
 	//切换规格方式
@@ -202,29 +201,7 @@
 			$("#secification-many").show();
 		}
 	});
-	//选择图片
-	$('.upload-file').selectImages({
-		name: 'gallery'
-		, imagesList: '.uploader-list'
-		, multiple: true
-		, limitNum: 3
-	});
-	// 图片列表拖动
-	$('.uploader-list').DDSort({
-		target: '.file-item',
-		delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
-		floatStyle: {
-			'border': '1px solid #ccc',
-			'background-color': '#fff'
-		}
-	});
-	// 选择图片
-	$('.upload-file1').selectImages({
-		name: 'picUrl'
-		, imagesList: '.uploader-list1'
-		, multiple: false
-		, limitNum: 1
-	});
+	
 	document.emojiSource = '/plugins/summernote/tam-emoji/img';
 	var MyphotoButton = function (context) {
 		var ui = $.summernote.ui;
@@ -237,6 +214,7 @@
 		});
 		return button.render();    //按钮渲染
 	}
+	
 	//富文本编辑器
 	$('.summernote').summernote({
 		toolbar: [

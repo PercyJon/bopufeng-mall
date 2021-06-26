@@ -267,7 +267,6 @@
 	</div>
 </body>
 </@body>
-<#include "/common/filelibrary.html">
 <script type="text/javascript">
 	//切换规格方式
 	$('input:radio[name="specType"]').on('ifChecked', function (e) {
@@ -279,29 +278,7 @@
 	   		$("#secification-many").show();
 	     }
 	});
-	//选择图片
-	$('.upload-file').selectImages({
-	    name: 'gallery'
-		, imagesList: '.uploader-list'
-	    , multiple: true
-	    , limitNum: 3
-	});
-	// 图片列表拖动
-	$('.uploader-list').DDSort({
-	    target: '.file-item',
-	    delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
-	    floatStyle: {
-	        'border': '1px solid #ccc',
-	        'background-color': '#fff'
-	    }
-	});
-	// 选择图片
-	$('.upload-file1').selectImages({
-	    name: 'picUrl'
-	    , imagesList: '.uploader-list1'
-	    , multiple: false
-	    , limitNum: 1
-	});
+	
 	document.emojiSource = '/plugins/summernote/tam-emoji/img';
 	var MyphotoButton = function (context) {
 	    var ui = $.summernote.ui;
@@ -314,6 +291,7 @@
 	    });
 	    return button.render();    //按钮渲染
 	}
+	
 	//富文本编辑器
 	$('.summernote').summernote({
 	  	toolbar: [

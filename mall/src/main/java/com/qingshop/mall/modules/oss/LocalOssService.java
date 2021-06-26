@@ -14,8 +14,8 @@ import com.qingshop.mall.common.utils.DateUtils;
 import com.qingshop.mall.common.utils.FileUtil;
 import com.qingshop.mall.common.utils.PropertiesUtil;
 import com.qingshop.mall.common.utils.UUIDUtil;
-import com.qingshop.mall.modules.system.entity.SysUploadFile;
 import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.modules.system.vo.SysUploadFile;
 import com.qiniu.util.IOUtils;
 
 /**
@@ -33,10 +33,15 @@ public class LocalOssService extends OssService {
 		String realPath = getRealPath(path, date);
 		try (FileOutputStream os = new FileOutputStream(realPath)) {
 			FileCopyUtils.copy(data, os);
-			String localDomain = config.getLocalDomain().endsWith("/") ? config.getLocalDomain() : config.getLocalDomain() + "/";
+			boolean localEnd = config.getLocalDomain().endsWith("/");
+			String localDomain = localEnd ? config.getLocalDomain() : config.getLocalDomain() + "/";
 			String filePath = Constants.FILE_ + "/" + date + "/" + path;
 			SysUploadFile sysFile = new SysUploadFile();
-			sysFile.withFilePath(filePath).withFileFullPath(localDomain + filePath).withFileName(path).withFileType(getFileType(path)).withOssType(OssTypeEnum.LOCAL.getValue());
+			sysFile.setFilePath(filePath);
+			sysFile.setFileUrl(localDomain + filePath);
+			sysFile.setFileName(path);
+			sysFile.setFileType(getFileType(path));
+			sysFile.setOssType(OssTypeEnum.LOCAL.getValue());
 			return sysFile;
 		} catch (Exception e) {
 			throw new OssException("上传本地文件失败", e);
@@ -72,7 +77,8 @@ public class LocalOssService extends OssService {
 	}
 
 	private String getRealPath(String path, String pre) {
-		String dir = PropertiesUtil.getString(Constants.WORK_DIR_KEY) + File.separator + Constants.FILE_ + File.separator + pre;
+		String workDirKey = PropertiesUtil.getString(Constants.WORK_DIR_KEY);
+		String dir = workDirKey + File.separator + Constants.FILE_ + File.separator + pre;
 		if (!FileUtil.exists(dir)) {
 			try {
 				FileUtil.createDir(dir);

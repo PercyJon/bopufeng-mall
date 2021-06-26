@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 22/06/2021 14:24:07
+ Date: 09/07/2021 11:39:38
 */
 
 SET NAMES utf8mb4;
@@ -4557,7 +4557,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'IWK4RG5GD10DAQQ1624342305343', 1624342537617, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('quartzScheduler', 'IWK4RG5GD10DAQQ1625733148968', 1625733249082, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -4626,9 +4626,9 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1624342320000, -1, 5, 'PAUSED', 'CRON', 1624342306000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1624342320000, -1, 5, 'PAUSED', 'CRON', 1624342306000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1624342800000, -1, 5, 'WAITING', 'CRON', 1624342306000, 0, NULL, -1, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', 'TASK_CLASS_NAME1309740688736289', 'DEFAULT', NULL, 1625733150000, -1, 5, 'PAUSED', 'CRON', 1625733150000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', 'TASK_CLASS_NAME1317342451597345', 'DEFAULT', NULL, 1625733180000, -1, 5, 'PAUSED', 'CRON', 1625733151000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('quartzScheduler', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', 'TASK_CLASS_NAME1325811959332897', 'DEFAULT', NULL, 1625733600000, -1, 5, 'WAITING', 'CRON', 1625733151000, 0, NULL, -1, '');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -9117,69 +9117,6 @@ INSERT INTO `sys_role_menu` VALUES (1357746270110657, 1347010798026785, 13577002
 INSERT INTO `sys_role_menu` VALUES (1357746270110689, 1347010798026785, 1357700489281569, '2020-07-07 15:57:53', '2020-07-07 15:57:53');
 INSERT INTO `sys_role_menu` VALUES (1357746270110721, 1347010798026785, 1357738581950497, '2020-07-07 15:57:53', '2020-07-07 15:57:53');
 INSERT INTO `sys_role_menu` VALUES (1357746270110753, 1347010798026785, 1357743352971297, '2020-07-07 15:57:53', '2020-07-07 15:57:53');
-
--- ----------------------------
--- Table structure for sys_upload_file
--- ----------------------------
-DROP TABLE IF EXISTS `sys_upload_file`;
-CREATE TABLE `sys_upload_file`  (
-  `file_id` bigint(20) NOT NULL COMMENT '文件id',
-  `group_id` bigint(20) NOT NULL DEFAULT 0 COMMENT '文件分组id',
-  `file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '存储域名',
-  `original_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '原始文件名',
-  `oss_type` tinyint(3) NOT NULL COMMENT '存储方式',
-  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件名',
-  `file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件路径',
-  `file_size` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '文件大小(字节)',
-  `file_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件类型',
-  `file_hash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件hash',
-  `is_delete` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '软删除',
-  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  PRIMARY KEY (`file_id`) USING BTREE,
-  UNIQUE INDEX `file_path`(`file_path`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件存储表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_upload_file
--- ----------------------------
-INSERT INTO `sys_upload_file` VALUES (1343751096107041, 0, 'http://localhost:8080/file/20200421/XHWFypn0.png', '花海.png', 0, 'XHWFypn0.png', 'file/20200421/XHWFypn0.png', 1508485, '.png', 'bc19c41dc32e7599fd00c933d3e67b42', 0, '2020-04-21 10:14:14', '2020-07-07 15:49:02');
-INSERT INTO `sys_upload_file` VALUES (1344144081420321, 1344144031088673, 'http://localhost:8080/file/20200423/p3xhejZ0.jpg', '沙发茶几.jpg', 0, 'p3xhejZ0.jpg', 'file/20200423/p3xhejZ0.jpg', 60421, '.jpg', '2304e4163f261eba0f85e7fc83318cb9', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:27');
-INSERT INTO `sys_upload_file` VALUES (1344144081420353, 1344144031088673, 'http://localhost:8080/file/20200423/u1XLPrcq.jpg', '餐具组合.jpg', 0, 'u1XLPrcq.jpg', 'file/20200423/u1XLPrcq.jpg', 41541, '.jpg', 'a385471d08055cc425fe9b93d541b088', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:30');
-INSERT INTO `sys_upload_file` VALUES (1344144081420385, 1344144031088673, 'http://localhost:8080/file/20200423/ldo1HHGd.jpg', '清洁用具.jpg', 0, 'ldo1HHGd.jpg', 'file/20200423/ldo1HHGd.jpg', 109198, '.jpg', '8ffeffeda40d7d2595918df0ce9b31d6', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:35');
-INSERT INTO `sys_upload_file` VALUES (1344144081420417, 1344144031088673, 'http://localhost:8080/file/20200423/fNR2mJj7.jpg', '洗衣机.jpg', 0, 'fNR2mJj7.jpg', 'file/20200423/fNR2mJj7.jpg', 92736, '.jpg', '09f0b722280d10a1761350ea398c339c', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:39');
-INSERT INTO `sys_upload_file` VALUES (1344144081420449, 1344144031088673, 'http://localhost:8080/file/20200423/ejWhYXoL.jpg', '桌椅组合.jpg', 0, 'ejWhYXoL.jpg', 'file/20200423/ejWhYXoL.jpg', 102523, '.jpg', 'e7d95a3e3b906d907cd679215aa73e25', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:43');
-INSERT INTO `sys_upload_file` VALUES (1344144081420481, 1344144031088673, 'http://localhost:8080/file/20200423/7etFMqD2.jpg', '电风扇.jpg', 0, '7etFMqD2.jpg', 'file/20200423/7etFMqD2.jpg', 24966, '.jpg', 'e46c197216f912acdaf27c846a99da8b', 0, '2020-04-23 14:17:24', '2020-07-07 15:49:48');
-INSERT INTO `sys_upload_file` VALUES (1344145283088417, 0, 'http://localhost:8080/file/20200423/Q5bPrM8m.jpg', '沙发.jpg', 0, 'Q5bPrM8m.jpg', 'file/20200423/Q5bPrM8m.jpg', 42337, '.jpg', 'efc5c0001f4a6d076f40e1fb49e41ae2', 0, '2020-04-23 14:26:57', '2020-07-07 15:49:52');
-INSERT INTO `sys_upload_file` VALUES (1344145492803617, 0, 'http://localhost:8080/file/20200423/VXI6lcRK.jpg', '落地窗.jpg', 0, 'VXI6lcRK.jpg', 'file/20200423/VXI6lcRK.jpg', 22631, '.jpg', 'a8f0e3a7554fac7da20f11f1c1fed2e6', 0, '2020-04-23 14:28:37', '2020-07-07 15:49:56');
-INSERT INTO `sys_upload_file` VALUES (1347551387189281, 0, 'http://localhost:8080/file/20200512/XQSR2K06.png', 'win10.png', 0, 'XQSR2K06.png', 'file/20200512/XQSR2K06.png', 508448, '.png', '0907a472d53c28c67e82be10a6d0202a', 0, '2020-05-12 09:36:14', '2020-07-07 15:50:01');
-INSERT INTO `sys_upload_file` VALUES (1347551638847521, 0, 'http://localhost:8080/file/20200512/ZHQUWNBB.jpg', '美女.jpg', 0, 'ZHQUWNBB.jpg', 'file/20200512/ZHQUWNBB.jpg', 37209, '.jpg', 'e22bec4868654bd05b737d66bb644d5c', 0, '2020-05-12 09:38:14', '2020-07-07 15:50:07');
-INSERT INTO `sys_upload_file` VALUES (1376223018090529, 0, 'http://localhost:8080/file/20201017/wMhhxtWZ.jpg', '桌椅组合.jpg', 0, 'wMhhxtWZ.jpg', 'file/20201017/wMhhxtWZ.jpg', 102523, '.jpg', 'e7d95a3e3b906d907cd679215aa73e25', 0, '2020-10-17 15:17:53', '2020-10-17 15:17:53');
-INSERT INTO `sys_upload_file` VALUES (1376543183994913, 0, 'http://localhost:8080/file/20201019/rpb3SOYT.jpg', '沙发.jpg', 0, 'rpb3SOYT.jpg', 'file/20201019/rpb3SOYT.jpg', 42337, '.jpg', 'efc5c0001f4a6d076f40e1fb49e41ae2', 0, '2020-10-19 09:42:20', '2020-10-19 09:42:20');
-INSERT INTO `sys_upload_file` VALUES (1376548389126177, 0, 'http://localhost:8080/file/20201019/JLlenBr3.jpg', '餐具组合.jpg', 0, 'JLlenBr3.jpg', 'file/20201019/JLlenBr3.jpg', 41541, '.jpg', 'a385471d08055cc425fe9b93d541b088', 0, '2020-10-19 10:23:42', '2020-10-19 10:23:42');
-INSERT INTO `sys_upload_file` VALUES (1376548433166369, 0, 'http://localhost:8080/file/20201019/FwQY7lKf.jpg', '电风扇.jpg', 0, 'FwQY7lKf.jpg', 'file/20201019/FwQY7lKf.jpg', 24966, '.jpg', 'e46c197216f912acdaf27c846a99da8b', 0, '2020-10-19 10:24:03', '2020-10-19 10:24:03');
-INSERT INTO `sys_upload_file` VALUES (1411391766396961, 0, 'http://localhost:8080/file/20210429/XSd1vujK.jpg', '愤怒的小鸟.jpg', 0, 'XSd1vujK.jpg', 'file/20210429/XSd1vujK.jpg', 24579, '.jpg', '2fc320d7c32e60f8e194c4eca6e77d42', 0, '2021-04-29 17:33:59', '2021-04-29 17:33:59');
-
--- ----------------------------
--- Table structure for sys_upload_group
--- ----------------------------
-DROP TABLE IF EXISTS `sys_upload_group`;
-CREATE TABLE `sys_upload_group`  (
-  `group_id` bigint(20) NOT NULL COMMENT '分类id',
-  `group_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件类型',
-  `group_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
-  `sort` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '分类排序(数字越小越靠前)',
-  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  PRIMARY KEY (`group_id`) USING BTREE,
-  INDEX `type_index`(`group_type`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文件存储分组表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_upload_group
--- ----------------------------
-INSERT INTO `sys_upload_group` VALUES (1344144031088673, 'image', '商品分类', 0, '2020-04-23 14:17:00', '2020-04-23 14:17:00');
-INSERT INTO `sys_upload_group` VALUES (1411391254691873, 'image', '5555', 0, '2021-04-29 17:29:55', '2021-04-29 17:29:55');
 
 -- ----------------------------
 -- Table structure for sys_user

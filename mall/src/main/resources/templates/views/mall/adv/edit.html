@@ -19,10 +19,10 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">宣传图片</label>
 				<div class="col-sm-10">
-					<button type="button" class="upload-file btn btn-w-m btn-info">
+					<button type="button" class="btn btn-w-m btn-info">
 						<i class="fa fa-cloud-download"></i>&nbsp;选择图片
 					</button>
-					<div class="uploader-list clearfix">
+					<div class="clearfix">
 						<div class="file-item">
 							<img src="${mallAd.adUrl}"><input type="hidden" name="adUrl" value="${mallAd.adUrl}"><i class="fa fa-remove file-item-delete"></i>
 						</div>
@@ -83,7 +83,6 @@
 	</form>
 </div>
 </@body>
-<#include "/common/filelibrary.html"> 
 <script type="text/javascript">
 	//选择图片
 	$('.upload-file').selectImages({
@@ -92,7 +91,8 @@
 		multiple : false,
 		limitNum : 1
 	});
-
+	
+	// 页面提交
 	function submitHandler() {
 		if ($("#editAdvForm").validate().form()) {
 			var formData = $("#editAdvForm").serialize();
