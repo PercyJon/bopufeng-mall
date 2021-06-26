@@ -2,7 +2,7 @@
 <@body>
 <div class="wrapper">
     <section class="content">
-      <form class="form-horizontal" method="post" action="/system/me/updateUser" id="infoFrom">
+      <form class="form-horizontal" method="post" action="/system/me/updateUser" id="infoFrom" enctype="multipart/form-data">
           <div class="box-body">
             	<input type="hidden" value="${(sysUser.id)!}" id="id" name="id">
             	<div class="form-group">
@@ -15,16 +15,9 @@
             	<div class="form-group">
                 	<label for="systemLogo" class="col-sm-2 control-label">头像</label>
                 	<div class="col-sm-10">
-						<div id="uploader-demo">
-						    <div id="fileList" class="uploader-list"></div>
-						    <button id="upload-container" type="button" class="btn btn-sm btn-primary">
-								<i class="fa fa-cloud-download" aria-hidden="true"></i> 选择文件
-							</button>
-							<button id="upload-start" type="button" class="btn btn-sm btn-info">
-								<i class="fa fa-cloud-download" aria-hidden="true"></i> 开始上传
-							</button>
-							<button id="filePicker" class="display-none">点击上传文件</button>
-						</div>
+						<div class="file-loading">
+				            <input id="kv-explorer" type="file" multiple>
+				        </div>
                 	</div>
               	</div>
               	<#if info??>
@@ -41,6 +34,14 @@
 </@body>
 
 <script type="text/javascript">
+	$(document).ready(function () {
+		$("#kv-explorer").fileinput({
+		    'theme': 'explorer-fas',
+		    'uploadUrl': '#',
+		    overwriteInitial: false,
+		    initialPreviewAsData: true,
+		});
+	});
 	function submitHandler() {
 		if ($("#infoFrom").validate().form()) {
 			var formData = new FormData($("#infoFrom")[0]);
