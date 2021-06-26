@@ -1,5 +1,4 @@
 <#include "/common/layout.html">
-<link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
 <@body>
 <div class="wrapper">
     <section class="content">
@@ -16,7 +15,16 @@
             	<div class="form-group">
                 	<label for="systemLogo" class="col-sm-2 control-label">头像</label>
                 	<div class="col-sm-10">
-                  		<input name="file" type="file" class="file-loading" id="systemLogo">
+						<div id="uploader-demo">
+						    <div id="fileList" class="uploader-list"></div>
+						    <button id="upload-container" type="button" class="btn btn-sm btn-primary">
+								<i class="fa fa-cloud-download" aria-hidden="true"></i> 选择文件
+							</button>
+							<button id="upload-start" type="button" class="btn btn-sm btn-info">
+								<i class="fa fa-cloud-download" aria-hidden="true"></i> 开始上传
+							</button>
+							<button id="filePicker" class="display-none">点击上传文件</button>
+						</div>
                 	</div>
               	</div>
               	<#if info??>
@@ -32,38 +40,7 @@
 </div>
 </@body>
 
-<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
-<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 <script type="text/javascript">
-	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl) {    
-	    var control = $('#' + ctrlName); 
-	    control.fileinput({
-	    	initialPreview: [
-	        	'${(sysUser.userImg)!}'
-	        ],
-	        initialPreviewAsData: true,
-	        initialPreviewConfig: [
-	            {caption: "${(sysUser.userImg)!}", size: 930321, width: "120px", key: '${(sysUser.id)!}', showDelete: false}
-	        ],
-	        deleteUrl: "/file/delete",
-	        language: 'zh', //设置语言
-	        uploadUrl: uploadUrl, //上传的地址
-	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-	        showUpload: false, //是否显示上传按钮
-	        showCaption: false,//是否显示标题
-	        browseClass: "btn btn-primary"       
-	    });
-	}
-	
-	initFileInput("systemLogo", "/file/upload");
-
-	//上传成功回调函数
-	$('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
-	    var result = data.response;
-	    $('#userImg').val(result.urls[0]);
-	});
-
 	function submitHandler() {
 		if ($("#infoFrom").validate().form()) {
 			var formData = new FormData($("#infoFrom")[0]);

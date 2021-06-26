@@ -37,7 +37,7 @@ public class FileController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/image")
+	@PostMapping("/upload")
 	@ResponseBody
 	public Rest uploadImageFile(MultipartFile file) throws Exception {
 		try {

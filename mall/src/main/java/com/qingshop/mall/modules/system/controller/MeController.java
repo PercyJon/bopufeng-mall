@@ -31,7 +31,6 @@ public class MeController extends BaseController {
 	 */
 	@RequestMapping("/info")
 	public String info(Model model) {
-
 		SysUser sysUser = sysUserService.getById(ShiroUtils.getUserId());
 		model.addAttribute("sysUser", sysUser);
 		return "system/me/info";
@@ -54,22 +53,17 @@ public class MeController extends BaseController {
 	@RequestMapping("/doChangePwd")
 	@ResponseBody
 	public Rest doChangePwd(String password, String newpassword, String newpassword2) {
-
 		if (StringUtils.isBlank(password) || StringUtils.isBlank(newpassword) || StringUtils.isBlank(newpassword2)) {
 			return Rest.failure("客户端提交数据不能为空");
 		}
-
 		SysUser sysUser = ShiroUtils.getSysUser();
-
 		SysUser user = sysUserService.getById(sysUser.getUserId());
 		if (!user.getPassword().equals(ShiroUtils.md51024Pwd(password, user.getUserName()))) {
 			return Rest.failure("旧密码输入错误.");
 		}
-
 		if (!newpassword2.equals(newpassword)) {
 			return Rest.failure("两次输入的密码不一致.");
 		}
-
 		// 加密新密码
 		user.setPassword(ShiroUtils.md51024Pwd(newpassword, user.getUserName()));
 		sysUserService.updateById(user);
@@ -80,19 +74,18 @@ public class MeController extends BaseController {
 	 * 更新用户
 	 * 
 	 * @param sysUser
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public Rest updateUser(SysUser sysUser) {
-
 		SysUser user = sysUserService.getById(sysUser.getUserId());
-		if (StringUtils.isNotBlank(user.getUserImg())) {
+		if (StringUtils.isNotBlank(sysUser.getUserImg())) {
 			user.setUserImg(sysUser.getUserImg());
 		}
-
-		sysUserService.updateById(user);
-		return Rest.ok();
+		if (sysUserService.updateById(user)) {
+			return Rest.ok();
+		}
+		return Rest.failure("更新失败");
 	}
 }
