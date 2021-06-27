@@ -6,14 +6,14 @@
           <div class="box-body">
             	<input type="hidden" value="${(sysUser.id)!}" id="id" name="id">
             	<div class="form-group">
-              		<label for="userName" class="col-sm-2 control-label">用户名</label>
+              		<label for="userName" class="col-sm-2 control-label">用户名称</label>
               		<div class="col-sm-10">
                 		<input type="text" name="userName" value="${(sysUser.userName)!}" class="form-control" readonly="readonly">
               		</div>
             	</div>
             	<input type="hidden" value="${(sysUser.userImg)!}" id="userImg" name="userImg">
             	<div class="form-group">
-                	<label for="systemLogo" class="col-sm-2 control-label">头像</label>
+                	<label for="systemLogo" class="col-sm-2 control-label">用户头像</label>
                 	<div class="col-sm-10">
 						<div class="file-loading">
 				            <input id="kv-explorer" type="file" multiple>
@@ -35,11 +35,11 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#kv-explorer").fileinput({
-		    'theme': 'explorer-fas',
-		    'uploadUrl': '#',
-		    overwriteInitial: false,
-		    initialPreviewAsData: true,
-		});
+            'theme': 'explorer-fa',
+            'uploadUrl': '#',
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+        });
 	});
 	function submitHandler() {
 		if ($("#infoFrom").validate().form()) {
