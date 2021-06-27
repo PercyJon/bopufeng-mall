@@ -4,7 +4,7 @@
     <section class="content">
       <form class="form-horizontal" method="post" action="/system/me/updateUser" id="infoFrom" enctype="multipart/form-data">
           <div class="box-body">
-            	<input type="hidden" value="${(sysUser.id)!}" id="id" name="id">
+            	<input type="hidden" value="${(sysUser.userId)!}" id="userId" name="userId">
             	<div class="form-group">
               		<label for="userName" class="col-sm-2 control-label">用户名称</label>
               		<div class="col-sm-10">
@@ -16,7 +16,7 @@
                 	<label for="systemLogo" class="col-sm-2 control-label">用户头像</label>
                 	<div class="col-sm-10">
 						<div class="file-loading">
-				            <input id="kv-explorer" type="file" multiple>
+				            <input id="systemLogo" name="file" type="file" multiple>
 				        </div>
                 	</div>
               	</div>
@@ -33,14 +33,41 @@
 </div>
 </@body>
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("#kv-explorer").fileinput({
-            'theme': 'explorer-fa',
-            'uploadUrl': '#',
-            overwriteInitial: false,
-            initialPreviewAsData: true,
-        });
+
+	//初始化fileinput控件（第一次初始化）
+	function initFileInput(ctrlName, uploadUrl) {    
+	    var control = $('#' + ctrlName); 
+	    control.fileinput({
+	        theme: 'explorer-fa',
+	        language: 'zh', //设置语言
+	        uploadUrl: uploadUrl, //上传的地址
+	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+	        showUpload: true, //是否显示上传按钮
+	        showCaption: true,//是否显示标题
+	        browseClass: "btn btn-primary",
+	        maxFileCount: 1, //允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount:true,
+            msgFilesTooMany: "只能上传{m}个文件！",
+	        initialPreviewAsData: true,
+            initialPreview: [
+	        	'${(sysUser.userImg)!}'
+	        ],
+            uploadExtraData:function () {   //向后台传递的附带参数
+                var data = {}
+                return data;
+            }
+	    });
+	}
+	
+	initFileInput("systemLogo", "/system/sysfile/upload");
+	
+	//上传成功回调函数
+	$('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
+	    var result = data.response;
+	    $('#userImg').val(result.fileUrl);
 	});
+	
 	function submitHandler() {
 		if ($("#infoFrom").validate().form()) {
 			var formData = new FormData($("#infoFrom")[0]);

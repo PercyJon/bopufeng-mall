@@ -79,6 +79,9 @@ public class MeController extends BaseController {
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public Rest updateUser(SysUser sysUser) {
+		if(sysUser.getUserId() == null) {
+			return Rest.failure("参数错误");
+		}
 		SysUser user = sysUserService.getById(sysUser.getUserId());
 		if (StringUtils.isNotBlank(sysUser.getUserImg())) {
 			user.setUserImg(sysUser.getUserImg());
