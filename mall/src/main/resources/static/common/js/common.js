@@ -85,7 +85,7 @@ function createMenuItem(dataUrl, menuName) {
     return false;
 }
 
-//滚动到指定选项卡
+// 滚动到指定选项卡
 function scrollToTab(element) {
 	var topWindow = $(window.parent.document);
     var marginLeftVal = calSumWidth($(element).prevAll()),
@@ -113,7 +113,7 @@ function scrollToTab(element) {
     $('.page-tabs-content', topWindow).animate({ marginLeft: 0 - scrollVal + 'px' }, "fast");
 }
 
-//计算元素集合的总宽度
+// 计算元素集合的总宽度
 function calSumWidth(elements) {
     var width = 0;
     $(elements).each(function() {
@@ -144,7 +144,7 @@ $("body").delegate(".toNewTab", "click", function() {
 	window.location.href = tabUrl + "?r=" + new Date().getTime();
 });
 
-//带有保存取消按钮
+// 带有保存取消按钮
 $("body").delegate(".dialog", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -154,7 +154,7 @@ $("body").delegate(".dialog", "click", function() {
 	$.modal.dialog_open(title, url, width, height);
 });
 
-//带有保存取消按钮 （全屏)
+// 带有保存取消按钮 （全屏)
 $("body").delegate(".dialogFull", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -164,7 +164,7 @@ $("body").delegate(".dialogFull", "click", function() {
 	$.modal.dialog_openFull(title, url, width, height);
 });
 
-//自定义保存取消
+// 自定义保存取消
 $("body").delegate(".dialog_detail", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -174,7 +174,7 @@ $("body").delegate(".dialog_detail", "click", function() {
 	$.modal.dialog_detail(title, url, width, height, false);
 });
 
-//多选删除
+// 多选删除
 $("body").delegate("*[delete-batch-url]", "click", function() {
 	var deleteBatchUrl = $(this).attr('delete-batch-url');
 	var ids = [];
@@ -230,6 +230,7 @@ $('.daterang').daterangepicker({
 	"opens" : "right",
 	"buttonClasses" : "btn btn-sm"
 },
+
 function(start, end, label) {
 	console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
 });
@@ -308,7 +309,7 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 	radioClass : 'iradio_minimal-blue'
 });
 
-//回到顶部绑定
+// 回到顶部绑定
 $(function() {
 	if ($.fn.toTop !== undefined) {
 		$('#scroll-up').toTop();

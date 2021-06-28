@@ -34,7 +34,7 @@ import com.qingshop.mall.modules.oss.OssFactory;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 
 @RestController
-@RequestMapping("/ueditor")
+@RequestMapping("/plugins/UEditor/ueditor")
 public class UEditorController extends BaseController {
 
 	/**

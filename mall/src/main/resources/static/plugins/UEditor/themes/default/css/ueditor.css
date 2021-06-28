@@ -1901,3 +1901,7 @@ div.edui-box {
 .edui-default  .edui-pastecontainer .edui-button  .edui-state-hover .edui-plaintxticon{
     background-position: -72px -34px;
 }
+/*手机预览样式*/
+.edui-default .edui-toolbar .edui-for-previewh5 .edui-icon{
+  background-image: url("../images/previewh5.png") !important;
+}

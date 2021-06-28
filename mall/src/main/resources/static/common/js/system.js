@@ -459,8 +459,8 @@
 						$('input[type=checkbox]').iCheck({
 							checkboxClass : 'icheckbox_minimal-blue',
 						});
-						// datatable 渲染图片查看
-					    const gallery = new Viewer(document.getElementById(options.id), {
+						// viewer 渲染图片放大
+					    new Viewer(document.getElementById(options.id), {
 					        toolbar: true,  //显示工具条
 					        viewed() {
 					            viewer.zoomTo(1);  // 图片显示比例 75%

@@ -1,4 +1,5 @@
-<#include "/common/layout.html"> 
+<#include "/common/layout.html">
+<link rel="stylesheet" href="${request.contextPath}/plugins/UEditor/xiumi-ue-v5.css"/>
 <@body>
 <body class="gray-bg">
 	<div class="wrapper">
@@ -133,7 +134,7 @@
 							<label class="col-sm-2 col-md-1 control-label">商品详情</label>
 							<div class="col-sm-8">
 								<input id="detail" name="detail" type="hidden">
-				    			<div class="summernote"></div>
+								<script id="editor" name="detailContent" type="text/plain" style="height: 300px;"></script>
 							</div>
 						</div>
 						<div class="form-group">
@@ -189,7 +190,11 @@
 		</section>
 	</div>
 </body
-</@body> 
+</@body>
+<script src="${request.contextPath}/plugins/UEditor/ueditor.config.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/ueditor.all.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/xiumi-ue-dialog-v5.js"></script>
 <script type="text/javascript">
 	//初始化fileinput控件（第一次初始化）
 	function initFileInput(ctrlName, uploadUrl, maxFileCount) {    
@@ -233,7 +238,13 @@
 	//上传成功回调函数
 	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {
 	    var result = data.response;
-	    $('#gallery').val(result.fileUrl);
+	    var oldGallery = $('#gallery').val();
+	    if(!oldGallery) {
+	    	$('#gallery').val(result.fileUrl);
+	    } else {
+	    	var newGallery = oldGallery + "," + result.fileUrl;
+	    	$('#gallery').val(newGallery);
+	    }
 	});
 	
 	//切换规格方式
@@ -247,59 +258,39 @@
 		}
 	});
 	
-	document.emojiSource = '/plugins/summernote/tam-emoji/img';
-	var MyphotoButton = function (context) {
-		var ui = $.summernote.ui;
-		var button = ui.button({
-			contents: '<i class="note-icon-picture"/>',  //按钮样式
-			tooltip: '插入图片',
-			callback:function(e){
-				e.addClass("upload-editor");
-			}
-		});
-		return button.render();    //按钮渲染
-	}
-	
 	//富文本编辑器
-	$('.summernote').summernote({
-		toolbar: [
-			['style', ['emoji', 'style','bold', 'italic', 'underline', 'clear']],
-			['font', ['strikethrough', 'superscript', 'subscript']],
-			['fontname', ['fontsize','height','fontname']],
-			['color', ['color']],
-			['para', ['ul', 'ol', 'paragraph']],
-			['table', ['table','hr']],
-			['insert', ['myphoto', 'link', 'video']], //'picture', 
-			['view', ['fullscreen', 'codeview', 'help']],
-		],
-		popover: {
-			image: [
-				['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-				['float', ['floatLeft', 'floatRight', 'floatNone']],
-				['remove', ['removeMedia']]
-			],
-		},
-		buttons: {
-			myphoto: MyphotoButton  //自已定义的按钮函数
-		},
-		placeholder: '请输入描述内容...',
-		minHeight: 500,
-		maxHeight: null,
-		lang : 'zh-CN',
-		dialogsInBody: true,
-		dialogsFade: true,
-		followingToolbar: false,
+	var ue = UE.getEditor('editor',{
+		UEDITOR_HOME_URL: "/plugins/UEditor/",
+        serverUrl: "/plugins/UEditor/ueditor/exec",
+        catchRemoteImageEnable: true,
+        toolbars: [
+          [
+            'fullscreen', 'source', 'preview', '|',
+            'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', '|', 'justifyleft',
+            'justifycenter', 'justifyright', '|',
+            'insertorderedlist', 'insertunorderedlist', 'blockquote', 'emotion', 'insertimage', 'insertvideo',
+            'music', 'link', 'removeformat', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', 'indent', '|', 'paragraph', 'fontfamily', 'fontsize',
+            '|',
+            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol',
+            'deletecol',
+            'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|', 'anchor',
+            'print', 'previewh5',
+          ]
+        ],
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        autoClearinitialContent: true,
+        initialFrameWidth: '100%',
+        initialFrameHeight: 650,
+        enableAutoSave: false,
+        zIndex : 900,
 	});
-	// 图片库选择图片
-	$('.upload-editor').selectImages({
-		imagesList: '.upload-editor'
-		, multiple: true
-		, done: function(data){
-			for(var i = 0; i < data.length; i++){
-				$('.summernote').summernote('editor.insertImage', data[i].fileUrl,  data[i].fileName);
-			}
-		}
-	});
+
+    function getContent() {
+        return UE.getEditor('editor').getContent();
+    }
+	
 	//属性参数添加	
 	function addAttribute(ele){
 		$(ele).attr('disabled', true);
@@ -848,23 +839,18 @@
 		goods.goodSn = $("#goodSn").val();
 		goods.goodName = $("#goodName").val() ;
 		goods.categoryId = $('#categoryId').val();
-		var imgData = [];
-		$("input[name=gallery]").each(
-			function(){  
-				imgData.push($(this).val());
-			}  
-		)
-		goods.gallery = JSON.stringify(imgData);
 		goods.keywords = $("#keywords").val();
 		goods.brief = $("#brief").val();
 		goods.sortOrder = $("#sortOrder").val();
 		goods.picUrl =  $("input[name=picUrl]").val();
+		var galleryData = $('#gallery').val();
+		goods.gallery = JSON.stringify(galleryData.split(","));
 		goods.specType = $("input[name=specType]:checked").val();
 		goods.isShelf = $("input[name=isShelf]:checked").val();
 		goods.isNew = $("input[name=isNew]:checked").val();
 		goods.isHot = $("input[name=isHot]:checked").val();
 		goods.unit = $("#unit").val();
-		goods.detail = $('.summernote').summernote('code');
+		goods.detail = getContent();
 		var goodSkus=[];
 		var goodSkuDetails=[];
 		if($("input[name=specType]:checked").val() == 1){

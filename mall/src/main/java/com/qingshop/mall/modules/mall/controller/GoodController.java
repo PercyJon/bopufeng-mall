@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -135,7 +136,7 @@ public class GoodController extends BaseController {
 		// 轮播图片处理
 		List<String> pictureList = (List<String>) JsonUtils.parseArray(mallGoods.getGallery(), String.class);
 		if (!StringUtils.isEmpty(pictureList)) {
-			model.addAttribute("pictureList", pictureList);
+			model.addAttribute("pictureList", JSON.toJSONString(pictureList));
 		}
 		model.addAttribute("good", mallGoods);
 		// 类目处理数据分组

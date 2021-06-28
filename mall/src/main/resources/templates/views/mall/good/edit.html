@@ -1,4 +1,5 @@
-<#include "/common/layout.html"> 
+<#include "/common/layout.html">
+<link rel="stylesheet" href="${request.contextPath}/plugins/UEditor/xiumi-ue-v5.css"/>
 <@body>
 <body class="gray-bg">
 	<div class="wrapper">
@@ -25,7 +26,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 col-md-1 control-label">商品类目</label>
 						<div class="col-sm-10 col-md-11">
-							<select id="categoryId" name="categoryId" class="form-control select2" style="width:90%;" required>
+							<select id="categoryId" name="categoryId" class="form-control select2" style="width:100%;" required>
 								<option value="" selected="selected">--请选择类目（必选）--</option>
 								<#list categoryMapList?keys as key>
 									<optgroup label="${categoryMapList[key][0].name}">
@@ -60,31 +61,19 @@
 					<div class="form-group">
 						<label for="uname" class="col-sm-2 col-md-1 control-label">商品图片</label>
 						<div class="col-sm-10 col-md-11">
-							<button type="button"  class="upload-file1 btn btn-w-m btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
-					        <div class="uploader-list1 clearfix">
-					        	<div class="file-item">
-							    	<img src="${good.picUrl}">
-							    	<input type="hidden" name="picUrl" value="${good.picUrl}">
-							    	<i class="fa fa-remove file-item-delete"></i>
-								</div>
+							<input type="hidden" id="picUrl" name="picUrl" value="${good.picUrl}">
+							<div class="file-loading">
+					            <input id="uploadPicUrl" name="file" type="file" multiple>
 					        </div>
-					        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>尺寸750x750像素以上，大小2M以下（1张）</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="password2" class="col-sm-2 col-md-1 control-label">宣传画廊</label>
 						<div class="col-sm-10 col-md-11">
-							<button type="button"  class="upload-file btn btn-w-m btn-info"><i class="fa fa-cloud-download"></i>&nbsp;选择图片</button>
-					        <div class="uploader-list clearfix">
-					        	<#list pictureList as item>
-							        <div class="file-item">
-								    	<img src="${item}">
-								    	<input type="hidden" name="gallery" value="${item}">
-								    	<i class="fa fa-remove file-item-delete"></i>
-									</div>
-								</#list>
+							<input type="hidden" id="gallery" name="gallery">
+							<div class="file-loading">
+					            <input id="uploadGallery" name="file" type="file" multiple>
 					        </div>
-					        <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>尺寸750x750像素以上，大小2M以下（3张）</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -208,9 +197,9 @@
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 col-md-1 control-label">商品详情</label>
-						<div class="col-sm-10 col-md-11">
-							<input id="detail" name="detail" type="hidden" value="${(good.detail)?html}">
-			    			<div id="editor" class="summernote"></div>
+						<div class="col-sm-8">
+		                    <script id="editor" name="detailContent" type="text/plain" style="height: 300px;"></script>
+                    		<textarea id="detailContent" style="display: none;">${(good.detail)?html}</textarea>
 						</div>
 					</div>
 					<div class="form-group">
@@ -267,7 +256,66 @@
 	</div>
 </body>
 </@body>
+<script src="${request.contextPath}/plugins/UEditor/ueditor.config.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/ueditor.all.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${request.contextPath}/plugins/UEditor/xiumi-ue-dialog-v5.js"></script>
 <script type="text/javascript">
+
+	//初始化fileinput控件（第一次初始化）
+	function initFileInput(ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
+	    $('#' + ctrlName).fileinput({
+	        theme: 'explorer-fa',
+	        language: 'zh', //设置语言
+	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（'+ maxFileCount +'张）',
+	        uploadUrl: uploadUrl, //上传的地址
+	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+	        showUpload: true, //是否显示上传按钮
+	        showCaption: true,//是否显示标题
+	        browseClass: "btn btn-primary",
+	        maxFileCount: maxFileCount, //允许同时上传的最大文件个数
+	        enctype: 'multipart/form-data',
+	        validateInitialCount:true,
+	        msgFilesTooMany: "只能上传{m}个文件！",
+	        initialPreviewAsData: true,
+	        initialPreview: initialPreviewData,
+	        uploadExtraData:function () {   //向后台传递的附带参数
+	            var data = {}
+	            return data;
+	        },
+	        layoutTemplates:{
+	            actionUpload:'',//去除上传预览缩略图中的上传图片
+	            //actionZoom:'',   //去除上传预览缩略图中的查看详情预览的缩略图标
+	            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+	            actionDelete:'', //去除上传预览的缩略图中的删除图标
+	        },
+	    });
+	}
+	
+	initFileInput("uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
+	
+	//上传成功回调函数
+	$('#uploadPicUrl').on("fileuploaded", function(event, data, previewId, index) {
+	    var result = data.response;
+	    $('#picUrl').val(result.fileUrl);
+	});
+	
+	var jsObject = JSON.parse('${(pictureList)!}');
+	$('#gallery').val(jsObject.join(","));
+	initFileInput("uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
+	
+	//上传成功回调函数
+	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {
+	    var result = data.response;
+	    var oldGallery = $('#gallery').val();
+	    if(!oldGallery) {
+	    	$('#gallery').val(result.fileUrl);
+	    } else {
+	    	var newGallery = oldGallery + "," + result.fileUrl;
+	    	$('#gallery').val(newGallery);
+	    }
+	});
+	
 	//切换规格方式
 	$('input:radio[name="specType"]').on('ifChecked', function (e) {
 	     if (e.currentTarget.value === '1'){
@@ -279,62 +327,45 @@
 	     }
 	});
 	
-	document.emojiSource = '/plugins/summernote/tam-emoji/img';
-	var MyphotoButton = function (context) {
-	    var ui = $.summernote.ui;
-	    var button = ui.button({
-	        contents: '<i class="note-icon-picture"/>',  //按钮样式
-	        tooltip: '插入图片',
-	    	callback:function(e){
-	    		e.addClass("upload-editor");
-	    	}
-	    });
-	    return button.render();    //按钮渲染
-	}
-	
 	//富文本编辑器
-	$('.summernote').summernote({
-	  	toolbar: [
-		    ['style', ['emoji','style','bold', 'italic', 'underline', 'clear']],
-		    ['font', ['strikethrough', 'superscript', 'subscript']],
-		    ['fontname', ['fontsize','height','fontname']],
-		    ['color', ['color']],
-		    ['para', ['ul', 'ol', 'paragraph']],
-		    ['table', ['table','hr']],
-		    ['insert', ['myphoto', 'link', 'video']], //'picture', 
-		    ['view', ['fullscreen', 'codeview', 'help']],
-		],
-		popover: {
-		  	image: [
-		    	['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-		    	['float', ['floatLeft', 'floatRight', 'floatNone']],
-		    	['remove', ['removeMedia']]
-		  	],
-		},
-		buttons: {
-	        myphoto: MyphotoButton  //自已定义的按钮函数
-	    },
-		placeholder: '请输入描述内容...',
-		minHeight: 500,
-		maxHeight: null,
-		lang : 'zh-CN',
-		dialogsInBody: true,
-		dialogsFade: true,
-		followingToolbar: false,
-	});
-	//显示富文本内容
-	var content = $("#detail").val();
-    $('#editor').summernote('code', content);
-	// 图片库选择图片
-	$('.upload-editor').selectImages({
-	    imagesList: '.upload-editor'
-	    , multiple: true
-	    , done: function(data){
-	    	for(var i = 0; i < data.length; i++){
-	    		$('.summernote').summernote('editor.insertImage', data[i].fileUrl,  data[i].fileName);
-	    	}
-	    }
-	});
+	$(function () {
+        var text = $("#detailContent").text();
+        var ue = UE.getEditor('editor', {
+    		UEDITOR_HOME_URL: "/plugins/UEditor/",
+            serverUrl: "/plugins/UEditor/ueditor/exec",
+            catchRemoteImageEnable: true,
+            toolbars: [
+              [
+                'fullscreen', 'source', 'preview', '|',
+                'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', '|', 'justifyleft',
+                'justifycenter', 'justifyright', '|',
+                'insertorderedlist', 'insertunorderedlist', 'blockquote', 'emotion', 'insertimage', 'insertvideo',
+                'music', 'link', 'removeformat', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', 'indent', '|', 'paragraph', 'fontfamily', 'fontsize',
+                '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol',
+                'deletecol',
+                'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|', 'anchor',
+                'print', 'previewh5',
+              ]
+            ],
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            autoClearinitialContent: true,
+            initialFrameWidth: '100%',
+            initialFrameHeight: 650,
+            enableAutoSave: false,
+            zIndex : 900,
+    	});
+        ue.ready(function () {
+            ue.setContent(text);
+        });
+    })
+	
+    function getContent() {
+        return UE.getEditor('editor').getContent();
+    }
+	
 	//生成SKU表格头部
 	var pdPublish_skuDetailTableThead =''
 		pdPublish_skuDetailTableThead += ' <thead>'
@@ -855,23 +886,18 @@
 			$('#categoryId').parent().after('<span style="color:#ef392b;"><i class="fa fa-times-circle"></i>请选择商品分类</span>');
 			flag = false;
 		}
-		var imgData = [];
-		$("input[name=gallery]").each(
-			function(){  
-				imgData.push($(this).val());
-			}  
-		)
-		goods.gallery = JSON.stringify(imgData);
 		goods.keywords = $("#keywords").val();
 		goods.brief = $("#brief").val();
 		goods.sortOrder = $("#sortOrder").val();
-		goods.picUrl =  $("input[name=picUrl]").val();
+		goods.picUrl =  $("#picUrl").val();
+		var galleryData = $("#gallery").val();
+		goods.gallery = JSON.stringify(galleryData.split(","));
 		goods.specType = $("input[name=specType]:checked").val();
 		goods.isShelf = $("input[name=isShelf]:checked").val();
 		goods.isNew = $("input[name=isNew]:checked").val();
 		goods.isHot = $("input[name=isHot]:checked").val();
 		goods.unit = $("#unit").val();
-		goods.detail = $('.summernote').summernote('code');
+		goods.detail = getContent();
 		var goodSkus=[];
 		var goodSkuDetails=[];
 		if($("input[name=specType]:checked").val() == 1){

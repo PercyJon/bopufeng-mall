@@ -58,7 +58,7 @@
 			},
 			drawCallback : function() {
 				// datatable 渲染图片查看
-				const gallery = new Viewer(document.getElementById('category_initTable'), {
+				new Viewer(document.getElementById('category_initTable'), {
 			        toolbar: true,  //显示工具条
 			        viewed() {
 			            viewer.zoomTo(1);  // 图片显示比例 75%

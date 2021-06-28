@@ -27848,7 +27848,7 @@ UE.ui = baidu.editor.ui = {};
         'blockquote', 'pasteplain', 'pagebreak',
         'selectall', 'print','horizontal', 'removeformat', 'time', 'date', 'unlink',
         'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
+        'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'previewh5'];
 
     for (var i = 0, ci; ci = btnCmds[i++];) {
         ci = ci.toLowerCase();
@@ -29484,6 +29484,25 @@ UE.ui = baidu.editor.ui = {};
      *
      */
     UE.getEditor = function (id, opt) {
+    	var proUrl = opt.UEDITOR_HOME_URL;
+        // 在这里添加预览弹窗
+        if (!document.querySelector("#preview-box")) {
+          var preview = document.createElement('div'); // 报错提示
+          preview.id = "preview-box";
+          preview.style.cssText = 'display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color: rgba(33,33,33,0.6); z-index: 9999;';
+          preview.innerHTML = '<div id="preview-box-content" style="box-sizing:border-box;position:absolute;top:50%;left: 50%;transform: translate(-50%, -50%);padding: 98px 23px 13px;width: 410px;height: 750px;background: url('+proUrl+'/themes/default/images/iphone-bg.png) no-repeat;"><iframe id="preview" style="width:100%;height:100%;border: 1px solid #333;" src="'+proUrl+'/themes/default/html/preview.html"></iframe></div>';
+          document.body.appendChild(preview);
+          document.querySelector("#preview-box").addEventListener("click", function(e) {
+            var elem = e.target;
+            while (elem) {
+                if (elem.id && elem.id == 'preview-box-content') {
+                    return;
+                }
+                elem = elem.parentNode;
+            }
+            e.target.style.display = "none";
+          });
+        }
       var editor = instances[id];
       if (!editor) {
           editor = instances[id] = new UE.ui.Editor(opt);
@@ -29596,6 +29615,17 @@ UE.registerUI('autosave', function(editor) {
 
 });
 
-
+UE.commands['previewh5'] = {
+  execCommand : function(){
+    var editor = this;
+    document.querySelector("#preview-box").style.display = 'block';
+    var ifr_document = document.querySelector("#preview").contentWindow.document; // 获取内联框架
+    if(ifr_document){
+      var ifr_content = ifr_document.querySelector(".article-content");
+      ifr_content.innerHTML = editor.getContent(); // 富文本编辑器内容填充
+    }
+    return true;
+  }
+};
 
 })();
