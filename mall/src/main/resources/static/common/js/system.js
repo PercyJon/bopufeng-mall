@@ -460,9 +460,15 @@
 							checkboxClass : 'icheckbox_minimal-blue',
 						});
 						// datatable 渲染图片查看
-					    $('.magnific-image-single').magnificPopup({
-							type:'image',
-						});
+					    const gallery = new Viewer(document.getElementById(options.id), {
+					        toolbar: true,  //显示工具条
+					        viewed() {
+					            viewer.zoomTo(1);  // 图片显示比例 75%
+					        },
+					        show: function (){  // 动态加载图片后，更新实例
+					            viewer.update();
+					        },
+					    });
 					}
 				};
 				// 合并表格设置参数
@@ -544,10 +550,10 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var	strhtml =  '<a class="magnific-image-single" href="%s">'
+					var	strhtml =  '<div class="viewer-image-single">'
 						strhtml += '	<img src="%s" class="img-circle img-xs"/>'
-						strhtml += '</a>'
-					return $.common.sprintf(strhtml, value, value);
+						strhtml += '</div>'
+					return $.common.sprintf(strhtml, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
@@ -563,10 +569,10 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var strhtml  = '<a class="magnific-image-single" href="%s">'
+					var strhtml  = '<div class="viewer-image-single">'
 						strhtml += '	<img src="%s" class="img-square img-md"/>'
-						strhtml += '</a>'
-					return $.common.sprintf(strhtml, value, value);
+						strhtml += '</div>'
+					return $.common.sprintf(strhtml, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
