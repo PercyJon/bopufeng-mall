@@ -1,0 +1,27 @@
+/* 前后端通信相关的配置,注释只允许使用多行方式 */
+{
+    /* 上传图片配置项 */
+    "imageActionName": "uploadimage", /* 执行上传图片的action名称 */
+    "imageFieldName": "upfile", /* 提交的图片表单名称 */
+    "imageMaxSize": 2048000, /* 上传大小限制，单位B */
+    "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 上传图片格式显示 */
+    "imageCompressEnable": true, /* 是否压缩图片,默认是true */
+    "imageCompressBorder": 1600, /* 图片压缩最长边限制 */
+    "imageInsertAlign": "none", /* 插入的图片浮动方式 */
+    // "imageUrlPrefix": "https://admin.yike-cloud.com", /* 线上图片访问路径前缀 */
+    "imageUrlPrefix": "http://127.0.0.1:8080", /* 测试机图片访问路径前缀 */
+    "localSavePathPrefix":"upload/images/inform",
+    "imagePathFormat": "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+
+    /* 抓取远程图片配置 */
+    "catcherLocalDomain": ["127.0.0.1", "localhost", "img.baidu.com"],
+    "catcherActionName": "catchimage", /* 执行抓取远程图片的action名称 */
+    "catcherFieldName": "source", /* 提交的图片列表表单名称 */
+    "catcherPathFormat": "/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    // "catcherUrlPrefix": "https://admin.yike-cloud.com", /* 线上图片访问路径前缀 */
+    "catcherUrlPrefix": "http://127.0.0.1:8080", /* 测试机图片访问路径前缀 */
+    "catcherMaxSize": 2048000, /* 上传大小限制，单位B */
+    "catcherAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 抓取图片格式显示 */
+	"catchRemoteImageEnable": true,
+
+}
