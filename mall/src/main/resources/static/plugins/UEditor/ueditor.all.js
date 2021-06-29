@@ -29484,13 +29484,12 @@ UE.ui = baidu.editor.ui = {};
      *
      */
     UE.getEditor = function (id, opt) {
-    	var proUrl = opt.UEDITOR_HOME_URL;
         // 在这里添加预览弹窗
         if (!document.querySelector("#preview-box")) {
           var preview = document.createElement('div'); // 报错提示
           preview.id = "preview-box";
           preview.style.cssText = 'display:none;position:fixed;top:0;left:0;right:0;bottom:0;background-color: rgba(33,33,33,0.6); z-index: 9999;';
-          preview.innerHTML = '<div id="preview-box-content" style="box-sizing:border-box;position:absolute;top:50%;left: 50%;transform: translate(-50%, -50%);padding: 98px 23px 13px;width: 410px;height: 750px;background: url('+proUrl+'/themes/default/images/iphone-bg.png) no-repeat;"><iframe id="preview" style="width:100%;height:100%;border: 1px solid #333;" src="'+proUrl+'/themes/default/html/preview.html"></iframe></div>';
+          preview.innerHTML = '<div id="preview-box-content" style="box-sizing:border-box;position:absolute;top:50%;left: 50%;transform: translate(-50%, -50%);padding: 98px 23px 13px;width: 410px;height: 750px;background: url(/plugins/UEditor/themes/default/images/iphone-bg.png) no-repeat;"><iframe id="preview" style="width:100%;height:100%;border: 1px solid #333;" src="/plugins/UEditor/themes/default/html/preview.html"></iframe></div>';
           document.body.appendChild(preview);
           document.querySelector("#preview-box").addEventListener("click", function(e) {
             var elem = e.target;

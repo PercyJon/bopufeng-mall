@@ -263,9 +263,9 @@
 <script type="text/javascript">
 
 	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
+	function initFileInput(theme, ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
 	    $('#' + ctrlName).fileinput({
-	        theme: 'explorer-fa',
+	        theme: theme,
 	        language: 'zh', //设置语言
 	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（'+ maxFileCount +'张）',
 	        uploadUrl: uploadUrl, //上传的地址
@@ -292,7 +292,7 @@
 	    });
 	}
 	
-	initFileInput("uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
+	initFileInput('explorer-fa', "uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
 	
 	//上传成功回调函数
 	$('#uploadPicUrl').on("fileuploaded", function(event, data, previewId, index) {
@@ -302,7 +302,7 @@
 	
 	var jsObject = JSON.parse('${(pictureList)!}');
 	$('#gallery').val(jsObject.join(","));
-	initFileInput("uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
+	initFileInput('', "uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
 	
 	//上传成功回调函数
 	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {

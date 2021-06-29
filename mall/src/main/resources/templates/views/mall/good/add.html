@@ -197,10 +197,10 @@
 <script src="${request.contextPath}/plugins/UEditor/xiumi-ue-dialog-v5.js"></script>
 <script type="text/javascript">
 	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl, maxFileCount) {    
+	function initFileInput(theme, ctrlName, uploadUrl, maxFileCount) {    
 	    $('#' + ctrlName).fileinput({
-	        theme: 'explorer-fa',
-	        language: 'zh', //设置语言
+	    	theme: theme,
+	    	language: 'zh', //设置语言
 	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（'+ maxFileCount +'张）',
 	        uploadUrl: uploadUrl, //上传的地址
 	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
@@ -225,7 +225,7 @@
 	    });
 	}
 	
-	initFileInput("uploadPicUrl", "/system/sysfile/upload", 1);
+	initFileInput('explorer-fa', "uploadPicUrl", "/system/sysfile/upload", 1);
 	
 	//上传成功回调函数
 	$('#uploadPicUrl').on("fileuploaded", function(event, data, previewId, index) {
@@ -233,7 +233,7 @@
 	    $('#picUrl').val(result.fileUrl);
 	});
 	
-	initFileInput("uploadGallery", "/system/sysfile/upload", 3);
+	initFileInput('', "uploadGallery", "/system/sysfile/upload", 3);
 	
 	//上传成功回调函数
 	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {
