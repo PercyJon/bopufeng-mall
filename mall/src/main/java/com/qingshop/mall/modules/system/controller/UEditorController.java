@@ -33,6 +33,10 @@ import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.oss.OssFactory;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 
+/**
+ * Ueditor 富文本编辑器配置类
+ *
+ */
 @RestController
 @RequestMapping("/plugins/UEditor/ueditor")
 public class UEditorController extends BaseController {
