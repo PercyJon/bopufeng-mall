@@ -459,16 +459,6 @@
 						$('input[type=checkbox]').iCheck({
 							checkboxClass : 'icheckbox_minimal-blue',
 						});
-						// viewer 渲染图片放大
-					    new Viewer(document.getElementById(options.id), {
-					        toolbar: true,  //显示工具条
-					        viewed() {
-					            viewer.zoomTo(1);  // 图片显示比例 75%
-					        },
-					        show: function (){  // 动态加载图片后，更新实例
-					            viewer.update();
-					        },
-					    });
 					}
 				};
 				// 合并表格设置参数
