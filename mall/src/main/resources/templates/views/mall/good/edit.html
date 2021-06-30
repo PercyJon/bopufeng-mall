@@ -263,10 +263,8 @@
 <script type="text/javascript">
 
 	//初始化fileinput控件（第一次初始化）
-	function initFileInput(theme, ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
+	function initFileInput(ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
 	    $('#' + ctrlName).fileinput({
-	        theme: theme,
-	        language: 'zh', //设置语言
 	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（'+ maxFileCount +'张）',
 	        uploadUrl: uploadUrl, //上传的地址
 	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
@@ -279,10 +277,6 @@
 	        msgFilesTooMany: "只能上传{m}个文件！",
 	        initialPreviewAsData: true,
 	        initialPreview: initialPreviewData,
-	        uploadExtraData:function () {   //向后台传递的附带参数
-	            var data = {}
-	            return data;
-	        },
 	        layoutTemplates:{
 	            actionUpload:'',//去除上传预览缩略图中的上传图片
 	            //actionZoom:'',   //去除上传预览缩略图中的查看详情预览的缩略图标
@@ -292,7 +286,7 @@
 	    });
 	}
 	
-	initFileInput('explorer-fa', "uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
+	initFileInput("uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
 	
 	//上传成功回调函数
 	$('#uploadPicUrl').on("fileuploaded", function(event, data, previewId, index) {
@@ -302,7 +296,7 @@
 	
 	var jsObject = JSON.parse('${(pictureList)!}');
 	$('#gallery').val(jsObject.join(","));
-	initFileInput('', "uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
+	initFileInput("uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
 	
 	//上传成功回调函数
 	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {

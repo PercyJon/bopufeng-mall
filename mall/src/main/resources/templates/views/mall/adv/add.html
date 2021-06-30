@@ -84,8 +84,6 @@
 	//初始化fileinput控件（第一次初始化）
 	function initFileInput(ctrlName, uploadUrl) {    
 		$('#' + ctrlName).fileinput({
-	        theme: 'explorer-fa',
-	        language: 'zh', //设置语言
 	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（1张）',
 	        uploadUrl: uploadUrl, //上传的地址
 	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
@@ -97,10 +95,6 @@
 	        validateInitialCount:true,
 	        msgFilesTooMany: "只能上传{m}个文件！",
 	        initialPreviewAsData: true,
-	        uploadExtraData:function () {   //向后台传递的附带参数
-	            var data = {}
-	            return data;
-	        },
 	        layoutTemplates:{
 	            actionUpload:'',//去除上传预览缩略图中的上传图片
 	            //actionZoom:'',   //去除上传预览缩略图中的查看详情预览的缩略图标

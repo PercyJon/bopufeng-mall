@@ -1,6 +1,8 @@
 package com.qingshop.mall.modules.system.controller;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +33,7 @@ public class FileController extends BaseController {
 	private ISysConfigService configService;
 
 	/**
-	 * 通用图片上传请求
-	 *
-	 * @param file
-	 * @return
-	 * @throws Exception
+	 * 通用上传请求 (单个文件)
 	 */
 	@PostMapping("/upload")
 	@ResponseBody
@@ -46,13 +44,35 @@ public class FileController extends BaseController {
 			} else {
 				SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(file, true);
 				Rest rest = Rest.ok();
-				rest.put("originalName", fileResult.getOriginalName());
+				rest.put("fileName", fileResult.getOriginalName());
 				rest.put("fileUrl", fileResult.getFileUrl());
 				return rest;
 			}
 		} catch (Exception e) {
 			logger.error("文件上传失败", e);
 			return Rest.failure("服务器异常请联系管理员！");
+		}
+	}
+
+	/**
+	 * 通用上传请求（多个文件）
+	 */
+	@PostMapping("/uploads")
+	@ResponseBody
+	public Rest uploadFiles(List<MultipartFile> files) throws Exception {
+		try {
+			if (files.size() > 0) {
+				List<SysUploadFile> fileInfos = new LinkedList<SysUploadFile>();
+				for (MultipartFile file : files) {
+					SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(file, true);
+					fileInfos.add(fileResult);
+				}
+				return Rest.okData(fileInfos);
+			} else {
+				return Rest.failure("请选择文件！");
+			}
+		} catch (Exception e) {
+			return Rest.failure(e.getMessage());
 		}
 	}
 
