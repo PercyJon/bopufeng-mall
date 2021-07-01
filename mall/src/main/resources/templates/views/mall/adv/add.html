@@ -81,36 +81,20 @@
 </@body>
 <script type="text/javascript">
 
-	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl) {    
-		$('#' + ctrlName).fileinput({
-	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（1张）',
-	        uploadUrl: uploadUrl, //上传的地址
-	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-	        showUpload: true, //是否显示上传按钮
-	        showCaption: true,//是否显示标题
-	        browseClass: "btn btn-primary",
-	        maxFileCount: 1, //允许同时上传的最大文件个数
-	        enctype: 'multipart/form-data',
-	        validateInitialCount:true,
-	        msgFilesTooMany: "只能上传{m}个文件！",
-	        initialPreviewAsData: true,
-	        layoutTemplates:{
-	            actionUpload:'',//去除上传预览缩略图中的上传图片
-	            //actionZoom:'',   //去除上传预览缩略图中的查看详情预览的缩略图标
-	            actionDownload:'' ,//去除上传预览缩略图中的下载图标
-	            actionDelete:'', //去除上传预览的缩略图中的删除图标
-	        },
-	    });
-	}
-	
-	initFileInput("uploadImg", "/system/sysfile/upload");
-	
-	//上传成功回调函数
-	$('#uploadImg').on("fileuploaded", function(event, data, previewId, index) {
-	    var result = data.response;
-	    $('#adUrl').val(result.fileUrl);
-	});
+	//单图上传
+	$("#uploadImg").fileinput({
+	    uploadUrl: '/system/sysfile/upload',
+	    maxFileCount: 1,
+	    autoReplace: true,
+	}).on('fileuploaded', function (event, data, previewId, index) {
+		var rsp = data.response;
+		console.log("return fileUrl：" + rsp.fileUrl);
+		console.log("reutrn fileName：" + rsp.fileName);
+	    $('#adUrl').val(rsp.fileUrl);
+	}).on('fileremoved', function (event, id, index) {
+		consolg.log("删除节点", event.currentTarget.id);
+		$('#adUrl').val('');
+	})
 	
 	function submitHandler() {
 		if ($("#addAdvForm").validate().form()) {

@@ -34,25 +34,22 @@
 </@body>
 <script type="text/javascript">
 
-	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl) {    
-	    $('#' + ctrlName).fileinput({
-	        uploadUrl: uploadUrl, //上传的地址
-            maxFileCount: 1,
-            autoReplace: true,
-            initialPreview: [
-	        	'${(sysUser.userImg)!}'
-	        ],
-	    });
-	}
-	
-	initFileInput("systemLogo", "/system/sysfile/upload");
-	
-	//上传成功回调函数
-	$('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
-	    var result = data.response;
-	    $('#userImg').val(result.fileUrl);
-	});
+	// 单图上传
+	$("#systemLogo").fileinput({
+	    uploadUrl: '/system/sysfile/upload',
+	    maxFileCount: 1,
+	    autoReplace: true,
+	    initialPreviewAsData: true,
+	    initialPreview: ['${(sysUser.userImg)!}'],
+	}).on('fileuploaded', function (event, data, previewId, index) {
+		var rsp = data.response;
+		console.log("return fileUrl：" + rsp.fileUrl);
+		console.log("reutrn fileName：" + rsp.fileName);
+	    $('#userImg').val(rsp.fileUrl);
+	}).on('fileremoved', function (event, id, index) {
+		consolg.log("删除节点", event.currentTarget.id);
+		$('#userImg').val('');
+	})
 	
 	function submitHandler() {
 		if ($("#infoFrom").validate().form()) {

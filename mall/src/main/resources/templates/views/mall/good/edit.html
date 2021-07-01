@@ -261,54 +261,45 @@
 <script src="${request.contextPath}/plugins/UEditor/lang/zh-cn/zh-cn.js"></script>
 <script src="${request.contextPath}/plugins/UEditor/xiumi-ue-dialog-v5.js"></script>
 <script type="text/javascript">
-
-	//初始化fileinput控件（第一次初始化）
-	function initFileInput(ctrlName, uploadUrl, maxFileCount, initialPreviewData) {    
-	    $('#' + ctrlName).fileinput({
-	        dropZoneTitle: '尺寸750x750像素以上，大小2M以下（'+ maxFileCount +'张）',
-	        uploadUrl: uploadUrl, //上传的地址
-	        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-	        showUpload: true, //是否显示上传按钮
-	        showCaption: true,//是否显示标题
-	        browseClass: "btn btn-primary",
-	        maxFileCount: maxFileCount, //允许同时上传的最大文件个数
-	        enctype: 'multipart/form-data',
-	        validateInitialCount:true,
-	        msgFilesTooMany: "只能上传{m}个文件！",
-	        initialPreviewAsData: true,
-	        initialPreview: initialPreviewData,
-	        layoutTemplates:{
-	            actionUpload:'',//去除上传预览缩略图中的上传图片
-	            //actionZoom:'',   //去除上传预览缩略图中的查看详情预览的缩略图标
-	            actionDownload:'' ,//去除上传预览缩略图中的下载图标
-	            actionDelete:'', //去除上传预览的缩略图中的删除图标
-	        },
-	    });
-	}
 	
-	initFileInput("uploadPicUrl", "/system/sysfile/upload", 1,  ['${(good.picUrl)!}']);
+	//商品单图上传
+	$("#uploadPicUrl").fileinput({
+	    uploadUrl: '/system/sysfile/upload',
+	    maxFileCount: 1,
+	    autoReplace: true,
+	    initialPreviewAsData: true,
+        initialPreview: ['${(good.picUrl)!}'],
+	}).on('fileuploaded', function (event, data, previewId, index) {
+		var rsp = data.response;
+		console.log("return fileUrl：" + rsp.fileUrl);
+		console.log("reutrn fileName：" + rsp.fileName);
+	    $('#picUrl').val(rsp.fileUrl);
+	}).on('fileremoved', function (event, id, index) {
+		consolg.log("删除节点", event.currentTarget.id);
+		$('#picUrl').val('');
+	})
 	
-	//上传成功回调函数
-	$('#uploadPicUrl').on("fileuploaded", function(event, data, previewId, index) {
-	    var result = data.response;
-	    $('#picUrl').val(result.fileUrl);
-	});
-	
-	var jsObject = JSON.parse('${(pictureList)!}');
-	$('#gallery').val(jsObject.join(","));
-	initFileInput("uploadGallery", "/system/sysfile/upload", 3, ${(pictureList)!});
-	
-	//上传成功回调函数
-	$('#uploadGallery').on("fileuploaded", function(event, data, previewId, index) {
-	    var result = data.response;
-	    var oldGallery = $('#gallery').val();
-	    if(!oldGallery) {
-	    	$('#gallery').val(result.fileUrl);
-	    } else {
-	    	var newGallery = oldGallery + "," + result.fileUrl;
-	    	$('#gallery').val(newGallery);
-	    }
-	});
+	// 画廊多图上传
+	$("#uploadGallery").fileinput({
+	    uploadUrl: '/system/sysfile/uploads',
+	    maxFileCount: 3,
+	    uploadAsync: false,
+	    initialPreviewAsData: true,
+        initialPreview: ${(pictureList)!},
+	}).on('filebatchuploadsuccess', function (event, data, previewId, index) {
+		var rsp = data.response;
+		var fileJson = rsp.data;
+		var galleryArray = [];
+		for (var i in fileJson) {
+		    console.log("return data.fileUrl：" + fileJson[i].fileUrl);
+		    console.log("reutrn data.fileName：" + fileJson[i].fileName);
+		    galleryArray.push(fileJson[i].fileUrl);
+		}
+		$('#gallery').val(galleryArray.join(","));
+	}).on('fileremoved', function (event, id, index) {
+		consolg.log("删除节点", event.currentTarget.id);
+		$('#gallery').val('');
+	})
 	
 	//切换规格方式
 	$('input:radio[name="specType"]').on('ifChecked', function (e) {
