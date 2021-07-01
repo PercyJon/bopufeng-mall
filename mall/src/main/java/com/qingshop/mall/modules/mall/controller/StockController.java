@@ -61,12 +61,14 @@ public class StockController extends BaseController {
 		IPage<MallGoods> pageData = mallGoodsServic.page(page, ew);
 		List<MallGoods> list = pageData.getRecords();
 		List<Long> goodIdList = list.stream().map(m -> (Long) m.getGoodsId()).collect(Collectors.toList());
-		List<MallGoodsSkudetail> skudetails = mallGoodsSkudetailService
-				.list(new QueryWrapper<MallGoodsSkudetail>().in("goods_id", goodIdList));
-		Map<Long, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors
-				.groupingBy(MallGoodsSkudetail::getGoodsId, Collectors.summingInt(MallGoodsSkudetail::getNumber)));
-		for (MallGoods mallGoods : list) {
-			mallGoods.setStockNum(skudetailSumMaps.get(mallGoods.getGoodsId()));
+		if (goodIdList.size() > 0) {
+			List<MallGoodsSkudetail> skudetails = mallGoodsSkudetailService
+					.list(new QueryWrapper<MallGoodsSkudetail>().in("goods_id", goodIdList));
+			Map<Long, Integer> skudetailSumMaps = skudetails.stream().collect(Collectors
+					.groupingBy(MallGoodsSkudetail::getGoodsId, Collectors.summingInt(MallGoodsSkudetail::getNumber)));
+			for (MallGoods mallGoods : list) {
+				mallGoods.setStockNum(skudetailSumMaps.get(mallGoods.getGoodsId()));
+			}
 		}
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

@@ -200,14 +200,18 @@
 	$("#uploadPicUrl").fileinput({
 	    uploadUrl: '/system/sysfile/upload',
 	    maxFileCount: 1,
-	    autoReplace: true
+	    autoReplace: true,
+	    layoutTemplates:{
+            actionUpload:'',//去除上传预览缩略图中的上传图片
+            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+        },
 	}).on('fileuploaded', function (event, data, previewId, index) {
 		var rsp = data.response;
 		console.log("return fileUrl：" + rsp.fileUrl);
 		console.log("reutrn fileName：" + rsp.fileName);
 	    $('#picUrl').val(rsp.fileUrl);
-	}).on('fileremoved', function (event, id, index) {
-		consolg.log("删除节点", event.currentTarget.id);
+	}).on('filecleared', function(event) {
 		$('#picUrl').val('');
 	})
 	
@@ -215,7 +219,12 @@
     $("#uploadGallery").fileinput({
         uploadUrl: '/system/sysfile/uploads',
         maxFileCount: 3,
-        uploadAsync: false
+        uploadAsync: false,
+        layoutTemplates:{
+            actionUpload:'',//去除上传预览缩略图中的上传图片
+            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+        },
     }).on('filebatchuploadsuccess', function (event, data, previewId, index) {
     	var rsp = data.response;
     	var fileJson = rsp.data;
@@ -226,8 +235,7 @@
     	    galleryArray.push(fileJson[i].fileUrl);
     	}
     	$('#gallery').val(galleryArray.join(","));
-    }).on('fileremoved', function (event, id, index) {
-    	consolg.log("删除节点", event.currentTarget.id);
+    }).on('filecleared', function(event) {
     	$('#gallery').val('');
     })
 	

@@ -52,30 +52,32 @@ public class OrderController extends BaseController {
 		Rest resultMap = new Rest();
 		QueryWrapper<MallOrder> ew = new QueryWrapper<MallOrder>();
 		if (StringUtils.isNotBlank(search)) {
-			ew.like("name", search);
+			ew.like("order_sn", search);
 		}
 		ew.orderByDesc("create_time");
 		IPage<MallOrder> pageData = mallOrderService.page(page, ew);
 		List<MallOrder> lits = pageData.getRecords();
 		List<Long> orderIdList = lits.stream().map(m -> (Long) m.getOrderId()).collect(Collectors.toList());
-		List<MallOrderDetail> orderDetailLit = mallOrderDetailService
-				.list(new QueryWrapper<MallOrderDetail>().in("order_id", orderIdList));
-		Map<String, MallOrderDetail> detailMap = new HashMap<String, MallOrderDetail>();
-		for (MallOrderDetail mallOrderDetail : orderDetailLit) {
-			String orderId = mallOrderDetail.getOrderId().toString();
-			if (detailMap.containsKey(orderId)) {
-				Integer number = detailMap.get(orderId).getNumber();
-				Integer totalNumber = number + mallOrderDetail.getNumber();
-				detailMap.get(orderId).setNumber(totalNumber);
-			} else {
-				detailMap.put(orderId, mallOrderDetail);
+		if (orderIdList.size() > 0) {
+			List<MallOrderDetail> orderDetailLit = mallOrderDetailService
+					.list(new QueryWrapper<MallOrderDetail>().in("order_id", orderIdList));
+			Map<String, MallOrderDetail> detailMap = new HashMap<String, MallOrderDetail>();
+			for (MallOrderDetail mallOrderDetail : orderDetailLit) {
+				String orderId = mallOrderDetail.getOrderId().toString();
+				if (detailMap.containsKey(orderId)) {
+					Integer number = detailMap.get(orderId).getNumber();
+					Integer totalNumber = number + mallOrderDetail.getNumber();
+					detailMap.get(orderId).setNumber(totalNumber);
+				} else {
+					detailMap.put(orderId, mallOrderDetail);
+				}
 			}
-		}
-		for (MallOrder order : lits) {
-			String orderId = order.getOrderId().toString();
-			MallOrderDetail mallOrderDetail = detailMap.get(orderId);
-			order.setPicUrl(mallOrderDetail.getPicUrl());
-			order.setNumber(mallOrderDetail.getNumber());
+			for (MallOrder order : lits) {
+				String orderId = order.getOrderId().toString();
+				MallOrderDetail mallOrderDetail = detailMap.get(orderId);
+				order.setPicUrl(mallOrderDetail.getPicUrl());
+				order.setNumber(mallOrderDetail.getNumber());
+			}
 		}
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
 		resultMap.put("iTotalRecords", pageData.getTotal());

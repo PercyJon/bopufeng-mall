@@ -90,7 +90,7 @@ public class RoleController extends BaseController {
 		// 查询分页
 		QueryWrapper<SysRole> ew = new QueryWrapper<SysRole>();
 		if (StringUtils.isNotBlank(search)) {
-			ew.like("roleName", search);
+			ew.like("role_name", search);
 		}
 		ew.orderByDesc("create_time");
 		IPage<SysRole> pageData = sysRoleService.page(page, ew);

@@ -86,13 +86,17 @@
 	    uploadUrl: '/system/sysfile/upload',
 	    maxFileCount: 1,
 	    autoReplace: true,
+	    layoutTemplates:{
+            actionUpload:'',//去除上传预览缩略图中的上传图片
+            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+        },
 	}).on('fileuploaded', function (event, data, previewId, index) {
 		var rsp = data.response;
 		console.log("return fileUrl：" + rsp.fileUrl);
 		console.log("reutrn fileName：" + rsp.fileName);
 	    $('#adUrl').val(rsp.fileUrl);
-	}).on('fileremoved', function (event, id, index) {
-		consolg.log("删除节点", event.currentTarget.id);
+	}).on('filecleared', function(event) {
 		$('#adUrl').val('');
 	})
 	

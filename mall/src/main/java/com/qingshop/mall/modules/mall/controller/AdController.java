@@ -51,7 +51,7 @@ public class AdController extends BaseController {
 		Page<MallAd> page = getPage(pageIndex, length);
 		QueryWrapper<MallAd> ew = new QueryWrapper<MallAd>();
 		if (StringUtils.isNotBlank(search)) {
-			ew.like("name", search);
+			ew.like("ad_name", search);
 		}
 		IPage<MallAd> pageData = mallAdService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());

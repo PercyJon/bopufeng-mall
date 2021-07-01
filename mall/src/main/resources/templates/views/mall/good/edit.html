@@ -269,6 +269,11 @@
 	    autoReplace: true,
 	    initialPreviewAsData: true,
         initialPreview: ['${(good.picUrl)!}'],
+        layoutTemplates:{
+            actionUpload:'',//去除上传预览缩略图中的上传图片
+            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+        },
 	}).on('fileuploaded', function (event, data, previewId, index) {
 		var rsp = data.response;
 		console.log("return fileUrl：" + rsp.fileUrl);
@@ -286,6 +291,11 @@
 	    uploadAsync: false,
 	    initialPreviewAsData: true,
         initialPreview: ${(pictureList)!},
+        layoutTemplates:{
+            actionUpload:'',//去除上传预览缩略图中的上传图片
+            actionDownload:'' ,//去除上传预览缩略图中的下载图标
+            actionDelete:'', //去除上传预览的缩略图中的删除图标
+        },
 	}).on('filebatchuploadsuccess', function (event, data, previewId, index) {
 		var rsp = data.response;
 		var fileJson = rsp.data;

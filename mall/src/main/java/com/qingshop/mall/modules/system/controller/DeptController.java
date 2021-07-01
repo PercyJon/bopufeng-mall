@@ -54,7 +54,7 @@ public class DeptController extends BaseController {
 		// 查询分页
 		QueryWrapper<SysDept> ew = new QueryWrapper<SysDept>();
 		if (StringUtils.isNotBlank(search)) {
-			ew.like("deptName", search);
+			ew.like("dept_name", search);
 		}
 		IPage<SysDept> pageData = sysDeptService.page(page, ew);
 		resultMap.put("iTotalDisplayRecords", pageData.getTotal());
