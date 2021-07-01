@@ -70,9 +70,9 @@
 					<div class="form-group">
 						<label for="password2" class="col-sm-2 col-md-1 control-label">宣传画廊</label>
 						<div class="col-sm-10 col-md-11">
-							<input type="hidden" id="gallery" name="gallery">
+							<input type="hidden" id="gallery" name="gallery" value="${good.gallery}">
 							<div class="file-loading">
-					            <input id="uploadGallery" name="file" type="file" multiple>
+					            <input id="uploadGallery" name="files" type="file" multiple>
 					        </div>
 						</div>
 					</div>
@@ -261,7 +261,8 @@
 <script src="${request.contextPath}/plugins/UEditor/lang/zh-cn/zh-cn.js"></script>
 <script src="${request.contextPath}/plugins/UEditor/xiumi-ue-dialog-v5.js"></script>
 <script type="text/javascript">
-	
+	var jsObject = JSON.parse('${(pictureList)!}');
+	$('#gallery').val(jsObject.join(","));
 	//商品单图上传
 	$("#uploadPicUrl").fileinput({
 	    uploadUrl: '/system/sysfile/upload',
