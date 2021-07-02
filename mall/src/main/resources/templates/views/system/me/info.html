@@ -21,7 +21,7 @@
 						    </div>
 						</div>
 						<div style="margin-top: 10px;">
-							<button type="button" class="btn btn-sm btn-primary" id="btn_upload">点击上传</button>
+							<button type="button" class="btn btn-sm btn-primary" id="submit-dropzone">点击上传</button>
 						</div>
                 	</div>
               	</div>
@@ -64,11 +64,11 @@
             let mockFile = {};
             myDropzone.displayExistingFile(mockFile, '${(sysUser.userImg)!}');
             myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
-            
-            // 点击上传按钮上传图片
-            $('#btn_upload').on("click", function() {
-        		myDropzone.processQueue();
-        	});
+            // 点击上传按钮
+            var submitButton = document.querySelector("#submit-dropzone")
+	        submitButton.addEventListener("click", function() {
+	          	myDropzone.processQueue();
+	        });
         },
 	});
 	
