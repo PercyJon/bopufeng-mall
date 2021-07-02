@@ -280,10 +280,10 @@
 		console.log("return fileUrl：" + rsp.fileUrl);
 		console.log("reutrn fileName：" + rsp.fileName);
 	    $('#picUrl').val(rsp.fileUrl);
-	}).on('fileremoved', function (event, id, index) {
-		consolg.log("删除节点", event.currentTarget.id);
+	}).on('filecleared', function(event) {
+		console.log("执行了清除文件的事件");
 		$('#picUrl').val('');
-	})
+    });
 	
 	// 画廊多图上传
 	$("#uploadGallery").fileinput({
@@ -307,8 +307,8 @@
 		    galleryArray.push(fileJson[i].fileUrl);
 		}
 		$('#gallery').val(galleryArray.join(","));
-	}).on('fileremoved', function (event, id, index) {
-		consolg.log("删除节点", event.currentTarget.id);
+	}).on('filecleared', function(event) {
+		console.log("执行了清除文件的事件");
 		$('#gallery').val('');
 	})
 	
