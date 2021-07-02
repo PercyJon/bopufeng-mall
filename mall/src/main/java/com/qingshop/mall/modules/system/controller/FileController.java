@@ -3,8 +3,12 @@ package com.qingshop.mall.modules.system.controller;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +41,12 @@ public class FileController extends BaseController {
 	 */
 	@PostMapping("/upload")
 	@ResponseBody
-	public Rest uploadImageFile(MultipartFile file) throws Exception {
+	public Map<String, Object> uploadImageFile(MultipartFile file) throws Exception {
+		Map<String, Object> resultMap = new HashedMap<String, Object>();
 		try {
 			if (file.isEmpty()) {
-				return Rest.failure("请选择文件！");
+				resultMap.put("error", "请选择文件！");
+				return resultMap;
 			} else {
 				SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(file, true);
 				Rest rest = Rest.ok();
@@ -50,7 +56,8 @@ public class FileController extends BaseController {
 			}
 		} catch (Exception e) {
 			logger.error("文件上传失败", e);
-			return Rest.failure("服务器异常请联系管理员！");
+			resultMap.put("error", "服务器异常请联系管理员！");
+			return resultMap;
 		}
 	}
 
@@ -59,20 +66,25 @@ public class FileController extends BaseController {
 	 */
 	@PostMapping("/uploads")
 	@ResponseBody
-	public Rest uploadFiles(List<MultipartFile> files) throws Exception {
+	public Map<String, Object> uploadFiles(MultipartFile[] file, HttpServletResponse httpResponse) throws Exception {
+		Map<String, Object> resultMap = new HashedMap<String, Object>();
 		try {
-			if (files.size() > 0) {
+			if (file != null && file.length > 0) {
 				List<SysUploadFile> fileInfos = new LinkedList<SysUploadFile>();
-				for (MultipartFile file : files) {
-					SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(file, true);
+				for (MultipartFile tempfile : file) {
+					SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(tempfile, true);
 					fileInfos.add(fileResult);
 				}
 				return Rest.okData(fileInfos);
 			} else {
-				return Rest.failure("请选择文件！");
+				httpResponse.setStatus(405);
+				resultMap.put("error", "请选择文件！");
+				return resultMap;
 			}
 		} catch (Exception e) {
-			return Rest.failure(e.getMessage());
+			httpResponse.setStatus(405);
+			resultMap.put("error", e.getMessage());
+			return resultMap;
 		}
 	}
 
