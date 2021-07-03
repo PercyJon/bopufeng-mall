@@ -87,7 +87,7 @@
 				title: "用户信息",
 				orderable: !1,
 				render: function(e, a, t, n) {
-					return $.table.imageView(t.avatarUrl) + '<span>&nbsp;&nbsp;' + t.name + '</span>';
+					return '<span>&nbsp;&nbsp;' + t.name + '</span>';
 				}
 			},{
 				targets: 3,
@@ -149,7 +149,7 @@
 					var html = '';
 						html += '<div>'
 						<#if shiro.hasPermission("editComment")>
-							html += '<a class="btn btn-primary btn-xs dialog" data-url="/mall/comment/check/'+ t.commentId +'" data-title="审核回复" title="审核回复"><i class="fa fa-pencil"></i>审核回复</a>'
+							html += '<a class="btn btn-primary btn-xs dialog" data-url="/mall/comment/check/'+ t.commentId +'" data-title="回复" title="回复"><i class="fa fa-pencil"></i>回复</a>'
 						</#if>
 						html += '</div>';
 					return html;

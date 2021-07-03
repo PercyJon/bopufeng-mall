@@ -282,7 +282,6 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/captcha", "anon");
 		filterChainDefinitionMap.put("/doLogin", "anon");
 		filterChainDefinitionMap.put("/login", "anon");
-		filterChainDefinitionMap.put("/druid/**", "anon");
 		filterChainDefinitionMap.put("/file/**", "anon");
 		filterChainDefinitionMap.put("/wx/**", "anon");
 		filterChainDefinitionMap.put("/**", "user,perms");

@@ -72,14 +72,13 @@
 			},
 			columnDefs: [{
 				targets: 0,
-				title: "",
+				title: "订单信息",
 				orderable: !1,
-				width: "300px",
 				render: function(e, a, t, n) {
 					var htmls = '' 
 					htmls += '<div>'
 					htmls += '	<div class="pull-left">'+ $.table.imageSquareView(t.picUrl) +'</div>'
-					htmls += '	<div class="pull-left">'
+					htmls += '	<div class="pull-right">'
 					htmls += '		<div style="margin: 5px 0px 10px 10px;">下单时间：'+ t.createTime +'</div>'
 					htmls += '		<div style="margin: 5px 0px 10px 10px;">订单编号：'+ t.orderSn +'</div>'
 					htmls += '		<div style="margin: 5px 0px 10px 10px;">商品总数：共计'+ t.number +'件商品</div>'
@@ -90,6 +89,7 @@
 			},{
 				targets: 1,
 				title: "付款",
+				width: "30px",
 				orderable: !1,
 				render: function(e, a, t, n) {
 					return t.orderPrice;
