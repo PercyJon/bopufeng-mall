@@ -42,6 +42,7 @@
             if (event.origin == xiumi_url) {
                 console.log("Inserting html");
                 editor.execCommand('insertHtml', event.data);
+                editor.fireEvent("catchRemoteImage");
                 console.log("Xiumi dialog is closing");
                 dialog.close();
             }
