@@ -967,6 +967,16 @@
 		var data = {"goods":goods, "goodSkus": goodSkus, "goodSkudetails":goodSkuDetails};
 		form_data = JSON.stringify(data);//把对象转换成json
 		if ($("#goodAddFrom").validate().form() && flag) {
+			var picImg = $('#picUrl').val();
+			if(picImg == null || picImg == undefined || picImg == '') {
+				layer.msg("请上传商品图片", {icon : 2});
+				return false;
+			}
+			var galleryImg = $('#gallery').val();
+			if(galleryImg == null || galleryImg == undefined || galleryImg == '') {
+				layer.msg("请上传宣传图片", {icon : 2});
+				return false;
+			}
 			$.ajax({  
 				url: $("#goodAddFrom").attr('action'),  
 				type: 'POST',  

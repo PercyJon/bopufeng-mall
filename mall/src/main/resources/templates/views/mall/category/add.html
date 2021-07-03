@@ -88,6 +88,11 @@
 
 	function submitHandler() {
 		if ($("#addCategoryForm").validate().form()) {
+			var categoryImg = $('#picUrl').val();
+			if(categoryImg == null || categoryImg == undefined || categoryImg == '') {
+				layer.msg("请上传类目图片", {icon : 2});
+				return false;
+			}
 			var formData = $("#addCategoryForm").serialize();
 			var index = layer.load(3); // 换了种风格
 			$.ajax({

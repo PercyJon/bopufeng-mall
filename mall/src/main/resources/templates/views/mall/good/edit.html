@@ -68,7 +68,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="password2" class="col-sm-2 col-md-1 control-label">宣传画廊</label>
+						<label for="password2" class="col-sm-2 col-md-1 control-label">宣传图片</label>
 						<div class="col-sm-10 col-md-11">
 							<input type="hidden" id="gallery" name="gallery" value="${good.gallery}">
 							<div class="file-loading">
@@ -1020,6 +1020,16 @@
 		var data = {"goods":goods, "goodSkus": goodSkus, "goodSkudetails":goodSkuDetails};
 		form_data = JSON.stringify(data);//把对象转换成json
 		if ($("#goodEditFrom").validate().form() && flag) {
+			var picImg = $('#picUrl').val();
+			if(picImg == null || picImg == undefined || picImg == '') {
+				layer.msg("请上传商品图片", {icon : 2});
+				return false;
+			}
+			var galleryImg = $('#gallery').val();
+			if(galleryImg == null || galleryImg == undefined || galleryImg == '') {
+				layer.msg("请上传宣传图片", {icon : 2});
+				return false;
+			}
 			$.ajax({  
 				url: $("#goodEditFrom").attr('action'),  
 				type: 'POST',  

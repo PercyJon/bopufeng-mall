@@ -102,6 +102,11 @@
 	
 	function submitHandler() {
 		if ($("#addAdvForm").validate().form()) {
+			var advImg = $('#adUrl').val();
+			if(advImg == null || advImg == undefined || advImg == '') {
+				layer.msg("请上传宣传图片", {icon : 2});
+				return false;
+			}
 			var formData = $("#addAdvForm").serialize();
 			var index = layer.load(3); // 换了种风格
 			$.ajax({
