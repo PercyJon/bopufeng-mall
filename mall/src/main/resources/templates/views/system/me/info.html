@@ -11,18 +11,13 @@
                 		<input type="text" name="userName" value="${(sysUser.userName)!}" class="form-control" readonly="readonly" required>
               		</div>
             	</div>
-            	<input type="hidden" value="${(sysUser.userImg)!}" id="userImg" name="userImg">
             	<div class="form-group">
                 	<label for="systemLogo" class="col-sm-2 control-label">用户头像</label>
                 	<div class="col-sm-10">
-						<div class="dropzone" id="myDropzone">
-						    <div class="am-text-success dz-message">
-						        将文件拖拽到此处<br>或点此打开文件管理器选择文件
-						    </div>
-						</div>
-						<div style="margin-top: 10px;">
-							<button type="button" class="btn btn-sm btn-primary" id="submit-dropzone">点击上传</button>
-						</div>
+	                	<input type="hidden" id="userImg" name="userImg" value="${(sysUser.userImg)!}">
+						<div class="file-loading">
+				            <input id="uploadImg" name="file" type="file" multiple>
+				        </div>
                 	</div>
               	</div>
               	<#if info??>
@@ -38,39 +33,27 @@
 </div>
 </@body>
 <script type="text/javascript">
-	
-	// 单图上传
-	Dropzone.autoDiscover = false;
-	var myDropzone = new Dropzone("#myDropzone", {
-	    url: "/system/sysfile/upload",
-	    maxFiles: 1,//最多上传几个图片
-        maxFilesize: 5,//图片的大小，单位是M
-        uploadMultiple: true, // 是否开启多图上传
-        autoProcessQueue: false, // 是否点击选择直接上传
-        addRemoveLinks: true, // 添加移除按钮
-        dictRemoveFile : "移除",
-        dictCancelUpload: "取消",
-        dictMaxFilesExceeded: "只能上传1个文件",
-        init: function() {
-        	this.on("success", function(file, rsp) {
-        	    $('#userImg').val(rsp.fileUrl);
-            });
-            this.on("removedfile", function(file) {
-            	$('#userImg').val('');
-            });
-            this.on("maxfilesexceeded", function(file) { this.removeFile(file); });
-            // 后台图片回显
-            let myDropzone = this;
-            let mockFile = {};
-            myDropzone.displayExistingFile(mockFile, '${(sysUser.userImg)!}');
-            myDropzone.options.maxFiles = myDropzone.options.maxFiles - 1;
-            // 点击上传按钮
-            var submitButton = document.querySelector("#submit-dropzone")
-	        submitButton.addEventListener("click", function() {
-	          	myDropzone.processQueue();
-	        });
-        },
-	});
+
+	//单图上传
+	$("#uploadImg").fileinput({
+	    uploadUrl: '/system/sysfile/upload',
+	    maxFileCount: 1,
+	    autoReplace: true,
+	    initialPreviewAsData: true,
+	    initialPreview: ['${(sysUser.userImg)!}'],
+	    layoutTemplates:{
+	        actionUpload:'',//去除上传预览缩略图中的上传图片
+	        actionDownload:'' ,//去除上传预览缩略图中的下载图标
+	        actionDelete:'', //去除上传预览的缩略图中的删除图标
+	    },
+	}).on('fileuploaded', function (event, data, previewId, index) {
+		var rsp = data.response;
+		console.log("return fileUrl：" + rsp.fileUrl);
+		console.log("reutrn fileName：" + rsp.fileName);
+	    $('#userImg').val(rsp.fileUrl);
+	}).on('filecleared', function(event) {
+		$('#userImg').val('');
+	})
 	
 	function submitHandler() {
 		var userImg = $('#userImg').val();
