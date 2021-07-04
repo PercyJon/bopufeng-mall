@@ -691,11 +691,6 @@ page {
   color: #999;
 }
 
-.wxParse-em, .WxEmojiView {
-  display: inline-block;
-  color: #333;
-}
-
 .flow-shopList .flow-list-left image {
   width: 180rpx;
   height: 180rpx;
@@ -872,29 +867,4 @@ page {
 
 .search-box .right {
   flex: 1;
-}
-
-.wxParse-img {
-  display: block;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.wxParse-inline {
-  font-size: 28rpx;
-  text-align: center;
-}
-
-.wxParse-div {
-  overflow: hidden;
-}
-
-.wxParse-div .kd_pic {
-  float: left;
-  width: 50%;
-  margin: 0 auto;
-}
-
-.xEmojiView {
-  margin: 15rpx 0;
 }

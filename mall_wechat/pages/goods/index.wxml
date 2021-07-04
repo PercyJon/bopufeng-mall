@@ -1,4 +1,3 @@
-<import src="../../wxParse/wxParse.wxml"></import>
 <scroll-view bindscroll="scroll" scroll-top="{{scrollTop}}" scroll-y="true" style="position:absolute; top:0; left:0; right:0; bottom:0;">
   <view class="container" wx:if="{{mallGood.goodsId}}">
     <view bindtap="imgPreview">
@@ -90,9 +89,9 @@
         </view>
       </view>
       <view>
-        <view wx:if="{{detail.content != ''}}">
+        <view wx:if="{{mallGood.detail != ''}}">
           <view class="b-f goods-detail-box">
-            <template is="wxParse" data="{{wxParseData:content.nodes}}"></template>
+            <rich-text nodes="{{mallGood.detail}}"></rich-text>
           </view>
         </view>
         <view wx:else>

@@ -1,7 +1,6 @@
 @import "/utils/common.wxss";
 
 /* 快捷导航 */
-
 .shortcut {
   position: fixed;
   right: 12px;

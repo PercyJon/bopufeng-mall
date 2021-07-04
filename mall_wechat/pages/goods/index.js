@@ -1,5 +1,4 @@
-let App = getApp(),
-  wxParse = require("../../wxParse/wxParse.js");
+let App = getApp();
 
 Page({
 
@@ -67,10 +66,6 @@ Page({
    */
   initGoodsDetailData(data) {
     let _this = this;
-    // 富文本转码
-    if (data.mallGood.detail.length > 0) {
-      wxParse.wxParse('content', 'html', data.mallGood.detail, _this, 0);
-    }
     // 商品价格/划线价/库存
     data.goods_sku_id = data.skuDetailList[0].skudetailId;
     data.goods_price = data.skuDetailList[0].goodPrice;
