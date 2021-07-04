@@ -1,7 +1,7 @@
 /* iconfont */
 @import "/utils/iconfont.wxss";
 
-.container, input {
+.container {
   font-family: PingFang-Medium,
                  PingFangSC-Regular,
                  Heiti,

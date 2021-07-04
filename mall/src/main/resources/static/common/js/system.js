@@ -540,10 +540,10 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var	strhtml =  '<div class="viewer-image-single">'
+					var	strhtml =  '<a data-toggle="lightbox" href="%s">'
 						strhtml += '	<img src="%s" class="img-circle img-xs"/>'
-						strhtml += '</div>'
-					return $.common.sprintf(strhtml, value);
+						strhtml += '</a>'
+					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}
@@ -559,10 +559,10 @@
 				// blank or self
 				var _target = $.common.isEmpty(target) ? 'self' : target;
 				if (!$.common.isEmpty(value)) {
-					var strhtml  = '<div class="viewer-image-single">'
+					var	strhtml =  '<a data-toggle="lightbox" href="%s">'
 						strhtml += '	<img src="%s" class="img-square img-md"/>'
-						strhtml += '</div>'
-					return $.common.sprintf(strhtml, value);
+						strhtml += '</a>'
+					return $.common.sprintf(strhtml, value, value);
 				} else {
 					return $.common.nullToStr(value);
 				}

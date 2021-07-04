@@ -309,13 +309,18 @@ $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 	radioClass : 'iradio_minimal-blue'
 });
 
+// 图片查看
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+	event.preventDefault();
+	$(this).ekkoLightbox();
+});
+
 // 回到顶部绑定
 $(function() {
 	if ($.fn.toTop !== undefined) {
 		$('#scroll-up').toTop();
 	}
 });
-
 (function($) {
 	'use strict';
 	$.fn.toTop = function(opt) {
