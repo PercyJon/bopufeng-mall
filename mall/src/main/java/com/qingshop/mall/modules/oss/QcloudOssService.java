@@ -12,7 +12,7 @@ import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.region.Region;
 import com.qingshop.mall.common.exception.OssException;
-import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 
 /**
@@ -21,7 +21,7 @@ import com.qingshop.mall.modules.system.vo.SysUploadFile;
 public class QcloudOssService extends OssService {
 	private COSClient client;
 
-	QcloudOssService(ConfigStorageVo config) {
+	QcloudOssService(OssConfig config) {
 		this.config = config;
 		init();
 	}

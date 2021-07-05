@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.common.utils.UUIDUtil;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.common.BaseController;
 import com.qingshop.mall.modules.oss.OssFactory;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
@@ -35,6 +37,9 @@ import com.qingshop.mall.modules.system.vo.SysUploadFile;
 @RestController
 @RequestMapping("/plugins/UEditor/ueditor")
 public class UEditorController extends BaseController {
+	
+	@Autowired
+	private OssConfig ossConfig;
 
 	/**
 	 * ueditor
@@ -77,7 +82,7 @@ public class UEditorController extends BaseController {
 	 */
 	public JSONObject ueditoruploadimage(HttpServletRequest request, MultipartFile upfile) throws Exception {
 		JSONObject json = new JSONObject();
-		SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).uploadFile(upfile, true);
+		SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init(ossConfig)).uploadFile(upfile, true);
 		json.put("state", "SUCCESS");
 		json.put("url", fileResult.getFileUrl());
 		return json;
@@ -100,7 +105,7 @@ public class UEditorController extends BaseController {
 					// 取出后缀名
 					String extensionName = source.substring(source.lastIndexOf("."), source.lastIndexOf(".") + 4);
 					String suffix = UUIDUtil.generateShortUuid() + extensionName;
-					SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init()).upload(is, suffix, true);
+					SysUploadFile fileResult = Objects.requireNonNull(OssFactory.init(ossConfig)).upload(is, suffix, true);
 					Map<String, Object> map = new HashMap<String, Object>();
 					map.put("source", source);
 					map.put("state", "SUCCESS");

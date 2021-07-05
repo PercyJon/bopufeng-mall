@@ -7,7 +7,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.qingshop.mall.common.exception.OssException;
-import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 
 /**
@@ -17,7 +17,7 @@ public class AliyunOssService extends OssService {
 
 	private OSSClient client;
 
-	AliyunOssService(ConfigStorageVo config) {
+	AliyunOssService(OssConfig config) {
 		this.config = config;
 		// 初始化
 		init();

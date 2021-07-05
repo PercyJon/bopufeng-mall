@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.aliyun.oss.OSSException;
 import com.qingshop.mall.common.utils.DateUtils;
 import com.qingshop.mall.common.utils.UUIDUtil;
-import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 
 /**
@@ -19,7 +19,7 @@ import com.qingshop.mall.modules.system.vo.SysUploadFile;
 public abstract class OssService {
 
 	/** 云存储配置信息 */
-	ConfigStorageVo config;
+	OssConfig config;
 
 	/**
 	 * 文件路径

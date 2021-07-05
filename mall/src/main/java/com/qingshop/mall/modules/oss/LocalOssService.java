@@ -14,7 +14,7 @@ import com.qingshop.mall.common.utils.DateUtils;
 import com.qingshop.mall.common.utils.FileUtil;
 import com.qingshop.mall.common.utils.PropertiesUtil;
 import com.qingshop.mall.common.utils.UUIDUtil;
-import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 import com.qiniu.util.IOUtils;
 
@@ -23,7 +23,7 @@ import com.qiniu.util.IOUtils;
  */
 public class LocalOssService extends OssService {
 
-	LocalOssService(ConfigStorageVo config) {
+	LocalOssService(OssConfig config) {
 		this.config = config;
 	}
 

@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import com.qingshop.mall.common.exception.OssException;
 import com.qingshop.mall.common.utils.JsonUtils;
-import com.qingshop.mall.modules.system.vo.ConfigStorageVo;
+import com.qingshop.mall.framework.config.OssConfig;
 import com.qingshop.mall.modules.system.vo.SysUploadFile;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Region;
@@ -25,7 +25,7 @@ public class QiniuOssService extends OssService {
 	private BucketManager bucketManager;
 	private String token;
 
-	QiniuOssService(ConfigStorageVo config) {
+	QiniuOssService(OssConfig config) {
 		this.config = config;
 
 		// 初始化

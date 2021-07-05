@@ -83,9 +83,30 @@ mybatis-plus:
       cache-enabled: true
       # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #SQL日志打印
 xss:
-   enabled: true
+   enabled: true 
    excludes: /system/user/*
    urlPatterns: /system/*
+oss:
+   type: 0 # 存储类型 类型 0-本地，1：七牛 2：阿里云 3：腾讯云
+   localDomain: http://192.168.1.102:8080
+   localPrefix: 
+   qiniuDomain: http://test.oss.renren.io
+   qiniuPrefix: file
+   qiniuAccessKey: NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ
+   qiniuSecretKey: uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV
+   qiniuBucketName: renren-oss 
+   aliyunDomain: https://xxx.oss-cn-hangzhou.aliyuncs.com
+   aliyunPrefix: file
+   aliyunEndPoint: oss-cn-hangzhou.aliyuncs.com
+   aliyunAccessKeyId: LTAI4FgN4uWUatpHLxxjXmv1
+   aliyunAccessKeySecret: OJTXOBiLxxpKCAMURVlonFGdHb1n1
+   aliyunBucketName: xxx-img
+   qcloudDomain: https://xxx.cos.ap-shanghai.myqcloud.com
+   qcloudPrefix: file
+   qcloudSecretId: AKIDrxxxgT2fMDNHud5HDtOTJlACx
+   qcloudSecretKey: iBSZP6WifMn3A1cxxxwULwH
+   qcloudBucketName: sttbaxxx
+   qcloudRegion: ap-shanghai 
 mall-wx:
    app-id: wxfa39a3fd26faca9d
    app-secret: ba8318561bf2940caa8cf7be7928c59a
