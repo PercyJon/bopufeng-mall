@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">宣传图片</label>
 				<div class="col-sm-10">
-					<input type="hidden" id="adUrl" name="adUrl" value="${mallAd.picUrl}">
+					<input type="hidden" id="adUrl" name="adUrl" value="${(mallAd.adUrl)}">
 					<div class="file-loading">
 			            <input id="uploadImg" name="file" type="file" multiple>
 			        </div>
@@ -28,22 +28,22 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">开始时间</label>
 				<div class="col-sm-10">
-					<div class="col-sm-4 input-group date form_datetime">
+					<div class="col-sm-4 input-group">
+						<input id="startTime" name="startTime" type="text" placeholder="请输入开始时间" value="${mallAd.startTime?string('yyyy-MM-dd HH:mm:ss')}" class="form-control test-item-datetime" required>
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						</div>
-						<input type="text" class="form-control" placeholder="请输入开始时间" value="${mallAd.startTime?string('yyyy-MM-dd HH:mm:ss')}" readonly name="startTime" required>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label">关闭时间</label>
 				<div class="col-sm-10">
-					<div class="col-sm-4 input-group date form_datetime">
+					<div class="col-sm-4 input-group">
+						<input id="endTime" name="endTime" type="text" placeholder="请输入关闭时间" value="${mallAd.endTime?string('yyyy-MM-dd HH:mm:ss')}" class="form-control test-item-datetime" required>
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						</div>
-						<input type="text" class="form-control" placeholder="请输入关闭时间" value="${mallAd.endTime?string('yyyy-MM-dd HH:mm:ss')}" readonly name="endTime" required>
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,6 @@
 </div>
 </@body>
 <script type="text/javascript">
-
 	//单图上传
 	$("#uploadImg").fileinput({
 	    uploadUrl: '/system/sysfile/upload',
@@ -100,11 +99,11 @@
 	}).on('filecleared', function(event) {
 		$('#adUrl').val('');
 	})
-	
 	// 页面提交
 	function submitHandler() {
 		if ($("#editAdvForm").validate().form()) {
 			var advImg = $('#adUrl').val();
+			console.log("2222");
 			if(advImg == null || advImg == undefined || advImg == '') {
 				layer.msg("请上传宣传图片", {icon : 2});
 				return false;

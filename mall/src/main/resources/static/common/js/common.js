@@ -1,4 +1,4 @@
-/** 设置全局ajax处理 */
+/* 设置全局ajax处理 */
 $.ajaxSetup({
 	complete : function(XMLHttpRequest, textStatus) {
 		if (textStatus == 'timeout') {
@@ -11,12 +11,54 @@ $.ajaxSetup({
 	}
 });
 
+/* layer全局配置 */
 layer.config({
 	extend: 'moon/style.css',
 	skin: 'layer-ext-moon'
 });
 
-/** 关闭选项卡 */
+/* laydate全局配置 */
+lay('.test-item-datetime').each(function(){
+  laydate.render({
+    elem: this,
+    type: 'datetime',
+    trigger: 'click',
+  });
+});
+
+/* 导出报表 */
+function exportTo(fileName) {
+	var date = new Date();
+	$(".table").table2excel({
+		exclude : ".noExl",
+		name : "Excel Document Name",
+		filename : fileName,
+		exclude_img : true,
+		exclude_links : true,
+		exclude_inputs : true
+	});
+}
+
+/* select2插件全局初始化 */
+$(".select2").select2();
+$(".select2").on("select2:select", function(e) {
+	var id = $(this).attr("id");
+	$("#" + id + "-error").remove();
+});
+
+/* icheck插件全局初始化 */
+$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+	checkboxClass : 'icheckbox_minimal-blue',
+	radioClass : 'iradio_minimal-blue'
+});
+
+/* 图片查看 */
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+	event.preventDefault();
+	$(this).ekkoLightbox();
+});
+
+/* 关闭选项卡 */
 function closeItem(dataId){
 	var topWindow = $(window.parent.document);
 	if(!$.common.isEmpty(dataId)){
@@ -40,7 +82,7 @@ function closeItem(dataId){
 	}
 }
 
-/** 创建选项卡 */
+/* 创建选项卡 */
 function createMenuItem(dataUrl, menuName) {
 	var panelUrl = window.frameElement.getAttribute('data-id');
 	dataIndex = $.common.random(1,100),
@@ -85,7 +127,7 @@ function createMenuItem(dataUrl, menuName) {
     return false;
 }
 
-// 滚动到指定选项卡
+/* 滚动到指定选项卡 */
 function scrollToTab(element) {
 	var topWindow = $(window.parent.document);
     var marginLeftVal = calSumWidth($(element).prevAll()),
@@ -113,7 +155,7 @@ function scrollToTab(element) {
     $('.page-tabs-content', topWindow).animate({ marginLeft: 0 - scrollVal + 'px' }, "fast");
 }
 
-// 计算元素集合的总宽度
+/* 计算元素集合的总宽度 */
 function calSumWidth(elements) {
     var width = 0;
     $(elements).each(function() {
@@ -138,13 +180,13 @@ function GetQueryValue(queryName) {
 	}
 }
 
-// 页面跳转
+/* 页面跳转 */
 $("body").delegate(".toNewTab", "click", function() {
 	var tabUrl = $(this).attr('tab-url');
 	window.location.href = tabUrl + "?r=" + new Date().getTime();
 });
 
-// 带有保存取消按钮
+/* 带有保存取消按钮 */
 $("body").delegate(".dialog", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -154,7 +196,7 @@ $("body").delegate(".dialog", "click", function() {
 	$.modal.dialog_open(title, url, width, height);
 });
 
-// 带有保存取消按钮 （全屏)
+/* 带有保存取消按钮 （全屏) */
 $("body").delegate(".dialogFull", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -164,7 +206,7 @@ $("body").delegate(".dialogFull", "click", function() {
 	$.modal.dialog_openFull(title, url, width, height);
 });
 
-// 自定义保存取消
+ /* 自定义保存取消 */
 $("body").delegate(".dialog_detail", "click", function() {
 	var me = this;
 	var url = $(this).attr('data-url');
@@ -174,7 +216,7 @@ $("body").delegate(".dialog_detail", "click", function() {
 	$.modal.dialog_detail(title, url, width, height, false);
 });
 
-// 多选删除
+/* 多选删除 */
 $("body").delegate("*[delete-batch-url]", "click", function() {
 	var deleteBatchUrl = $(this).attr('delete-batch-url');
 	var ids = [];
@@ -198,124 +240,7 @@ $("body").delegate("*[delete-batch-url]", "click", function() {
 	}
 });
 
-var now = new Date();
-$('.daterang').daterangepicker({
-	"showWeekNumbers" : true,
-	"showISOWeekNumbers" : true,
-	"ranges" : {
-		"今天" : [ now, now ],
-		"昨天" : [ getBoforeDate(1), getBoforeDate(1) ],
-		"最近7天" : [ getBoforeDate(7), now ],
-		"最近30天" : [ getBoforeDate(30), now ],
-		"本月" : [ getBoforeMonth(0, 1), getBoforeMonth(0, 31) ],
-		"上个月" : [ getBoforeMonth(1, 1), getBoforeMonth(1, 31) ],
-		"最近三个月" : [ getBoforeMonth(2, 1), getBoforeMonth(0, 31) ]
-	},
-	"locale" : {
-		"format" : "YYYY/MM/DD",
-		"separator" : "-",
-		"applyLabel" : "应用",
-		"cancelLabel" : "取消",
-		"fromLabel" : "From",
-		"toLabel" : "To",
-		"customRangeLabel" : "自定义",
-		"weekLabel" : "W",
-		"daysOfWeek" : [ "日", "一", "二", "三", "四", "五", "六" ],
-		"monthNames" : [ "一月", "二月", "三月", "四月", "五月", "六月",
-				"七月", "八月", "九月", "十月", "十一月", "十二月" ],
-		"firstDay" : 1
-	},
-	"alwaysShowCalendars" : true,
-	"autoUpdateInput" : false,
-	"opens" : "right",
-	"buttonClasses" : "btn btn-sm"
-},
-
-function(start, end, label) {
-	console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
-});
-
-$('.daterang').on('apply.daterangepicker', function(ev, picker) {
-	$(this).val(picker.startDate.format('YYYY.MM.DD') + ' - ' + picker.endDate.format('YYYY.MM.DD'));
-});
-
-$('.daterang').on('cancel.daterangepicker', function(ev, picker) {
-	$(this).val('');
-});
-
-function getBoforeDate(before) {
-	var now = new Date();
-	now.setDate(now.getDate() - before);
-	return now;
-}
-
-function getBoforeMonth(beforeMonth, day) {
-	var now = new Date();
-	now.setDate(day);
-	now.setMonth(now.getMonth() - beforeMonth);
-	return now;
-}
-
-$('.form_datetime').datetimepicker({
-	startDate : pd_getDateStr(new Date()),
-	format : 'yyyy-mm-dd hh:ii',
-	autoclose : true,
-	todayBtn : true,
-	minuteStep : 5,
-	minView : 0,
-	language : 'zh-CN'
-});
-
-function pd_getDateStr(date) {
-	var year = date.getFullYear(), month = date.getMonth() + 1, day = date
-			.getDate(), hour = date.getHours(), min = date.getMinutes(), sec = date
-			.getSeconds();
-	if (min > 30) {
-		++hour;
-		min = 0;
-		sec = 0;
-	}
-	var newTime = year + '-' + (month < 10 ? ("0" + month) : month) + '-'
-			+ (day < 10 ? ("0" + day) : day) + ' '
-			+ (hour < 10 ? ("0" + hour) : hour) + ':'
-			+ (min < 10 ? ("0" + min) : min) + ':'
-			+ (sec < 10 ? ("0" + sec) : sec);
-	return newTime;
-}
-
-// 导出报表
-function exportTo(fileName) {
-	var date = new Date();
-	$(".table").table2excel({
-		exclude : ".noExl",
-		name : "Excel Document Name",
-		filename : fileName,
-		exclude_img : true,
-		exclude_links : true,
-		exclude_inputs : true
-	});
-}
-
-// select2插件全局初始化
-$(".select2").select2();
-$(".select2").on("select2:select", function(e) {
-	var id = $(this).attr("id");
-	$("#" + id + "-error").remove();
-});
-
-// icheck插件全局初始化
-$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-	checkboxClass : 'icheckbox_minimal-blue',
-	radioClass : 'iradio_minimal-blue'
-});
-
-// 图片查看
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
-	event.preventDefault();
-	$(this).ekkoLightbox();
-});
-
-// 回到顶部绑定
+/* 回到顶部绑定 */
 $(function() {
 	if ($.fn.toTop !== undefined) {
 		$('#scroll-up').toTop();
