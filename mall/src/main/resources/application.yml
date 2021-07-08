@@ -88,7 +88,7 @@ xss:
    urlPatterns: /system/*
 oss:
    type: 0 # 存储类型 类型 0-本地，1：七牛 2：阿里云 3：腾讯云
-   localDomain: http://192.168.1.102:8080
+   localDomain: http://192.168.80.121:8080
    localPrefix: 
    qiniuDomain: http://test.oss.renren.io
    qiniuPrefix: file

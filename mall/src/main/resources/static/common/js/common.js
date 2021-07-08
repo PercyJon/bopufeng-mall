@@ -25,7 +25,6 @@ lay('.item-datetime').each(function(){
     trigger: 'click',
   });
 });
-
 lay('.item-datetime-range').each(function(){
   laydate.render({
     elem: this,
