@@ -26,6 +26,16 @@ lay('.test-item-datetime').each(function(){
   });
 });
 
+lay('.test-item-datetime-range').each(function(){
+  laydate.render({
+    elem: this,
+    range: '~',
+    type: 'datetime',
+    trigger: 'click',
+  });
+});
+
+
 /* 导出报表 */
 function exportTo(fileName) {
 	var date = new Date();

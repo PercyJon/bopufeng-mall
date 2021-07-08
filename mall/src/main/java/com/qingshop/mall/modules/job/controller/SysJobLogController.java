@@ -29,7 +29,7 @@ public class SysJobLogController extends BaseController {
 	private ISysJobLogService sysJobLogService;
 
 	/**
-	 *列表页
+	 * 列表页
 	 */
 	@RequiresPermissions("listJob")
 	@RequestMapping("/list")
@@ -54,8 +54,8 @@ public class SysJobLogController extends BaseController {
 		}
 		// 日期查询
 		if (StringUtils.isNotBlank(daterange)) {
-			String[] dateranges = StringUtils.split(daterange, "-");
-			ew.between("create_time", dateranges[0].trim().replaceAll("/", "-") + " 00:00:00", dateranges[1].trim().replaceAll("/", "-") + " 23:59:59");
+			String[] dateranges = StringUtils.split(daterange, "~");
+			ew.between("create_time", dateranges[0].trim(), dateranges[1].trim());
 		}
 		ew.orderByDesc("create_time");
 		IPage<SysJobLog> pageData = sysJobLogService.page(page, ew);

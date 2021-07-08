@@ -53,8 +53,8 @@ public class LogController extends BaseController {
 		}
 		// 日期查询
 		if (StringUtils.isNotBlank(daterange)) {
-			String[] dateranges = StringUtils.split(daterange, "-");
-			ew.between("create_time", dateranges[0].trim().replaceAll("/", "-") + " 00:00:00", dateranges[1].trim().replaceAll("/", "-") + " 23:59:59");
+			String[] dateranges = StringUtils.split(daterange, "~");
+			ew.between("create_time", dateranges[0].trim(), dateranges[1].trim());
 		}
 		ew.orderByDesc("createTime");
 		IPage<SysLog> pageData = sysLogService.page(page, ew);
