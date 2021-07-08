@@ -18,7 +18,7 @@ layer.config({
 });
 
 /* laydate全局配置 */
-lay('.test-item-datetime').each(function(){
+lay('.item-datetime').each(function(){
   laydate.render({
     elem: this,
     type: 'datetime',
@@ -26,7 +26,7 @@ lay('.test-item-datetime').each(function(){
   });
 });
 
-lay('.test-item-datetime-range').each(function(){
+lay('.item-datetime-range').each(function(){
   laydate.render({
     elem: this,
     range: '~',

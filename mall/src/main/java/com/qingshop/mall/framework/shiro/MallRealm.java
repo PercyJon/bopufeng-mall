@@ -49,7 +49,6 @@ public class MallRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-
 		UsernamePasswordToken user = (UsernamePasswordToken) token;
 		SysUser sysUser = sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_name", user.getUsername()));
 
@@ -61,7 +60,8 @@ public class MallRealm extends AuthorizingRealm {
 		}
 		// 盐值加密
 		ByteSource byteSource = ByteSource.Util.bytes(user.getUsername());
-		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(sysUser, sysUser.getPassword(), byteSource, getName());
+		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(sysUser, sysUser.getPassword(), byteSource,
+				getName());
 		return info;
 	}
 
@@ -83,7 +83,6 @@ public class MallRealm extends AuthorizingRealm {
 		} else {
 			permsList = sysUserService.queryAllPermsByUserId(userId);
 		}
-
 		// 用户权限列表
 		Set<String> permsSet = new HashSet<>();
 		for (String perms : permsList) {
@@ -92,7 +91,6 @@ public class MallRealm extends AuthorizingRealm {
 			}
 			permsSet.add(perms.trim());
 		}
-
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		info.setStringPermissions(permsSet);
 		return info;
