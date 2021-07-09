@@ -21,6 +21,7 @@ layer.config({
 lay('.item-datetime').each(function(){
   laydate.render({
     elem: this,
+    theme: '#3C8DBC',
     type: 'datetime',
     trigger: 'click',
   });
@@ -28,6 +29,7 @@ lay('.item-datetime').each(function(){
 lay('.item-datetime-range').each(function(){
   laydate.render({
     elem: this,
+    theme: '#3C8DBC',
     range: '~',
     type: 'datetime',
     trigger: 'click',
