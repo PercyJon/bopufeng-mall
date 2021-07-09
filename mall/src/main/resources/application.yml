@@ -24,7 +24,7 @@ shiro:
       cipherKey: zSyK5Kp6PZAAjlT+eeNMlg== # 设置密钥，务必保持唯一性（生成方式，直接拷贝到main运行即可）KeyGenerator keygen = KeyGenerator.getInstance("AES"); SecretKey deskey = keygen.generateKey(); System.out.println(Base64.encodeToString(deskey.getEncoded()));
 global:
    workDir: E:\mall-shop\mall-file # 文件路径 示例（ Windows配置D:/web-project/profile，Linux配置 /home/mall/profile） 
-   redisrun: false # 开启redis值：true, 不开启redis值：false
+   redisrun: true # 开启redis值：true, 不开启redis值：false
 logging:
    level:
       com.qingshop: debug
