@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Configuration;
 import com.qingshop.mall.common.utils.StringUtils;
 import com.qingshop.mall.framework.shiro.MallRealm;
 import com.qingshop.mall.framework.shiro.web.UserFilter;
-import com.qingshop.mall.framework.shiro.web.UserPermFilter;
 
 /**
  * 权限配置加载
@@ -271,7 +270,6 @@ public class ShiroConfig {
 		// 自定义过滤器
 		Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
 		filtersMap.put("user", new UserFilter());
-		filtersMap.put("perms", new UserPermFilter());
 		shiroFilterFactoryBean.setFilters(filtersMap);
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 
@@ -284,7 +282,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/file/**", "anon");
 		filterChainDefinitionMap.put("/wx/**", "anon");
-		filterChainDefinitionMap.put("/**", "user,perms");
+		filterChainDefinitionMap.put("/**", "user");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}

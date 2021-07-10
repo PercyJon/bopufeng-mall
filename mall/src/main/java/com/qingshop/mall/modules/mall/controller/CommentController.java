@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,10 +39,11 @@ public class CommentController extends BaseController {
 
 	@Autowired
 	private IMallGoodsService mallGoodsService;
-
+	
 	/**
 	 * 获取商品下的所有评论
 	 */
+	@RequiresPermissions("listComment")
 	@RequestMapping("/list")
 	public String getComments() {
 		return "mall/comment/list";
@@ -50,6 +52,7 @@ public class CommentController extends BaseController {
 	/**
 	 * 获取商品下的所有评论
 	 */
+	@RequiresPermissions("listComment")
 	@RequestMapping("/listPage")
 	@ResponseBody
 	public Rest getCommentsListPage(String search, Integer start, Integer length) {
@@ -108,6 +111,7 @@ public class CommentController extends BaseController {
 	/**
 	 * 编辑
 	 */
+	@RequiresPermissions("editComment")
 	@RequestMapping("/check/{id}")
 	public String check(@PathVariable Long id, Model model) {
 		MallComment comment = mallCommentService.getById(id);
@@ -118,6 +122,7 @@ public class CommentController extends BaseController {
 	/**
 	 * 执行编辑
 	 */
+	@RequiresPermissions("editComment")
 	@RequestMapping("/doEdit")
 	@ResponseBody
 	public Rest doEdit(MallComment comment) {
