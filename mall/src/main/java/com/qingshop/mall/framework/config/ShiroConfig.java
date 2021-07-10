@@ -268,7 +268,7 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl(loginUrl);
 		shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
-		// 自定义拦截器
+		// 自定义过滤器
 		Map<String, Filter> filtersMap = new LinkedHashMap<String, Filter>();
 		filtersMap.put("user", new UserFilter());
 		filtersMap.put("perms", new UserPermFilter());
