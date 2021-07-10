@@ -247,7 +247,6 @@
 <script type="text/javascript">
 	var deliver_global_val = {};
 	(function(){
-		$.modal.loading("数据加载中，请稍后...");
 		//销售区域单选
 		$('input:radio[name="saleAreaType"]').on('ifChecked', function(e) {
 			if (e.currentTarget.value === '1') {
@@ -298,7 +297,6 @@
 			});
 		});
 		pdDeliver_listCommonArea();
-		$.modal.closeLoading();
 	})();
 	
 	// 获取省市数据
