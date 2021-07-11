@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.qingshop.mall.common.bean.Rest;
@@ -16,11 +16,10 @@ import com.qingshop.mall.common.utils.ServletUtils;
 
 /**
  * 全局异常处理器
- * 
- * 
  */
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
+	
 	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 	/**
@@ -76,7 +75,7 @@ public class GlobalExceptionHandler {
 		} else {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("errorMessage", e.getMessage());
-			modelAndView.setViewName("error/business");
+			modelAndView.setViewName("error/500");
 			return modelAndView;
 		}
 	}
