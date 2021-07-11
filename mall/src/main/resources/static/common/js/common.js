@@ -126,11 +126,12 @@ function createMenuItem(dataUrl, menuName) {
         // 添加选项卡对应的iframe
         var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" data-panel="' + panelUrl + '" seamless></iframe>';
         $('.J_mainContent', topWindow).find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
-        
-        window.parent.$.modal.loading("数据加载中，请稍后...");
-        $('.J_mainContent iframe:visible', topWindow).load(function () {
-        	window.parent.$.modal.closeLoading();
-        });
+        if (typeof NProgress != 'undefined') {
+            NProgress.start();
+            $('.J_mainContent iframe:visible').load(function () {
+            	NProgress.done();
+            });
+        }
         // 添加选项卡
         $('.J_menuTabs .page-tabs-content', topWindow).append(str);
         scrollToTab($('.J_menuTab.active', topWindow));
