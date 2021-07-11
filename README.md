@@ -30,5 +30,7 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven、knife4j
 
 ### 实例截图
 -------------
-![](https://images.gitee.com/uploads/images/2021/0218/180347_32ebba86_947463.png "2021-02-18_180257.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/140504_5c25e8d0_947463.jpeg "1.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/140547_3b709ebc_947463.jpeg "2.jpg")
+![![![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/140627_a10e46a3_947463.jpeg "6.jpg")](https://images.gitee.com/uploads/images/2021/0907/140610_681f6b56_947463.jpeg "4.jpg")](https://images.gitee.com/uploads/images/2021/0907/140600_bcda7638_947463.jpeg "3.jpg")
 
