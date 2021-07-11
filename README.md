@@ -4,12 +4,12 @@
 -------------
 1. mall商城是以SpringBoot+Shiro+Mybatis plus为核心开发的精简商城后台基础系统。
 2. 包含用户管理,角色管理,部门管理,权限管理,菜单管理等系统业务模块，及商城管理系统模块。
-3. 使用AdminLTE作为前端UI框架。
+3. 使用AdminLTE作为前端UI框架，前端参考:https://gitee.com/liyucc/adminlte-tab。
 4. 第三方Mybatis-plus作为ORM框架。
-5. redis、Encache权限缓存。
+5. 整合redis、Encache缓存切换。
 6. FreeMarker模板,页面拆分,封装公共部分。
 7. Druid数据源,数据库监控。
-8. 集成简单的oss文件管理模块
+8. 集成阿里云oss文件管理。
 
 ### 技术选型
 -------------
