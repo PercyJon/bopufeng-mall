@@ -33,7 +33,6 @@ AdminLTE、Spring MVC、Shiro、Mybatis、Mybatis-Plus、Mysql、Maven、knife4j
 <table>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2021/0907/141859_cfaa1254_947463.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2021/0907/141202_7ae33ee7_947463.jpeg"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2021/0907/141232_73910055_947463.jpeg"/></td>
     </tr>
     <tr>
