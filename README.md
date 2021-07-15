@@ -7,7 +7,7 @@
 3. FreeMarker模板,页面拆分,封装公共部分,第三方Mybatis-plus作为ORM框架。
 4. 整合redis、Encache缓存切换, 集成阿里云oss文件管理。
 5. 使用AdminLTE作为前端UI框架, 集成诸多前端相关插件完善简而美的功能设计。
-6. 前端参考:https://gitee.com/liyucc/adminlte-tab。使用AdminLTE作为前端UI框架, 。
+6. 使用AdminLTE作为前端UI框架, 前端参考:https://gitee.com/liyucc/adminlte-tab
 
 
 ### 技术选型
