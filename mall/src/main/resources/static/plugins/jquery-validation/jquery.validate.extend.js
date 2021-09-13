@@ -1,4 +1,3 @@
-/*this is basic form validation using for validation person's basic information author:Clara Guo data:2017/07/20*/
 $(document).ready(function(){
 	$.validator.setDefaults({       
 		  submitHandler: function(form) {    

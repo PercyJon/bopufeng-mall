@@ -2,11 +2,6 @@ package com.qingshop.mall.common.bean;
 
 import java.util.HashMap;
 
-/**
- * 
- * @Time：2017年9月6日 下午1:29:08
- * @version 1.0
- */
 public class Rest extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;

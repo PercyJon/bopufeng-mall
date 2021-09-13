@@ -1,9 +1,3 @@
-/*!
- * UEditor
- * version: ueditor
- * build: Wed Dec 26 2018 17:24:52 GMT+0800 (CST)
- */
-
 (function(){
 
 // editor.js
@@ -24515,8 +24509,6 @@ UE.plugin.register('section', function (){
  * 但由于同源策略的限制，父页面无法访问跨域的 iframe 内容
  * 导致无法获取接口返回的数据，使得单图上传无法在跨域的情况下使用
  * 这里改为普通的XHR上传，兼容到IE10+
- * @author HaoChuan9421 <hc199421@gmail.com>
- * @date 2018-12-20
  */
 UE.plugin.register('simpleupload', function() {
   var me = this,
