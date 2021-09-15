@@ -38,7 +38,7 @@ public abstract class AbstractQuartzJob implements org.quartz.Job {
 			}
 			after(context, job, null);
 		} catch (Exception e) {
-			log.error("任务执行异常  - ：", e);
+			log.error("Mission error  - ：", e);
 			after(context, job, e);
 		}
 	}
@@ -74,7 +74,7 @@ public abstract class AbstractQuartzJob implements org.quartz.Job {
 		jobLog.setStartTime(startTime);
 		jobLog.setEndTime(new Date());
 		long runMs = jobLog.getEndTime().getTime() - jobLog.getStartTime().getTime();
-		jobLog.setJobMessage(jobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
+		jobLog.setJobMessage(jobLog.getJobName() + " Used Time：" + runMs + " ms");
 		if (e != null) {
 			jobLog.setStatus("1");
 			String errorMsg = StringUtils.substring(ExceptionUtil.getExceptionMessage(e), 0, 2000);
