@@ -1,4 +1,4 @@
-module.exports = function(e) {
+module.exports = function (e) {
     var g;
     if ((g = getCurrentPages()).length) {
         var r = g[g.length - 1];
