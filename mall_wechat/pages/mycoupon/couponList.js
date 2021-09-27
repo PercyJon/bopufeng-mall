@@ -8,7 +8,7 @@ Page({
     limit: 10,
     count: 0,
     scrollTop: 0,
-    showPage: false
+    showPage: false,
   },
 
 
