@@ -9,10 +9,10 @@ Page({
     disabled: false,
     nav_select: false, // 快捷导航
 
-    name: '',
-    region: '',
+    name: 'bpf-mall',
+    region: 'guangdong',
     phone: '',
-    detail: '',
+    detail: 'bpf-mall',
 
     error: '',
   },
