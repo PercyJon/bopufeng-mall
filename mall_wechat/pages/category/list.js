@@ -2,7 +2,7 @@ let App = getApp();
 
 Page({
   data: {
-    searchColor: "rgba(0,0,0,0.4)",
+    searchColor: "rgba(0,0,0,.4)",
     searchSize: "15",
     searchName: "搜索商品",
 
